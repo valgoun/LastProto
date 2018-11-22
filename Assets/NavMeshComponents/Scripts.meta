@@ -1,8 +1,16 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: b9e2043f4dd6cfa45babac9930250423
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
+=======
+guid: ce67aa87f613246dda63a54a59c6399e
+folderAsset: yes
+timeCreated: 1477656493
+licenseType: Pro
+DefaultImporter:
+>>>>>>> Benjamin
   userData: 
   assetBundleName: 
   assetBundleVariant: 
