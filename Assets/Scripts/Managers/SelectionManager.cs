@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
 
 public class SelectionManager : MonoBehaviour {
 
@@ -19,22 +20,25 @@ public class SelectionManager : MonoBehaviour {
 
     void FireSelection(Camera cam)
     {
-        if (SelectedElement)
-            SelectedElement.UnSelect();
-
-        Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.nearClipPlane);
-        RaycastHit hit;
-        if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, SelectableLayer))
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            Unit unit = hit.transform.parent.GetComponent<Unit>();
-            if (unit)
-            {
-                SelectedElement = unit;
-                SelectedElement.Select();
-                return;
-            }
-        }
+            if (SelectedElement)
+                SelectedElement.UnSelect();
 
-        SelectedElement = null;
+            Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.nearClipPlane);
+            RaycastHit hit;
+            if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, SelectableLayer))
+            {
+                Unit unit = hit.transform.parent.GetComponent<Unit>();
+                if (unit)
+                {
+                    SelectedElement = unit;
+                    SelectedElement.Select();
+                    return;
+                }
+            }
+
+            SelectedElement = null;
+        }
     }
 }

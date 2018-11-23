@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Aztec
+  - Conquistador
+  - Corpse
+  - Shaman
   layers:
   - Default
   - TransparentFX
@@ -16,7 +20,7 @@ TagManager:
   - PostProcessing
   - Selection
   - Ground
-  - 
+  - Camera Bound
   - 
   - 
   - 

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0977411000c57c34ea915d6750646497, type: 3}
+  m_Name: Wall Spell
+  m_EditorClassIdentifier: 
+  SpellName: Wall
+  Targets: 4
+  CooldownDuration: 10
+  WallPrefab: {fileID: 1039914043577508, guid: 622787c985246cf4886cbd340468fb74, type: 2}
+  Lifetime: 5
