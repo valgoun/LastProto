@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39a4e71ee4ec0d43b4b2ab5efd28746, type: 3}
   m_Name: VisionSensor
   m_EditorClassIdentifier: 
-  VisionAngle: 45
-  VisionDistance: 5
+  VisionAngle: 120
+  VisionDistance: 8

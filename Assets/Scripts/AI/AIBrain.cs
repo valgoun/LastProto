@@ -17,6 +17,7 @@ public class AIBrain : MonoBehaviour
     public IReadOnlyList<IAiVisible> ProcessedElements => _processedElements.AsReadOnly();
     public Sensor[] Sensors;
     public float AlertLevel => _alertLevel;
+    public NavMeshAgent Agent => _agent;
 
     private NavMeshAgent _agent;
     private Stimulus _bestStimulus;
@@ -94,5 +95,13 @@ public class AIBrain : MonoBehaviour
         }
 
         _stimuli.RemoveAll(x => x.TimeLeft <= 0.0f);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        foreach (var sensor in Sensors)
+        {
+            sensor.OnGizmos(transform);
+        }
     }
 }

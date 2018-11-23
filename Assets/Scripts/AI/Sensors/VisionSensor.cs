@@ -17,23 +17,63 @@ public class VisionSensor : Sensor
         foreach (var candidat in brain.ProcessedElements)
         {
             var elementPosition = candidat.Position;
+            if (Vector3.Distance(elementPosition, position) > VisionDistance)
+                continue;
+
             var elementDirection = Vector3.Normalize(elementPosition - position);
             var dot = Vector3.Dot(forward, elementDirection);
 
-            if(dot >= dotLimit)
+            if (dot >= dotLimit)
             {
-                activeStimulus++;
-                var stimulus = stimuli.Find(x => x.Origin == candidat.GameObject);
-                if(stimulus == null)
+                RaycastHit hit;
+                if (Physics.Raycast(position, elementDirection, out hit, VisionDistance))
                 {
-                    stimulus = new Stimulus { Origin = candidat.GameObject, Type = StimulusType.SightEnemy };
-                    stimuli.Add(stimulus);
+                    var element = hit.collider.GetComponent<IAiVisible>();
+                    if (element != null && element == candidat)
+                    {
+                        activeStimulus++;
+                        var stimulus = stimuli.Find(x => x.Origin == candidat.GameObject);
+                        if (stimulus == null)
+                        {
+                            stimulus = new Stimulus { Origin = candidat.GameObject, Type = StimulusType.SightEnemy };
+                            stimuli.Add(stimulus);
+                        }
+                        stimulus.Position = candidat.Position;
+                        stimulus.TimeLeft = 1.0f;
+                    }
                 }
-                stimulus.Position = candidat.Position;
-                stimulus.TimeLeft = 1.0f;
+
             }
         }
 
         return activeStimulus;
+    }
+
+    public override void OnGizmos(Transform transform)
+    {
+        Gizmos.color = Color.green;
+
+
+        Vector3 pos = transform.position;
+        Vector3 fw = pos + transform.forward * VisionDistance;
+        Vector3 p1 = pos + Quaternion.AngleAxis(VisionAngle * 0.5f, transform.up) * transform.forward * VisionDistance;
+        Vector3 p2 = pos + Quaternion.AngleAxis(-VisionAngle * 0.5f, transform.up) * transform.forward * VisionDistance;
+
+        int tessFactor = Mathf.FloorToInt(VisionAngle) / 5;
+
+        for (int i = 0; i <= tessFactor; i++)
+        {
+            Vector3 pt = pos + Quaternion.AngleAxis(VisionAngle * 0.5f * (((float)(i) / (float)(tessFactor)) * 2 - 1), transform.up) * transform.forward * VisionDistance;
+            if (i == 0)
+                Gizmos.DrawLine(pos, pt);
+            else
+            {
+                Vector3 pt0 = pos + Quaternion.AngleAxis(VisionAngle * 0.5f * (((float)(i - 1) / (float)(tessFactor)) * 2 - 1), transform.up) * transform.forward * VisionDistance;
+                Gizmos.DrawLine(pt0, pt);
+
+                if (i == tessFactor)
+                    Gizmos.DrawLine(pos, pt);
+            }
+        }
     }
 }
