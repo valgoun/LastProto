@@ -1082,7 +1082,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4324103148020268, guid: d0c474d0c3cc12e49a6a641aa7b63d2d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4324103148020268, guid: d0c474d0c3cc12e49a6a641aa7b63d2d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1108,6 +1108,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 23995251070719716, guid: d0c474d0c3cc12e49a6a641aa7b63d2d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 441e227d964adba43af00ff539f6cb46, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0c474d0c3cc12e49a6a641aa7b63d2d, type: 2}
   m_IsPrefabAsset: 0
@@ -1116,22 +1121,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4324103148020268, guid: d0c474d0c3cc12e49a6a641aa7b63d2d,
     type: 2}
   m_PrefabInternal: {fileID: 595701991}
---- !u!1 &595701993 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1904628821296382, guid: d0c474d0c3cc12e49a6a641aa7b63d2d,
-    type: 2}
-  m_PrefabInternal: {fileID: 595701991}
---- !u!114 &595701994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 595701993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7063c3ab08ce3c547aa6699d4d48b5c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &737012688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,7 +1311,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4776565041828720, guid: 053279678b3191347b394fcc8d20ce37, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4776565041828720, guid: 053279678b3191347b394fcc8d20ce37, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2529,7 +2518,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4776565041828720, guid: 053279678b3191347b394fcc8d20ce37, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4776565041828720, guid: 053279678b3191347b394fcc8d20ce37, type: 2}
       propertyPath: m_LocalPosition.z

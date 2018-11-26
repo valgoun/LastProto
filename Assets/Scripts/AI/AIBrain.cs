@@ -51,11 +51,14 @@ public class AIBrain : MonoBehaviour
 
     private void UpdateElements()
     {
+        _processedElements.Clear();
         var candidates = Physics.OverlapSphere(transform.position, ProcessRadius);
 
         foreach (var element in candidates)
         {
             var component = element.GetComponent<IAiVisible>();
+            component = component ?? element.GetComponentInParent<IAiVisible>();
+            component = component ?? element.GetComponentInChildren<IAiVisible>();
             if (component != null && !_processedElements.Contains(component))
                 _processedElements.Add(component);
         }

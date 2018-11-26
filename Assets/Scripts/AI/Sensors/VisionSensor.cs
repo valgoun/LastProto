@@ -29,6 +29,8 @@ public class VisionSensor : Sensor
                 if (Physics.Raycast(position, elementDirection, out hit, VisionDistance))
                 {
                     var element = hit.collider.GetComponent<IAiVisible>();
+                    element = element ?? hit.collider.GetComponentInParent<IAiVisible>();
+                    element = element ?? hit.collider.GetComponentInChildren<IAiVisible>();
                     if (element != null && element == candidat)
                     {
                         activeStimulus++;

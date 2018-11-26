@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit : MonoBehaviour {
+public class Unit : MonoBehaviour, IAiVisible
+{
 
     [Header("Tweaking")]
     public float FollowPrecision;
@@ -14,9 +15,17 @@ public class Unit : MonoBehaviour {
 
     private NavMeshAgent _navAgent;
     private Transform _targetToFollow;
+    private Transform _transform;
+
+    public Vector3 Position => _transform.position;
+    public Transform Transform => _transform;
+    public GameObject GameObject => gameObject;
+    public bool IsVisible { get; set; }
 
     void Start () {
         _navAgent = GetComponent<NavMeshAgent>();
+        _transform = transform;
+        IsVisible = true;
 	}
 	
 	void Update () {

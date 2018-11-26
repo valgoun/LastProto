@@ -7,6 +7,7 @@ public class AiDummyObject : MonoBehaviour, IAiVisible
     public Vector3 Position => _transform.position;
     public Transform Transform => _transform;
     public GameObject GameObject => gameObject;
+    public bool IsVisible => true;
 
     private Transform _transform;
 
