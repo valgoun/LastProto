@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: acbbef3e379de9d449bba5c1d9816f6e
+=======
 guid: 309d65d019f68bf488f33a371727bfd5
+>>>>>>> Benjamin
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
