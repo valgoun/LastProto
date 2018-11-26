@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class Wander : StateMachineBehaviour {
 
-    public float WanderRadius;
-
     private AIBrain _brain;
     private NavMeshAgent _agent;
     private Stimulus _targetStimulus;
@@ -24,7 +22,7 @@ public class Wander : StateMachineBehaviour {
         _targetStimulus = _brain.BestStimulus;
         _wanderCenter = animator.transform.position;
 
-        var randomPos = Random.insideUnitSphere * WanderRadius;
+        var randomPos = Random.insideUnitSphere * _brain.WanderRadius;
         randomPos.y = 0;
         _agent.SetDestination(_wanderCenter + randomPos);
     }
@@ -40,7 +38,7 @@ public class Wander : StateMachineBehaviour {
 
         if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
         {
-            var randomPos = Random.insideUnitSphere * WanderRadius;
+            var randomPos = Random.insideUnitSphere * _brain.WanderRadius;
             randomPos.y = 0;
             _agent.SetDestination(_wanderCenter + randomPos);
         }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1492149483}
-  m_IndirectSpecularColor: {r: 0.07875507, g: 0.07704143, b: 0.06676101, a: 1}
+  m_IndirectSpecularColor: {r: 0.009558763, g: 0.0092736725, b: 0.01269315, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2487,18 +2487,32 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 195065037609677194, guid: a47b1f569af8ef74aa9ecd00e6a30559,
+    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
         type: 2}
-      propertyPath: m_Speed
-      value: 2.5
+      propertyPath: AlertLevelIncreaseRate
+      value: 1.3
       objectReference: {fileID: 0}
-    - target: {fileID: 195065037609677194, guid: a47b1f569af8ef74aa9ecd00e6a30559,
+    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
         type: 2}
-      propertyPath: m_AngularSpeed
-      value: 240
+      propertyPath: MaxAimDistance
+      value: 11
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 65815059729555370, guid: a47b1f569af8ef74aa9ecd00e6a30559, type: 2}
+    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
+        type: 2}
+      propertyPath: AimDuration
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
+        type: 2}
+      propertyPath: MinAimDistance
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
+        type: 2}
+      propertyPath: ShootProbality
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a47b1f569af8ef74aa9ecd00e6a30559, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &99575926 stripped
@@ -3317,7 +3331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: b65fc88b5402b5e4f935c2bfe17d606c, type: 2}
-  m_BakingSkyUniqueID: 2
+  m_BakingSkyUniqueID: 1
 --- !u!1001 &595701991
 Prefab:
   m_ObjectHideFlags: 0
@@ -3356,6 +3370,11 @@ Prefab:
     - target: {fileID: 4324103148020268, guid: d0c474d0c3cc12e49a6a641aa7b63d2d, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 195275625850841526, guid: d0c474d0c3cc12e49a6a641aa7b63d2d,
+        type: 2}
+      propertyPath: m_BaseOffset
+      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0c474d0c3cc12e49a6a641aa7b63d2d, type: 2}
@@ -4768,7 +4787,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 3.14
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -4791,7 +4810,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 11748
+  m_ColorTemperature: 4113
   m_UseColorTemperature: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -4801,13 +4820,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1492149482}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.0144642275, y: -0.25879002, z: 0.0038756724, w: 0.9658176}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 234132265}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 1.7160001, y: -30.000002, z: 0}
 --- !u!114 &1492149485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4826,7 +4845,7 @@ MonoBehaviour:
   contactShadows: 0
   viewBiasMin: 0.2
   viewBiasMax: 100
-  viewBiasScale: 1
+  viewBiasScale: 1.5
   normalBiasMin: 0.5
   normalBiasMax: 0.5
   normalBiasScale: 1
@@ -4836,9 +4855,9 @@ MonoBehaviour:
   edgeTolerance: 1
   shadowCascadeCount: 4
   shadowCascadeRatios:
-  - 0.05
-  - 0.15
-  - 0.3
+  - 0.102
+  - 0.222
+  - 0.398
   shadowCascadeBorders:
   - 0
   - 0
@@ -4888,7 +4907,7 @@ MonoBehaviour:
   useOldInspector: 0
   featuresFoldout: 1
   showAdditionalSettings: 0
-  displayLightIntensity: 1
+  displayLightIntensity: 3.14
   displayAreaLightEmissiveMesh: 0
 --- !u!1 &1501183980
 GameObject:
@@ -5546,6 +5565,11 @@ Prefab:
     - target: {fileID: 4776565041828720, guid: 053279678b3191347b394fcc8d20ce37, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 195603302478706182, guid: 053279678b3191347b394fcc8d20ce37,
+        type: 2}
+      propertyPath: m_BaseOffset
+      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 053279678b3191347b394fcc8d20ce37, type: 2}

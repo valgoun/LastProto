@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MoveTo : StateMachineBehaviour
+public class InvMoveTo : StateMachineBehaviour
 {
 
 
@@ -35,7 +35,7 @@ public class MoveTo : StateMachineBehaviour
     {
         _targetStimulus = _brain.BestStimulus;
 
-        if(_targetStimulus != null && Vector3.Distance(_agent.destination, _targetStimulus.Position) > 0.1)
+        if(_targetStimulus != null && Vector3.Distance(_agent.destination, _targetStimulus.Position) > 0.1f)
         {
             _agent.SetDestination(_targetStimulus.Position);
         }

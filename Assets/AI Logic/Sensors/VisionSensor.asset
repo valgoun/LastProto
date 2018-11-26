@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: VisionSensor
   m_EditorClassIdentifier: 
   VisionAngle: 120
-  VisionDistance: 8
+  VisionDistance: 14
   VisionLayer:
     serializedVersion: 2
     m_Bits: 1537
