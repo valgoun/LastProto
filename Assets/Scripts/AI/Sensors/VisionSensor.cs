@@ -7,6 +7,7 @@ public class VisionSensor : Sensor
 {
     public float VisionAngle;
     public float VisionDistance;
+    public LayerMask VisionLayer;
 
     public override int UpdateSensor(AIBrain brain, List<Stimulus> stimuli)
     {
@@ -26,8 +27,9 @@ public class VisionSensor : Sensor
             if (dot >= dotLimit)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(position, elementDirection, out hit, VisionDistance))
+                if (Physics.Raycast(position, elementDirection, out hit, VisionDistance, VisionLayer))
                 {
+                    Debug.Log(hit.collider);
                     var element = hit.collider.GetComponent<IAiVisible>();
                     element = element ?? hit.collider.GetComponentInParent<IAiVisible>();
                     element = element ?? hit.collider.GetComponentInChildren<IAiVisible>();
