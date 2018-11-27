@@ -396,18 +396,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProcessRadius: 15
-  AlertLevelIncreaseRate: 0.5
+  AlertLevelIncreaseRate: 1.3
   AlertLevelDecreaseRate: 0.2
   WanderRadius: 6
-  MinAimDistance: 6
-  MaxAimDistance: 8
+  MinAimDistance: 9
+  MaxAimDistance: 11
   AimRotationSpeed: 270
-  AimDuration: 0.5
+  AimDuration: 0.6
   ReloadDuration: 3
   ShootAngle: 5
   ShootProbality: 1
   BulletPrefab: {fileID: 1020938720225278, guid: 2fcca34ac41b38e478f042d53feaee73,
     type: 2}
+  NormalBehaviour: 1
+  NormalWanderRadius: 5
+  NormalWaypointsHolder: {fileID: 0}
   Sensors:
   - {fileID: 11400000, guid: 21f5566e6147179418faa6393e8ccae4, type: 2}
 --- !u!114 &114484237425641654
