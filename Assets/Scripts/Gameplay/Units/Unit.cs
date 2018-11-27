@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit : MonoBehaviour, IAiVisible
+public class Unit : MonoBehaviour, IAiVisible, IVisionElement
 {
 
     [Header("Tweaking")]
     public float FollowPrecision;
+    [SerializeField]
+    private float _visionRange;
 
     [Header("Read Only")]
     public bool Selected;
@@ -21,11 +23,13 @@ public class Unit : MonoBehaviour, IAiVisible
     public Transform Transform => _transform;
     public GameObject GameObject => gameObject;
     public bool IsVisible { get; set; }
+    public float VisionRange => _visionRange;
 
     void Start () {
         _navAgent = GetComponent<NavMeshAgent>();
         _transform = transform;
         IsVisible = true;
+        FogManager.Instance.RegisterElement(this);
 	}
 	
 	void Update () {
@@ -63,5 +67,10 @@ public class Unit : MonoBehaviour, IAiVisible
         {
             _navAgent.SetDestination(_targetToFollow.position);
         }
+    }
+
+    private void OnDestroy()
+    {
+        FogManager.Instance.DeleteElement(this);
     }
 }
