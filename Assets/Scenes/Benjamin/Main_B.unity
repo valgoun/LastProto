@@ -2512,6 +2512,11 @@ Prefab:
       propertyPath: ShootProbality
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
+        type: 2}
+      propertyPath: AlertTimeBeforeDecrease
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a47b1f569af8ef74aa9ecd00e6a30559, type: 2}
   m_IsPrefabAsset: 0
@@ -3718,6 +3723,7 @@ GameObject:
   - component: {fileID: 931933466}
   - component: {fileID: 931933469}
   - component: {fileID: 931933470}
+  - component: {fileID: 931933471}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -3794,6 +3800,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3316d94c6e98943459158340ca07e4bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &931933471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 931933465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df069e3742c8ab148b3b6e1b7049ca12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _formations:
+  - {fileID: 4013906744407316, guid: 760cfe1942998b540a2f1c4de42b5451, type: 2}
+  - {fileID: 4450731506543048, guid: 66604a9d87a27e340b40f982657d4134, type: 2}
+  - {fileID: 4326017942913154, guid: d3265100ef5a5454e88de233e9958162, type: 2}
 --- !u!1 &1006136519
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ public class FogOfWar : PostProcessEffectSettings
     public ColorParameter FogColor = new ColorParameter { value = Color.white };
     [Range(0f, 1f)]
     public FloatParameter Density = new FloatParameter { value = 1.0f };
+    public FloatParameter NoiseScale = new FloatParameter { value = 1.0f };
+    public FloatParameter NoiseIntensity = new FloatParameter { value = 0.0f };
 }
 
 public sealed class FogOfWarRenderer : PostProcessEffectRenderer<FogOfWar>
@@ -31,6 +33,8 @@ public sealed class FogOfWarRenderer : PostProcessEffectRenderer<FogOfWar>
         var sheet = context.propertySheets.Get(Shader.Find("Hidden/FogOfWar"));
 
         sheet.properties.SetFloat("_density", settings.Density);
+        sheet.properties.SetFloat("_noiseScale", settings.NoiseScale);
+        sheet.properties.SetFloat("_noiseIntensity", settings.NoiseIntensity);
         sheet.properties.SetColor("_fogColor", settings.FogColor);
         sheet.properties.SetVectorArray("_VisionPoints", dataArray);
         sheet.properties.SetInt("_VisionUnit", dataArray.Length);
