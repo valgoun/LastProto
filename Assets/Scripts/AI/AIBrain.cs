@@ -14,6 +14,8 @@ public class AIBrain : MonoBehaviour
     public float AlertLevelIncreaseRate;
     [TabGroup("General")]
     public float AlertLevelDecreaseRate;
+    [TabGroup("General")]
+    public float AlertTimeBeforeDecrease;
 
     [TabGroup("Investigation")]
     public float WanderRadius;
@@ -67,6 +69,7 @@ public class AIBrain : MonoBehaviour
     private bool _reloaded = true;
     private bool _isReloading = false;
     private Transform _transform;
+    private float _timeSinceLastStimulus;
 
     [NonSerialized]
     public Vector3 InitialPosition;
@@ -130,9 +133,16 @@ public class AIBrain : MonoBehaviour
         }
 
         if (newStimuli > 0)
+        {
             _alertLevel += Time.deltaTime * AlertLevelIncreaseRate;
+            _timeSinceLastStimulus = 0.0f;
+        }
         else
-            _alertLevel -= Time.deltaTime * AlertLevelDecreaseRate;
+        {
+            _timeSinceLastStimulus += Time.deltaTime;
+            if (_timeSinceLastStimulus > AlertTimeBeforeDecrease)
+                _alertLevel -= Time.deltaTime * AlertLevelDecreaseRate;
+        }
         _alertLevel = Mathf.Clamp01(_alertLevel);
     }
 
@@ -155,6 +165,7 @@ public class AIBrain : MonoBehaviour
             sensor.OnGizmos(transform);
         }
     }
+
 
     public void Shoot(GameObject Target)
     {

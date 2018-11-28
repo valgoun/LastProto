@@ -2512,6 +2512,11 @@ Prefab:
       propertyPath: ShootProbality
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
+        type: 2}
+      propertyPath: AlertTimeBeforeDecrease
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a47b1f569af8ef74aa9ecd00e6a30559, type: 2}
   m_IsPrefabAsset: 0
