@@ -42,7 +42,7 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
         _navAgent = GetComponent<NavMeshAgent>();
         _transform = transform;
         IsVisible = true;
-        FogManager.Instance.RegisterElement(this);
+        FogManager.Instance?.RegisterElement(this);
 	}
 	
 	void Update () {
@@ -84,7 +84,7 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
 
     private void OnDestroy()
     {
-        FogManager.Instance.DeleteElement(this);
+        FogManager.Instance?.DeleteElement(this);
     }
 
     public void ChangeIntoGhost ()

@@ -154,6 +154,21 @@ public class AIBrain : MonoBehaviour
         {
             sensor.OnGizmos(transform);
         }
+        foreach(var stimulus in _stimuli)
+        {
+            Color col = Color.white;
+            switch (stimulus.Type)
+            {
+                case StimulusType.SightEnemy:
+                    col = Color.red;
+                    break;
+                case StimulusType.SightSpell:
+                    col = Color.blue;
+                    break;
+            }
+            Gizmos.color = col;
+            Gizmos.DrawWireSphere(stimulus.Position, stimulus.TimeLeft / 2);
+        }
     }
 
     public void Shoot(GameObject Target)
