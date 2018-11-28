@@ -39,6 +39,12 @@ public class Bullet : MonoBehaviour
             if (Vector3.Distance(_transform.position, _target.position + _offSet) < 0.1f)
             {
                 _isDead = true;
+                if (_target.tag == "Aztec" || _target.tag == "Shaman")
+                {
+                    Unit unit = _target.GetComponent<Unit>();
+                    if (unit)
+                        unit.Killed();
+                }
             }
         }
         else

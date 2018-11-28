@@ -17,6 +17,9 @@ public class VisionSensor : Sensor
         int activeStimulus = 0;
         foreach (var candidat in brain.ProcessedElements)
         {
+            if (!candidat.IsVisible)
+                continue;
+
             var elementPosition = candidat.Position;
             if (Vector3.Distance(elementPosition, position) > VisionDistance)
                 continue;
@@ -29,7 +32,6 @@ public class VisionSensor : Sensor
                 RaycastHit hit;
                 if (Physics.Raycast(position, elementDirection, out hit, VisionDistance, VisionLayer))
                 {
-                    Debug.Log(hit.collider);
                     var element = hit.collider.GetComponent<IAiVisible>();
                     element = element ?? hit.collider.GetComponentInParent<IAiVisible>();
                     element = element ?? hit.collider.GetComponentInChildren<IAiVisible>();
@@ -43,7 +45,7 @@ public class VisionSensor : Sensor
                             stimuli.Add(stimulus);
                         }
                         stimulus.Position = candidat.Position;
-                        stimulus.TimeLeft = 1.0f;
+                        stimulus.TimeLeft = element.StimuliLifetime;
                     }
                 }
 

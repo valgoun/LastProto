@@ -37,6 +37,16 @@ public class AIBrain : MonoBehaviour
     [TabGroup("Combat")]
     public GameObject BulletPrefab;
 
+    [TabGroup("Normal")]
+    public NormalState NormalBehaviour;
+    [TabGroup("Normal"), ShowIf("CheckNormalWander"), Space]
+    public float NormalWanderRadius;
+    [TabGroup("Normal"), ShowIf("CheckNormalPatrol"), Space]
+    public Transform NormalWaypointsHolder;
+
+    //Odin Property
+    private bool CheckNormalWander { get { return (NormalBehaviour == NormalState.Wander || NormalBehaviour == NormalState.WanderGuard); } }
+    private bool CheckNormalPatrol { get { return NormalBehaviour == NormalState.Patrol; } }
 
     public Stimulus BestStimulus => _bestStimulus;
     public IReadOnlyList<Stimulus> Stimuli => _stimuli.AsReadOnly();
@@ -58,6 +68,11 @@ public class AIBrain : MonoBehaviour
     private bool _isReloading = false;
     private Transform _transform;
 
+    [NonSerialized]
+    public Vector3 InitialPosition;
+    [NonSerialized]
+    public Quaternion InitialRotation;
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -65,6 +80,8 @@ public class AIBrain : MonoBehaviour
         _subStates = GetComponent<Animator>();
         _transform = transform;
         _brainStates = _transform.GetChild(0).GetComponent<Animator>();
+        InitialPosition = transform.position;
+        InitialRotation = transform.rotation;
     }
 
     private void Update()
