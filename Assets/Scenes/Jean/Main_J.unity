@@ -4545,13 +4545,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c1904aa70f47f488d631b78afc116b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LeftZone: 0.1
-  RightZone: 0.1
-  TopZone: 0.15
-  BottomZone: 0.15
-  ZoneUseGradient: 1
-  ZoneMinForce: 0
-  ZoneMaxForce: 1
+  LeftZone: 0.01
+  RightZone: 0.01
+  TopZone: 0.01
+  BottomZone: 0.01
+  ZoneUseGradient: 0
   MaximumSpeed: 10
   Acceleration: 5
   Drag: 10
@@ -5996,6 +5994,11 @@ Prefab:
     - target: {fileID: 4776565041828720, guid: 053279678b3191347b394fcc8d20ce37, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114850145422333554, guid: 053279678b3191347b394fcc8d20ce37,
+        type: 2}
+      propertyPath: Invincible
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 053279678b3191347b394fcc8d20ce37, type: 2}

@@ -16,3 +16,4 @@ MonoBehaviour:
   VisionLayer:
     serializedVersion: 2
     m_Bits: 1537
+  VisualStimulusLifetime: 3

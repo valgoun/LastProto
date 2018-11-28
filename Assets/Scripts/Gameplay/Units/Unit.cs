@@ -10,6 +10,9 @@ public class Unit : MonoBehaviour, IAiVisible
     [Header("Tweaking")]
     public float FollowPrecision;
 
+    [Header("Debug")]
+    public bool Invincible;
+
     [Header("References")]
     public MeshRenderer MyRenderer;
     public GameObject MySelectable;
@@ -82,6 +85,7 @@ public class Unit : MonoBehaviour, IAiVisible
 
     public void Killed ()
     {
-        Destroy(gameObject);
+        if (!Invincible)
+            Destroy(gameObject);
     }
 }

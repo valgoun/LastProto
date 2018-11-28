@@ -19,8 +19,6 @@ public class CameraController : MonoBehaviour {
 
     [Space]
     public bool ZoneUseGradient;
-    public float ZoneMinForce;
-    public float ZoneMaxForce;
 
     [Space]
     public float MaximumSpeed;
@@ -120,28 +118,28 @@ public class CameraController : MonoBehaviour {
         float gradient = 1 - (Input.mousePosition.y / (BottomZone * Screen.height));
         if (gradient >= 0)
         {
-            input += new Vector3(0, 0, -gradient);
+            input += new Vector3(0, 0, -((ZoneUseGradient) ? gradient : 1));
         }
         else
         {
             gradient = (Input.mousePosition.y - (1 - TopZone) * Screen.height) / (TopZone * Screen.height);
             if (gradient >= 0)
             {
-                input += new Vector3(0, 0, gradient);
+                input += new Vector3(0, 0, ((ZoneUseGradient) ? gradient : 1));
             }
         }
 
         gradient = 1 - (Input.mousePosition.x / (LeftZone * Screen.width));
         if (gradient >= 0)
         {
-            input += new Vector3(-gradient, 0, 0);
+            input += new Vector3(-((ZoneUseGradient) ? gradient : 1), 0, 0);
         }
         else
         {
             gradient = (Input.mousePosition.x - (1 - RightZone) * Screen.width) / (RightZone * Screen.width);
             if (gradient >= 0)
             {
-                input += new Vector3(gradient, 0, 0);
+                input += new Vector3(((ZoneUseGradient) ? gradient : 1), 0, 0);
             }
         }
 

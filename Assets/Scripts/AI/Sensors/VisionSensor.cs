@@ -9,6 +9,8 @@ public class VisionSensor : Sensor
     public float VisionDistance;
     public LayerMask VisionLayer;
 
+    public float VisualStimulusLifetime;
+
     public override int UpdateSensor(AIBrain brain, List<Stimulus> stimuli)
     {
         var forward = brain.transform.forward;
@@ -45,7 +47,7 @@ public class VisionSensor : Sensor
                             stimuli.Add(stimulus);
                         }
                         stimulus.Position = candidat.Position;
-                        stimulus.TimeLeft = 1.0f;
+                        stimulus.TimeLeft = VisualStimulusLifetime;
                     }
                 }
 
