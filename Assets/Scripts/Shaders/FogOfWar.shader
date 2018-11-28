@@ -3,6 +3,7 @@
 	HLSLINCLUDE
 
 			#include "PostProcessing/Shaders/StdLib.hlsl"
+			#include "noiseSimplex.cginc"
 			TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
 			TEXTURE2D_SAMPLER2D(_CameraDepthTexture, sampler_CameraDepthTexture);
 			float4x4 _inverseView;
@@ -10,6 +11,13 @@
 			int _VisionUnit;
 			float4 _fogColor;
 			float _density;
+			float _noiseScale;
+			float _noiseIntensity;
+
+			float curve(float x)
+			{
+				return x * x * x * x ;
+			}
 
 			float4 Frag(VaryingsDefault i) : SV_Target
 			{
@@ -27,12 +35,13 @@
 
 				for (int i = 0; i < _VisionUnit; i++)
 				{
-					float distToCenter = length(wPos - _VisionPoints[i].xyz);
+					float distToCenter = length(wPos - _VisionPoints[i].xyz) + snoise(wPos * _noiseScale) * _noiseIntensity;
 					float circle = _VisionPoints[i].w - distToCenter;
 
 					fog = max(fog, circle);
 				}
-				fog = smoothstep(0.6, 1.0, fog);
+				fog = smoothstep(0.0, 3.0, fog);
+
 
 				float minFog = 1.0 - _density;
 
