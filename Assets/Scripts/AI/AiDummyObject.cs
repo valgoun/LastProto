@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class AiDummyObject : MonoBehaviour, IAiVisible
 {
+    public float StimuliLifetimeWhenSeen;
+
     public Vector3 Position => _transform.position;
     public Transform Transform => _transform;
     public GameObject GameObject => gameObject;
     public bool IsVisible => true;
+    public float StimuliLifetime => StimuliLifetimeWhenSeen;
 
     private Transform _transform;
 

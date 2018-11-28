@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour, IAiVisible
 
     [Header("Tweaking")]
     public float FollowPrecision;
+    public float StimuliLifetimeWhenSeen;
 
     [Header("Debug")]
     public bool Invincible;
@@ -31,6 +32,7 @@ public class Unit : MonoBehaviour, IAiVisible
     public Transform Transform => _transform;
     public GameObject GameObject => gameObject;
     public bool IsVisible { get; set; }
+    public float StimuliLifetime => StimuliLifetimeWhenSeen;
 
     void Start () {
         _navAgent = GetComponent<NavMeshAgent>();

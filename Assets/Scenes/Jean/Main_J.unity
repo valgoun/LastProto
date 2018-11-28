@@ -3516,7 +3516,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh18358
+  m_Name: pb_Mesh8070
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -5033,6 +5033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fd79fb3f4cdd64ab6de26d0cb9ab4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StimuliLifetimeWhenSeen: 0
 --- !u!135 &1464821991
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5459,7 +5460,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh18214
+  m_Name: pb_Mesh7912
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -5994,11 +5995,6 @@ Prefab:
     - target: {fileID: 4776565041828720, guid: 053279678b3191347b394fcc8d20ce37, type: 2}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114850145422333554, guid: 053279678b3191347b394fcc8d20ce37,
-        type: 2}
-      propertyPath: Invincible
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 053279678b3191347b394fcc8d20ce37, type: 2}

@@ -243,6 +243,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FollowPrecision: 0.2
+  StimuliLifetimeWhenSeen: 3
+  Invincible: 0
   MyRenderer: {fileID: 23059331886496016}
   MySelectable: {fileID: 1910934483600778}
   GhostMaterial: {fileID: 2100000, guid: ab50b7ab56cf51d46b1d23f7527aeed0, type: 2}
