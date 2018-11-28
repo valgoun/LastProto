@@ -6,14 +6,30 @@ using UnityEngine.EventSystems;
 
 public class SelectionManager : MonoBehaviour {
 
+    [NonSerialized]
+    public static SelectionManager Instance;
+
     public LayerMask SelectableLayer;
     public LayerMask GroundLayer;
     [NonSerialized]
     public List<Unit> SelectedElements = new List<Unit>();
 
-    private Vector3 _origin;
-    private bool _selecting;
+    [NonSerialized]
+    public bool IsSelecting;
+    [NonSerialized]
+    public Vector3 Origin;
+    [NonSerialized]
+    public Vector3 Destination;
+
     private Collider[] _results = new Collider[500];
+
+    private void Awake()
+    {
+        if (!Instance)
+            Instance = this;
+        else
+            Destroy(this);
+    }
 
     // Update is called once per frame
     void Update () {
@@ -23,10 +39,10 @@ public class SelectionManager : MonoBehaviour {
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            _selecting = false;
+            IsSelecting = false;
         }
 
-        if (Input.GetMouseButton(0) && _selecting)
+        if (Input.GetMouseButton(0) && IsSelecting)
         {
             Selecting(Camera.main);
         }
@@ -71,8 +87,8 @@ public class SelectionManager : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, GroundLayer))
             {
-                _origin = hit.point;
-                _selecting = true;
+                Origin = hit.point;
+                IsSelecting = true;
                 if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, SelectableLayer))
                 {
                     Unit unit = hit.transform.parent.GetComponent<Unit>();
@@ -95,9 +111,9 @@ public class SelectionManager : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, GroundLayer))
         {
-            Vector3 dest = hit.point;
+            Destination = hit.point;
             Vector3 dir = cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos;
-            if (_origin == dest)
+            if (Origin == Destination)
             {
                 if (Physics.Raycast(pos, dir, out hit, Mathf.Infinity, SelectableLayer))
                 {
@@ -110,10 +126,10 @@ public class SelectionManager : MonoBehaviour {
             }
             else
             {
-                dir = dest - _origin + -dir.normalized * 1;
+                dir = Destination - Origin + -dir.normalized * 1;
                 dir /= 2;
                 
-                int length = Physics.OverlapBoxNonAlloc(_origin + dir, new Vector3(Mathf.Abs(dir.x), Mathf.Abs(dir.y), Mathf.Abs(dir.z)), _results, Quaternion.identity, SelectableLayer);
+                int length = Physics.OverlapBoxNonAlloc(Origin + dir, new Vector3(Mathf.Abs(dir.x), Mathf.Abs(dir.y), Mathf.Abs(dir.z)), _results, Quaternion.identity, SelectableLayer);
 
                 for(int i = 0; i < length; i++)
                 {
