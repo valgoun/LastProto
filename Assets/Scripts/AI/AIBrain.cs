@@ -55,6 +55,7 @@ public class AIBrain : MonoBehaviour
     private Animator _brainStates;
     private Animator _subStates;
     private bool _reloaded = true;
+    private bool _isReloading = false;
     private Transform _transform;
 
     private void Awake()
@@ -167,12 +168,15 @@ public class AIBrain : MonoBehaviour
 
     public void Reload()
     {
-        StartCoroutine(InternalReload());
+        if (!_isReloading)
+            StartCoroutine(InternalReload());
     }
 
     private IEnumerator InternalReload()
     {
+        _isReloading = true;
         yield return new WaitForSeconds(ReloadDuration);
+        _isReloading = false;
         _reloaded = true;
     }
 }
