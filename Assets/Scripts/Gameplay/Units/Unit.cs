@@ -79,4 +79,9 @@ public class Unit : MonoBehaviour, IAiVisible
         tag = "Untagged";
         MySelectable.tag = "Untagged";
     }
+
+    public void Killed ()
+    {
+        Destroy(gameObject);
+    }
 }
