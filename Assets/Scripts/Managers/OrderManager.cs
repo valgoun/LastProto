@@ -24,25 +24,28 @@ public class OrderManager : MonoBehaviour {
 
     public void MoveOrder (Camera cam)
     {
-        if (_selection.SelectedElement)
+        foreach(var select in _selection.SelectedElements)
         {
-            if (!EventSystem.current.IsPointerOverGameObject())
+            if (select)
             {
-                Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.nearClipPlane);
-                RaycastHit hit;
-                if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, GroundLayer))
+                if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    RaycastHit nextHit;
-                    if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out nextHit, Mathf.Infinity, _selection.SelectableLayer))
+                    Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.nearClipPlane);
+                    RaycastHit hit;
+                    if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, GroundLayer))
                     {
-                        _selection.SelectedElement.Follow(nextHit.transform.parent);
-                    }
-                    else
-                    {
-                        _selection.SelectedElement.MoveTo(hit.point);
+                        RaycastHit nextHit;
+                        if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out nextHit, Mathf.Infinity, _selection.SelectableLayer))
+                        {
+                            select.Follow(nextHit.transform.parent);
+                        }
+                        else
+                        {
+                            select.MoveTo(hit.point);
+                        }
                     }
                 }
-            }   
+            }
         }
     }
 }

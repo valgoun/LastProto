@@ -3947,6 +3947,9 @@ MonoBehaviour:
   SelectableLayer:
     serializedVersion: 2
     m_Bits: 512
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!4 &931933468
 Transform:
   m_ObjectHideFlags: 0
@@ -4593,6 +4596,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   stopNaNPropagation: 1
+  finalBlitToCameraTarget: 1
   antialiasingMode: 2
   temporalAntialiasing:
     jitterSpread: 0.75
@@ -4634,7 +4638,9 @@ MonoBehaviour:
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
-  m_AfterStackBundles: []
+  m_AfterStackBundles:
+  - assemblyQualifiedName: FogOfWar, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!4 &1154189588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4776565041828720, guid: 053279678b3191347b394fcc8d20ce37,
