@@ -121,6 +121,12 @@ MonoBehaviour:
   Density:
     overrideState: 1
     value: 1
+  NoiseScale:
+    overrideState: 0
+    value: 0.17
+  NoiseIntensity:
+    overrideState: 0
+    value: 0.71
 --- !u!114 &114584437219084480
 MonoBehaviour:
   m_ObjectHideFlags: 3
