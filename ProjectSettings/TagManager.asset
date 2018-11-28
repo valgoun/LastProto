@@ -8,6 +8,7 @@ TagManager:
   - Conquistador
   - Corpse
   - Shaman
+  - Destroyable
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Selection
   - Ground
   - Camera Bound
-  - 
+  - NoNavMesh
   - 
   - 
   - 

@@ -10,7 +10,14 @@ public class Unit : MonoBehaviour, IAiVisible
     [Header("Tweaking")]
     public float FollowPrecision;
 
-    [Header("Read Only")]
+    [Header("References")]
+    public MeshRenderer MyRenderer;
+    public GameObject MySelectable;
+
+    [Header("Assets")]
+    public Material GhostMaterial;
+
+    [NonSerialized]
     public bool Selected;
 
     private NavMeshAgent _navAgent;
@@ -63,5 +70,13 @@ public class Unit : MonoBehaviour, IAiVisible
         {
             _navAgent.SetDestination(_targetToFollow.position);
         }
+    }
+
+    public void ChangeIntoGhost ()
+    {
+        MyRenderer.material = GhostMaterial;
+        IsVisible = false;
+        tag = "Untagged";
+        MySelectable.tag = "Untagged";
     }
 }

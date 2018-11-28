@@ -17,6 +17,10 @@ public class Explosion : MonoBehaviour {
             {
                 Destroy(col.transform.parent.gameObject);
             }
+            else if (col.tag == "Destroyable")
+            {
+                Destroy(col.gameObject);
+            }
         }
 	}
 }
