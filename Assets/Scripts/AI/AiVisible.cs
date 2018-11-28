@@ -8,4 +8,5 @@ public interface IAiVisible
     Transform Transform { get; }
     GameObject GameObject { get; }
     bool IsVisible { get; }
+    float StimuliLifetime { get; }
 }

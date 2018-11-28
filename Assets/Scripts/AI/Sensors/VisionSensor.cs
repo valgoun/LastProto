@@ -45,7 +45,7 @@ public class VisionSensor : Sensor
                             stimuli.Add(stimulus);
                         }
                         stimulus.Position = candidat.Position;
-                        stimulus.TimeLeft = 1.0f;
+                        stimulus.TimeLeft = element.StimuliLifetime;
                     }
                 }
 
@@ -58,8 +58,7 @@ public class VisionSensor : Sensor
     public override void OnGizmos(Transform transform)
     {
         Gizmos.color = Color.green;
-
-
+        
         Vector3 pos = transform.position;
         Vector3 fw = pos + transform.forward * VisionDistance;
         Vector3 p1 = pos + Quaternion.AngleAxis(VisionAngle * 0.5f, transform.up) * transform.forward * VisionDistance;

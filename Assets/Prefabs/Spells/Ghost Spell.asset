@@ -8,12 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b39a4e71ee4ec0d43b4b2ab5efd28746, type: 3}
-  m_Name: VisionSensor
+  m_Script: {fileID: 11500000, guid: d8c93aef5fb9ae144887e2cedd1991fa, type: 3}
+  m_Name: Ghost Spell
   m_EditorClassIdentifier: 
-  VisionAngle: 120
-  VisionDistance: 14
-  VisionLayer:
-    serializedVersion: 2
-    m_Bits: 1537
-  VisualStimulusLifetime: 3
+  SpellName: Ghost Walk
+  Targets: 4
+  CooldownDuration: 20
+  DeathDelay: 10

@@ -14,6 +14,8 @@ public class AIBrain : MonoBehaviour
     public float AlertLevelIncreaseRate;
     [TabGroup("General")]
     public float AlertLevelDecreaseRate;
+    [TabGroup("General")]
+    public float AlertTimeBeforeDecrease;
 
     [TabGroup("Investigation")]
     public float WanderRadius;
@@ -65,7 +67,9 @@ public class AIBrain : MonoBehaviour
     private Animator _brainStates;
     private Animator _subStates;
     private bool _reloaded = true;
+    private bool _isReloading = false;
     private Transform _transform;
+    private float _timeSinceLastStimulus;
 
     [NonSerialized]
     public Vector3 InitialPosition;
@@ -129,9 +133,16 @@ public class AIBrain : MonoBehaviour
         }
 
         if (newStimuli > 0)
+        {
             _alertLevel += Time.deltaTime * AlertLevelIncreaseRate;
+            _timeSinceLastStimulus = 0.0f;
+        }
         else
-            _alertLevel -= Time.deltaTime * AlertLevelDecreaseRate;
+        {
+            _timeSinceLastStimulus += Time.deltaTime;
+            if (_timeSinceLastStimulus > AlertTimeBeforeDecrease)
+                _alertLevel -= Time.deltaTime * AlertLevelDecreaseRate;
+        }
         _alertLevel = Mathf.Clamp01(_alertLevel);
     }
 
@@ -153,7 +164,23 @@ public class AIBrain : MonoBehaviour
         {
             sensor.OnGizmos(transform);
         }
+        foreach(var stimulus in _stimuli)
+        {
+            Color col = Color.white;
+            switch (stimulus.Type)
+            {
+                case StimulusType.SightEnemy:
+                    col = Color.red;
+                    break;
+                case StimulusType.SightSpell:
+                    col = Color.blue;
+                    break;
+            }
+            Gizmos.color = col;
+            Gizmos.DrawWireSphere(stimulus.Position, stimulus.TimeLeft / 2);
+        }
     }
+
 
     public void Shoot(GameObject Target)
     {
@@ -184,12 +211,15 @@ public class AIBrain : MonoBehaviour
 
     public void Reload()
     {
-        StartCoroutine(InternalReload());
+        if (!_isReloading)
+            StartCoroutine(InternalReload());
     }
 
     private IEnumerator InternalReload()
     {
+        _isReloading = true;
         yield return new WaitForSeconds(ReloadDuration);
+        _isReloading = false;
         _reloaded = true;
     }
 }
