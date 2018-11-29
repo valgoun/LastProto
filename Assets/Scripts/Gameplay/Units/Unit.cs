@@ -12,6 +12,7 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
     public float StimuliLifetimeWhenSeen;
     [SerializeField]
     private float _visionRange;
+    public float AttackRange;
 
     [Header("Debug")]
     public bool Invincible;
@@ -30,7 +31,9 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
     private Transform _targetToFollow;
     private Transform _transform;
     private int _squadNumber;
-    public int _squadSize;
+    private int _squadSize;
+    private bool _isGhost;
+    private bool _isInBush;
 
     public Vector3 Position => _transform.position;
     public Transform Transform => _transform;
@@ -78,13 +81,35 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
         _squadSize = size;
     }
 
-    void FollowRoutine ()
+    private void FollowRoutine ()
     {
+        if (_targetToFollow.tag == "Conquistador")
+        {
+            if (AttackDecision(_targetToFollow))
+                return;
+        }
+
         Vector3 pos = FormationManager.Instance.GetPositionInFormation(_targetToFollow.position, _squadNumber, _squadSize, _targetToFollow.position - transform.position);
         if ((pos - _navAgent.destination).magnitude >= FollowPrecision)
         {
             _navAgent.SetDestination(pos);
         }
+    }
+
+    protected virtual bool AttackDecision (Transform target)
+    {
+        if ((target.position - transform.position).magnitude <= AttackRange)
+        {
+            DoBasicAttack(target);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    protected void DoBasicAttack (Transform target)
+    {
+        Destroy(target.gameObject);
     }
 
     private void OnDestroy()
@@ -98,6 +123,7 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
         IsVisible = false;
         tag = "Untagged";
         MySelectable.tag = "Untagged";
+        _isGhost = true;
     }
 
     public void Killed ()

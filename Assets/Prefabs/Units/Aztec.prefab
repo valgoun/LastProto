@@ -245,11 +245,11 @@ MonoBehaviour:
   FollowPrecision: 0.2
   StimuliLifetimeWhenSeen: 3
   _visionRange: 0
+  AttackRange: 1
   Invincible: 0
   MyRenderer: {fileID: 23059331886496016}
   MySelectable: {fileID: 1910934483600778}
   GhostMaterial: {fileID: 2100000, guid: ab50b7ab56cf51d46b1d23f7527aeed0, type: 2}
-  _squadSize: 0
 --- !u!135 &135419710549299528
 SphereCollider:
   m_ObjectHideFlags: 1
