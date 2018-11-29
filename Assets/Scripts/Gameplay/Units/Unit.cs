@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit : MonoBehaviour, IAiVisible, IVisionElement
+public class Unit : MonoBehaviour, IAiVisible
 {
 
     [Header("Tweaking")]
     public float FollowPrecision;
     public float StimuliLifetimeWhenSeen;
-    [SerializeField]
-    private float _visionRange;
+
 
     [Header("Debug")]
     public bool Invincible;
@@ -34,7 +33,6 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
     public Transform Transform => _transform;
     public GameObject GameObject => gameObject;
     public bool IsVisible { get; set; }
-    public float VisionRange => _visionRange;
     public float StimuliLifetime => StimuliLifetimeWhenSeen;
 
 
@@ -42,7 +40,6 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
         _navAgent = GetComponent<NavMeshAgent>();
         _transform = transform;
         IsVisible = true;
-        FogManager.Instance.RegisterElement(this);
 	}
 	
 	void Update () {
@@ -80,11 +77,6 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
         {
             _navAgent.SetDestination(_targetToFollow.position);
         }
-    }
-
-    private void OnDestroy()
-    {
-        FogManager.Instance.DeleteElement(this);
     }
 
     public void ChangeIntoGhost ()
