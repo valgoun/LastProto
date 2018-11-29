@@ -11,7 +11,7 @@ public class Bush : MonoBehaviour {
             Unit unit = other.transform.parent.GetComponent<Unit>();
             if (unit)
             {
-                unit.IsVisible = false;
+                unit.EnterBush();
             }
         }
     }
@@ -23,7 +23,7 @@ public class Bush : MonoBehaviour {
             Unit unit = other.transform.parent.GetComponent<Unit>();
             if (unit)
             {
-                unit.IsVisible = true;
+                unit.LeaveBush();
             }
         }
     }
