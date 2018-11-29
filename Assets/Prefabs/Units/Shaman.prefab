@@ -101,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1904628821296382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.98, y: 2, z: 11.78}
+  m_LocalPosition: {x: -34, y: 2, z: -58.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4958101351119634}
@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectionCircleSprite: {fileID: 212632202222594758}
+  destinationSprite: {fileID: 0}
 --- !u!114 &114386836109569518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -256,12 +257,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowPrecision: 0.2
   StimuliLifetimeWhenSeen: 0
-  _visionRange: 0
+  _visionRange: 24
+  AttackRange: 0
   Invincible: 0
   MyRenderer: {fileID: 0}
   MySelectable: {fileID: 0}
   GhostMaterial: {fileID: 0}
-  _squadSize: 0
 --- !u!135 &135858809271724124
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -283,7 +284,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360
