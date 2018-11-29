@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 33936009023921184}
   - component: {fileID: 23980013891400218}
   - component: {fileID: 65151924638523370}
-  m_Layer: 0
+  - component: {fileID: 208238020162265964}
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeChunk1
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,3 +97,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0002525, y: 4.4273252, z: 0.6031728}
   m_Center: {x: -1.2501262, y: 2.2136626, z: -0.05158639}
+--- !u!208 &208238020162265964
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847713856895872}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.5000001, y: 2.214, z: 0.30200002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -1.25, y: 2.214, z: -0.052}
+  m_TimeToStationary: 0.5

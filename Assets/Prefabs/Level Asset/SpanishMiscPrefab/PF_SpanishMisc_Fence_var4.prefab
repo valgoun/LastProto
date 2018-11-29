@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 33586096027068808}
   - component: {fileID: 23244432557810440}
   - component: {fileID: 65003557690135558}
-  m_Layer: 0
+  - component: {fileID: 208802992757839986}
+  m_Layer: 9
   m_Name: PF_SpanishMisc_Fence_var4
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,3 +97,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.3239675, y: 1.8089186, z: 0.29895407}
   m_Center: {x: -0.122829616, y: 0.9697873, z: 0.18538222}
+--- !u!208 &208802992757839986
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1485329001323730}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.1620001, y: 0.90400004, z: 0.149}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.123, y: 0.97, z: 0.185}
+  m_TimeToStationary: 0.5
