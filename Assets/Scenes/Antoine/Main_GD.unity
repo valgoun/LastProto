@@ -2947,7 +2947,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 371947855}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9faa01a624567c1449849d940f3b38ea, type: 3}
   m_Name: 
@@ -3480,7 +3480,7 @@ Prefab:
     - target: {fileID: 23819117202152186, guid: d0c474d0c3cc12e49a6a641aa7b63d2d,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114308216302813640, guid: d0c474d0c3cc12e49a6a641aa7b63d2d,
         type: 2}
@@ -3725,6 +3725,9 @@ MonoBehaviour:
   SelectableLayer:
     serializedVersion: 2
     m_Bits: 512
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &931933468
 Transform:
   m_ObjectHideFlags: 0
@@ -4275,7 +4278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1151200163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4741,6 +4744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fd79fb3f4cdd64ab6de26d0cb9ab4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StimuliLifetimeWhenSeen: 0
 --- !u!135 &1464821991
 SphereCollider:
   m_ObjectHideFlags: 0

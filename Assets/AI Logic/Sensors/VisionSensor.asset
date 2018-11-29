@@ -15,5 +15,4 @@ MonoBehaviour:
   VisionDistance: 14
   VisionLayer:
     serializedVersion: 2
-    m_Bits: 1537
-  VisualStimulusLifetime: 3
+    m_Bits: 5633
