@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CursorManager : MonoBehaviour {
 
     public static CursorManager cursorManagerInst;
-
+    public SelectionManager selectionManager;
     public Vector3 cursorOffset;
 
  //   public GameObject movementCommandFeedback;
@@ -16,6 +16,8 @@ public class CursorManager : MonoBehaviour {
     public Image cursorImage;
 
     public Sprite[] cursorSprites;
+
+    public GameObject unitDestinationClickFX;
 
    public enum CursorType
     {
@@ -31,16 +33,27 @@ public class CursorManager : MonoBehaviour {
     {
         cursorManagerInst = this;
       
-        Cursor.visible = false;
+     //   Cursor.visible = false;
 
-        ChangeCursor(CursorType.Default);
+     //   ChangeCursor(CursorType.Default);
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        cursorImage.transform.position = Input.mousePosition + cursorOffset;
+      //  cursorImage.transform.position = Input.mousePosition + cursorOffset;
 
+        if(Input.GetMouseButtonDown(1) && selectionManager.SelectedElements.Count > 0)
+        {
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Ground")))
+            {
+                SpawnFX(unitDestinationClickFX, hit.point + new Vector3(0,0.1f,0));
+            }
+               
+        }
     }
 
 
@@ -81,5 +94,13 @@ public class CursorManager : MonoBehaviour {
             cursorImage.color = Color.green;
         else
             cursorImage.color = Color.white;
+    }
+
+    public void SpawnFX(GameObject fx_go , Vector3 pos)
+    {
+        
+        var fxInst = Instantiate(fx_go);
+        fxInst.transform.position = pos;
+        Destroy(fxInst, 3f);
     }
 }
