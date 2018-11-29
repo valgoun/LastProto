@@ -33,7 +33,8 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
     private int _squadNumber;
     private int _squadSize;
     private bool _isGhost;
-    private bool _isInBush;
+
+    protected bool _isInBush;
 
     public Vector3 Position => _transform.position;
     public Transform Transform => _transform;
@@ -130,5 +131,17 @@ public class Unit : MonoBehaviour, IAiVisible, IVisionElement
     {
         if (!Invincible)
             Destroy(gameObject);
+    }
+
+    public void EnterBush()
+    {
+        IsVisible = false;
+        _isInBush = true;
+    }
+
+    public void LeaveBush()
+    {
+        IsVisible = true;
+        _isInBush = false;
     }
 }
