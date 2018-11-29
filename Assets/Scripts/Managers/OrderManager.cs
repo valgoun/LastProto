@@ -37,7 +37,7 @@ public class OrderManager : MonoBehaviour {
                         RaycastHit nextHit;
                         if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out nextHit, Mathf.Infinity, _selection.SelectableLayer))
                         {
-                            _selection.SelectedElements[i].Follow(nextHit.transform.parent, i, _selection.SelectedElements.Count);
+                            _selection.SelectedElements[i].Follow(nextHit.transform, i, _selection.SelectedElements.Count);
                         }
                         else
                         {

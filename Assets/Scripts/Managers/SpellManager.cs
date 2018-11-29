@@ -103,7 +103,7 @@ public class SpellManager : MonoBehaviour {
                 {
                     if ((targetType != TargetEnum.Void) && ((_selectedSpell.Targets & targetType) != 0))
                     {
-                        _selectedSpell.ExecuteSpell(hit.transform.parent.gameObject, Vector3.zero);
+                        _selectedSpell.ExecuteSpell(hit.transform.gameObject, Vector3.zero);
                     }
                     else if ((_selectedSpell.Targets & TargetEnum.Void) != 0)
                     {
