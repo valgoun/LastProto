@@ -20,6 +20,10 @@ public class SelectionManager : MonoBehaviour {
     public Vector3 Origin;
     [NonSerialized]
     public Vector3 Destination;
+    [NonSerialized]
+    public Unit Shaman;
+    [NonSerialized]
+    public Unit[] Aztecs = new Aztec[3];
 
     private Collider[] _results = new Collider[500];
 
@@ -33,6 +37,8 @@ public class SelectionManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        Shortcuts();
+
         if (Input.GetMouseButtonDown(0))
         {
             StartSelection(Camera.main);
@@ -76,12 +82,7 @@ public class SelectionManager : MonoBehaviour {
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            foreach(var select in SelectedElements)
-            {
-                if(select)
-                    select.UnSelect();
-            }
-            SelectedElements.Clear();
+            CleanSelection();
 
             Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.nearClipPlane);
             RaycastHit hit;
@@ -169,5 +170,81 @@ public class SelectionManager : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void RegisterAztec (Unit unit)
+    {
+        bool registered = false;
+        for (int i = 0; i < Aztecs.Length; i++)
+        {
+            if (!Aztecs[i])
+            {
+                registered = true;
+                Aztecs[i] = unit;
+                break;
+            }
+        }
+
+        if (!registered)
+        {
+            Debug.LogWarning("Careful, you currently have more Aztecs than what the game is designed for.");
+        }
+    }
+
+    private void Shortcuts ()
+    {
+        if (Input.GetButtonDown("Selection Shaman") && Shaman)
+        {
+            CleanSelection();
+            SelectedElements.Add(Shaman);
+            Shaman.Select();
+        }
+        else if (Input.GetButtonDown("Selection Aztec 01") && Aztecs[0])
+        {
+            CleanSelection();
+            SelectedElements.Add(Aztecs[0]);
+            Aztecs[0].Select();
+        }
+        else if (Input.GetButtonDown("Selection Aztec 02") && Aztecs[1])
+        {
+            CleanSelection();
+            SelectedElements.Add(Aztecs[1]);
+            Aztecs[1].Select();
+        }
+        else if (Input.GetButtonDown("Selection Aztec 03") && Aztecs[2])
+        {
+            CleanSelection();
+            SelectedElements.Add(Aztecs[2]);
+            Aztecs[2].Select();
+        }
+        else if (Input.GetButtonDown("Selection All"))
+        {
+            CleanSelection();
+
+            if (Shaman)
+            {
+                SelectedElements.Add(Shaman);
+                Shaman.Select();
+            }
+
+            foreach(Unit unit in Aztecs)
+            {
+                if (unit)
+                {
+                    SelectedElements.Add(unit);
+                    unit.Select();
+                }
+            }
+        }
+    }
+
+    private void CleanSelection()
+    {
+        foreach (var select in SelectedElements)
+        {
+            if (select)
+                select.UnSelect();
+        }
+        SelectedElements.Clear();
     }
 }

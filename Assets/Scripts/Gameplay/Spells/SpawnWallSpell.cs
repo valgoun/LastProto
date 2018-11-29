@@ -32,7 +32,8 @@ public class SpawnWallSpell : Spell
             pos = position;
         }
 
-        Vector3 dir = pos - SpellManager.Instance.Shaman.transform.position;
+        Vector3 dir = pos - SelectionManager.Instance.Shaman.transform.position;
+        dir.y = 0;
         Quaternion rot = Quaternion.FromToRotation(Vector3.forward, dir);
 
         GameObject obj = Instantiate(WallPrefab, pos, rot);
