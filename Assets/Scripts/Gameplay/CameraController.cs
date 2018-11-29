@@ -115,20 +115,28 @@ public class CameraController : MonoBehaviour {
         //Plane Movement Input
         Vector3 input = Vector3.zero;
 
+        Vector3 verticalInput = Vector3.zero;
         float gradient = 1 - (Input.mousePosition.y / (BottomZone * Screen.height));
         if (gradient >= 0)
         {
-            input += new Vector3(0, 0, -((ZoneUseGradient) ? gradient : 1));
+            verticalInput = new Vector3(0, 0, -((ZoneUseGradient) ? gradient : 1));
         }
         else
         {
             gradient = (Input.mousePosition.y - (1 - TopZone) * Screen.height) / (TopZone * Screen.height);
             if (gradient >= 0)
             {
-                input += new Vector3(0, 0, ((ZoneUseGradient) ? gradient : 1));
+                verticalInput = new Vector3(0, 0, ((ZoneUseGradient) ? gradient : 1));
             }
         }
+        if (verticalInput == Vector3.zero)
+        {
+            input += new Vector3(0, 0, Input.GetAxis("Vertical"));
+        }
+        else
+            input += verticalInput;
 
+        Vector3 horizontalInput = Vector3.zero;
         gradient = 1 - (Input.mousePosition.x / (LeftZone * Screen.width));
         if (gradient >= 0)
         {
@@ -139,9 +147,15 @@ public class CameraController : MonoBehaviour {
             gradient = (Input.mousePosition.x - (1 - RightZone) * Screen.width) / (RightZone * Screen.width);
             if (gradient >= 0)
             {
-                input += new Vector3(((ZoneUseGradient) ? gradient : 1), 0, 0);
+                horizontalInput = new Vector3(((ZoneUseGradient) ? gradient : 1), 0, 0);
             }
         }
+        if (horizontalInput == Vector3.zero)
+        {
+            input += new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+        }
+        else
+            input += horizontalInput;
 
         //Plane Movement
         float zoomGradient = Mathf.Lerp(1, MaxZoomMultiplier, _zoomLevel);
