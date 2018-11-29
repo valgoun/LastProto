@@ -3978,6 +3978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71f62028a992724e8f1f8f2215342b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SmartCast: 1
   ShamanMaxDistance: 50
   Spells:
   - {fileID: 11400000, guid: 49b285b7ffb303647a1a3cf43c276c8a, type: 2}

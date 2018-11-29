@@ -41,7 +41,7 @@ public class Unit : MonoBehaviour, IAiVisible
     public float StimuliLifetime => StimuliLifetimeWhenSeen;
 
 
-    void Start () {
+    protected virtual void Start () {
         _navAgent = GetComponent<NavMeshAgent>();
         _transform = transform;
         IsVisible = true;

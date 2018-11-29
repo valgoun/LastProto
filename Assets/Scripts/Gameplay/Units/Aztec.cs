@@ -7,6 +7,12 @@ public class Aztec : Unit {
     [Header("Aztec Tweaking")]
     public float JumpAttackRange;
 
+    protected override void Start()
+    {
+        base.Start();
+        SelectionManager.Instance.RegisterAztec(this);
+    }
+
     protected override bool AttackDecision(Transform target)
     {
         if (_isInBush)

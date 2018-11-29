@@ -6,7 +6,7 @@ public class Shaman : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        SpellManager.Instance.Shaman = gameObject;
+        SelectionManager.Instance.Shaman = GetComponent<Unit>();
 	}
 	
 }

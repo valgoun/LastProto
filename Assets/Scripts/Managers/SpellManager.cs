@@ -18,12 +18,10 @@ public class SpellManager : MonoBehaviour {
     [NonSerialized]
     public static SpellManager Instance;
 
+    public bool SmartCast;
     public float ShamanMaxDistance;
     [Space]
     public Spell[] Spells;
-
-    [NonSerialized]
-    public GameObject Shaman;
 
     private Spell _selectedSpell;
     private SelectionManager _selection;
@@ -45,6 +43,9 @@ public class SpellManager : MonoBehaviour {
 
     private void Update()
     {
+        if (SmartCast)
+            Shortcuts();
+
         if (_selectedSpell)
         {
             if (!EventSystem.current.IsPointerOverGameObject())
@@ -75,7 +76,7 @@ public class SpellManager : MonoBehaviour {
         }
     }
 
-    private void CastingSpell (Camera cam)
+    private void CastingSpell (Camera cam, bool bypassClick = false)
     {
         Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.nearClipPlane);
 
@@ -83,7 +84,7 @@ public class SpellManager : MonoBehaviour {
         if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, _order.GroundLayer))
         {
             Vector3 worldPoint = hit.point;
-            if ((worldPoint - Shaman.transform.position).magnitude <= ShamanMaxDistance)
+            if ((worldPoint - _selection.Shaman.transform.position).magnitude <= ShamanMaxDistance)
             {
                 TargetEnum targetType = TargetEnum.Void;
                 if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, _selection.SelectableLayer))
@@ -98,7 +99,7 @@ public class SpellManager : MonoBehaviour {
                         targetType = TargetEnum.Conquistador;
                 }
 
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) || bypassClick)
                 {
                     if ((targetType != TargetEnum.Void) && ((_selectedSpell.Targets & targetType) != 0))
                     {
@@ -112,10 +113,32 @@ public class SpellManager : MonoBehaviour {
                     _selectedSpell = null;
                 }
             }
-            else if (Input.GetMouseButtonDown(0))
+            else if (Input.GetMouseButtonDown(0) || bypassClick)
             {
                 _selectedSpell = null;
             }
+        }
+    }
+
+    private void Shortcuts ()
+    {
+        Spell spell = null;
+        for (int i = 0; i < Spells.Length; i++)
+        {
+            if (Input.GetButtonDown("Spell 0" + (i + 1).ToString()))
+            {
+                if (Spells[i].CurrentCooldown <= Time.time)
+                {
+                    spell = Spells[i];
+                    break;
+                }
+            }
+        }
+
+        if (spell)
+        {
+            _selectedSpell = spell;
+            CastingSpell(Camera.main, true);
         }
     }
 }

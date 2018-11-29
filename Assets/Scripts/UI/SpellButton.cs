@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SpellButton : MonoBehaviour {
@@ -41,6 +42,14 @@ public class SpellButton : MonoBehaviour {
         {
             _button.interactable = false;
             CooldownText.text = Mathf.Abs(Time.time - SpellManager.Instance.Spells[SpellID].CurrentCooldown).ToString("0.0");
+        }
+
+        if (!SpellManager.Instance.SmartCast && _button.interactable)
+        {
+            if (Input.GetButtonDown("Spell 0" + (SpellID + 1).ToString()))
+            {
+                ExecuteEvents.Execute(gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
+            }
         }
 	}
 
