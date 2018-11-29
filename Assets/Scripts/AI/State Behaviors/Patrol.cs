@@ -23,31 +23,64 @@ public class Patrol : StateMachineBehaviour
 
         if (_brain.NormalWaypointsHolder.childCount > 0)
         {
-            if (_index >= _brain.NormalWaypointsHolder.childCount)
-            {
-                _index = 0;
-            }
-
             _agent.SetDestination(_brain.NormalWaypointsHolder.GetChild(_index).position);
-
-            _index++;
         }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
+        if (!_brain.CurrentWaypoint)
         {
-            if (_brain.NormalWaypointsHolder.childCount > 0)
+            if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
             {
-                if (_index >= _brain.NormalWaypointsHolder.childCount)
+                Waypoint waypoint = _brain.NormalWaypointsHolder.GetChild(_index).GetComponent<Waypoint>();
+                if (waypoint && waypoint.TimeToWait > 0)
                 {
-                    _index = 0;
+                    _brain.CurrentWaypoint = waypoint;
+                    _brain.WaypointWaitTime = Time.time;
                 }
-                _agent.SetDestination(_brain.NormalWaypointsHolder.GetChild(_index).position);
+                else if (_brain.NormalWaypointsHolder.childCount > 0)
+                {
+                    _index++;
+                    if (_index >= _brain.NormalWaypointsHolder.childCount)
+                    {
+                        _index = 0;
+                    }
 
-                _index++;
+                    _agent.SetDestination(_brain.NormalWaypointsHolder.GetChild(_index).position);
+                }
+            }
+        }
+        else
+        {
+            if (_brain.WaypointWaitTime + _brain.CurrentWaypoint.TimeToWait <= Time.time)
+            {
+                _brain.CurrentWaypoint = null;
+                if (_brain.NormalWaypointsHolder.childCount > 0)
+                {
+                    _index++;
+                    if (_index >= _brain.NormalWaypointsHolder.childCount)
+                    {
+                        _index = 0;
+                    }
+
+                    _agent.SetDestination(_brain.NormalWaypointsHolder.GetChild(_index).position);
+                }
+                return;
+            }
+
+            if (_brain.CurrentWaypoint.ApplyRotation)
+            {
+                float angle = Quaternion.Angle(animator.transform.rotation, _brain.CurrentWaypoint.transform.rotation);
+                if (angle <= _agent.angularSpeed * Time.deltaTime)
+                {
+                    animator.transform.rotation = _brain.InitialRotation;
+                }
+                else
+                {
+                    animator.transform.rotation = Quaternion.Slerp(animator.transform.rotation, _brain.CurrentWaypoint.transform.rotation, ((_agent.angularSpeed * Time.deltaTime) / angle));
+                }
             }
         }
     }

@@ -75,6 +75,10 @@ public class AIBrain : MonoBehaviour
     public Vector3 InitialPosition;
     [NonSerialized]
     public Quaternion InitialRotation;
+    [NonSerialized]
+    public Waypoint CurrentWaypoint;
+    [NonSerialized]
+    public float WaypointWaitTime;
 
     private void Awake()
     {
