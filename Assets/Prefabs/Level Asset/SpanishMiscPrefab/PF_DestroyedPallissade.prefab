@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 33366445120792326}
   - component: {fileID: 23568446197154608}
   - component: {fileID: 65575222617345654}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk3 (8)
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,9 +40,9 @@ GameObject:
   - component: {fileID: 33583453643325040}
   - component: {fileID: 23802795841226186}
   - component: {fileID: 65790857887474316}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk3 (9)
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,9 +58,9 @@ GameObject:
   - component: {fileID: 33501210036133028}
   - component: {fileID: 23891937842380670}
   - component: {fileID: 65106104888798528}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk3 (5)
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,9 +76,9 @@ GameObject:
   - component: {fileID: 33821866419368596}
   - component: {fileID: 23465002305596196}
   - component: {fileID: 65756124648347792}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk3 (1)
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,9 +94,9 @@ GameObject:
   - component: {fileID: 33125255316343624}
   - component: {fileID: 23383734514917308}
   - component: {fileID: 65512379974612460}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk3 (10)
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,9 +112,9 @@ GameObject:
   - component: {fileID: 33583264321320352}
   - component: {fileID: 23284416406312762}
   - component: {fileID: 65771410157662362}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk3 (3)
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,9 +130,9 @@ GameObject:
   - component: {fileID: 33917474476171526}
   - component: {fileID: 23800055160760788}
   - component: {fileID: 65233742223269994}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk3 (7)
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,9 +146,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4375665023865562}
   - component: {fileID: 65144342387110876}
-  m_Layer: 0
+  - component: {fileID: 208644223834764624}
+  m_Layer: 9
   m_Name: PF_DestroyedPallissade
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,9 +165,9 @@ GameObject:
   - component: {fileID: 33394689489684878}
   - component: {fileID: 23045809558718254}
   - component: {fileID: 65650418566157412}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk3 (6)
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182,9 +183,9 @@ GameObject:
   - component: {fileID: 33785288253284010}
   - component: {fileID: 23512980668871088}
   - component: {fileID: 65931417426138566}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk3 (2)
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,9 +201,9 @@ GameObject:
   - component: {fileID: 33761136532446516}
   - component: {fileID: 23020894394490004}
   - component: {fileID: 65163756836269902}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk3
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -912,3 +913,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 4, z: 0.54057145}
   m_Center: {x: 0, y: 2, z: -0.020285726}
+--- !u!208 &208644223834764624
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1796428216906504}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 33637732593082378}
   - component: {fileID: 23151825238878394}
   - component: {fileID: 65235123401710750}
-  m_Layer: 0
+  - component: {fileID: 208443180075905176}
+  m_Layer: 9
   m_Name: PF_SpanishMisc_PalisadeTrunk2
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,3 +97,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5383786, y: 4.4273252, z: 0.55819035}
   m_Center: {x: 0.019189298, y: 2.2136626, z: -0.008506775}
+--- !u!208 &208443180075905176
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1439551815335346}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.26900002, y: 2.214, z: 0.279}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.019000001, y: 2.214, z: -0.009000001}
+  m_TimeToStationary: 0.5
