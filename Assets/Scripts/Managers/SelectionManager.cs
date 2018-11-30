@@ -92,7 +92,7 @@ public class SelectionManager : MonoBehaviour {
                 IsSelecting = true;
                 if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, SelectableLayer))
                 {
-                    Unit unit = hit.transform.parent.GetComponent<Unit>();
+                    Unit unit = hit.transform.GetComponent<Unit>();
                     if (unit)
                     {
                         SelectedElements.Add(unit);
@@ -118,7 +118,7 @@ public class SelectionManager : MonoBehaviour {
             {
                 if (Physics.Raycast(pos, dir, out hit, Mathf.Infinity, SelectableLayer))
                 {
-                    Unit unit = hit.transform.parent.GetComponent<Unit>();
+                    Unit unit = hit.transform.GetComponent<Unit>();
                     if (unit)
                     {
                         newElements.Add(unit);

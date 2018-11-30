@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CursorManager : MonoBehaviour {
 
     public static CursorManager cursorManagerInst;
-    public SelectionManager selectionManager;
+    private SelectionManager _selection;
     public Vector3 cursorOffset;
 
  //   public GameObject movementCommandFeedback;
@@ -37,13 +37,18 @@ public class CursorManager : MonoBehaviour {
 
      //   ChangeCursor(CursorType.Default);
     }
+
+    void Start ()
+    {
+        _selection = SelectionManager.Instance;
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
       //  cursorImage.transform.position = Input.mousePosition + cursorOffset;
 
-        if(Input.GetMouseButtonDown(1) && selectionManager.SelectedElements.Count > 0)
+        if(Input.GetMouseButtonDown(1) && _selection.SelectedElements.Count > 0)
         {
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
