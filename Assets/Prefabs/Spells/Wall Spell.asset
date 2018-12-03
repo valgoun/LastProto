@@ -15,4 +15,4 @@ MonoBehaviour:
   Targets: 4
   CooldownDuration: 10
   WallPrefab: {fileID: 1039914043577508, guid: 622787c985246cf4886cbd340468fb74, type: 2}
-  Lifetime: 5
+  Lifetime: 15

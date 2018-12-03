@@ -7,15 +7,8 @@ public class CursorManager : MonoBehaviour {
 
     public static CursorManager cursorManagerInst;
     private SelectionManager _selection;
-    public Vector3 cursorOffset;
 
- //   public GameObject movementCommandFeedback;
-
-    public Canvas cursorCanvas;
-
-    public Image cursorImage;
-
-    public Sprite[] cursorSprites;
+    public Texture2D[] cursorTextures;
 
     public GameObject unitDestinationClickFX;
 
@@ -55,7 +48,7 @@ public class CursorManager : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Ground")))
             {
-                SpawnFX(unitDestinationClickFX, hit.point + new Vector3(0,0.1f,0));
+                SpawnFX(unitDestinationClickFX, hit.point + new Vector3(0,0.1f,0), 3f);
             }
                
         }
@@ -68,44 +61,40 @@ public class CursorManager : MonoBehaviour {
         {
 
             case CursorType.Default:
-                cursorImage.sprite = cursorSprites[0];
+                Cursor.SetCursor(cursorTextures[0], Vector2.zero, CursorMode.Auto);
                 break;
 
             case CursorType.Unit_Over:
-                cursorImage.sprite = cursorSprites[1];
+                Cursor.SetCursor(cursorTextures[1], Vector2.zero, CursorMode.Auto);
                 break;
 
             case CursorType.Spell_Rez:
-                Debug.Log("yolo");
+                Cursor.SetCursor(cursorTextures[2], Vector2.zero, CursorMode.Auto);
                 break;
 
             case CursorType.Spell_Wall:
-                Debug.Log("yolo");
+                Cursor.SetCursor(cursorTextures[3], Vector2.zero, CursorMode.Auto);
                 break;
 
             case CursorType.Spell_Explosion:
-                Debug.Log("yolo");
+                Cursor.SetCursor(cursorTextures[4], Vector2.zero, CursorMode.Auto);
                 break;
 
             default:
-                cursorImage.sprite = cursorSprites[0];
+                Cursor.SetCursor(cursorTextures[0], Vector2.zero, CursorMode.Auto);
                 break;
         }  
     }
 
     public void CursorGlow(bool b)
     {
-        if (b)
-            cursorImage.color = Color.green;
-        else
-            cursorImage.color = Color.white;
+        Debug.Log("CursorGlox");
     }
 
-    public void SpawnFX(GameObject fx_go , Vector3 pos)
-    {
-        
+    public void SpawnFX(GameObject fx_go , Vector3 pos, float lifetime)
+    {    
         var fxInst = Instantiate(fx_go);
         fxInst.transform.position = pos;
-        Destroy(fxInst, 3f);
+        Destroy(fxInst, lifetime);
     }
 }
