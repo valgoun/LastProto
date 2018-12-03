@@ -102,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1904628821296382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.98, y: 2, z: 11.78}
+  m_LocalPosition: {x: -34, y: 2, z: -58.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4958101351119634}
@@ -277,6 +277,7 @@ MonoBehaviour:
   Invincible: 0
   MyRenderer: {fileID: 0}
   MySelectable: {fileID: 0}
+  ModelAnimator: {fileID: 0}
   GhostMaterial: {fileID: 0}
 --- !u!135 &135858809271724124
 SphereCollider:
@@ -346,12 +347,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7771fc20676bf9549b9cca030294a0e0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8025ef0ee7e96194fadcdb57e38ad01a, type: 3}
   m_Color: {r: 0, g: 1, b: 0.1481998, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
