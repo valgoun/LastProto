@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33566478657121774}
   - component: {fileID: 23245301650173174}
   - component: {fileID: 65562072793096542}
+  - component: {fileID: 208685551052946424}
   m_Layer: 0
   m_Name: FB_SpanishMisc_Cart1
   m_TagString: Untagged
@@ -35,13 +36,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1207252562985664}
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -22, y: 1, z: -16}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.00000031686852, y: -0.7071068, z: 0.00000012361072, w: 0.70710677}
+  m_LocalPosition: {x: 3.441, y: 0.97, z: -4.5299997}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
 --- !u!23 &23245301650173174
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -96,3 +97,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 3, z: 4}
   m_Center: {x: 0, y: 1.441056, z: 0}
+--- !u!208 &208685551052946424
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207252562985664}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.765, y: 1.43, z: 1.84}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.4000001, z: 0}
+  m_TimeToStationary: 0.5
