@@ -17,7 +17,7 @@ public class Aztec : Unit {
     {
         if (_isInBush)
         {
-            if ((target.position - transform.position).magnitude <= JumpAttackRange)
+            if (!_navAgent.isStopped && (target.position - transform.position).magnitude <= JumpAttackRange)
             {
                 DoJumpAttack(target);
                 return true;
@@ -30,7 +30,10 @@ public class Aztec : Unit {
 
     private void DoJumpAttack(Transform target)
     {
-        transform.position = target.position;
-        Destroy(target.gameObject);
+        _navAgent.isStopped = true;
+        ModelAnimator.SetTrigger("JumpAttack");
+        AttackTarget = target;
+        _navAgent.ResetPath();
+        _targetToFollow = null;
     }
 }
