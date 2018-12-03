@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: 5ade84a42f71bc543aae68ef0f51cb74
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: ground_012_Forest/ground_012_Forest
+    400000: ground_012_Forest/ground_012_Forest/Transform
+    2100000: mat.ground_012
+    2100002: mat.ground_012_1
+    2300000: ground_012_Forest/ground_012_Forest/MeshRenderer
+    2800000: ground_012_diffuse
+    2800002: ground_012_normal
+    2800004: ground_012_1_diffuse
+    2800006: ground_012_1_normal
+    2800008: ground_012_specular
+    2800010: ground_012_bump
+    2800012: ground_012_displacement
+    2800014: ground_012_1_specular
+    2800016: ground_012_1_bump
+    2800018: ground_012_1_displacement
+    3300000: ground_012_Forest/ground_012_Forest/MeshFilter
+    11400000: sbsar
+    11400002: graph0
+    11400004: graph1
+    13500000: ground_012_Forest/ground_012_Forest/SphereCollider
+    100100000: ground_012_Forest
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 232528478, guid: 43a8bbf65be290d44ba52b94476242b9, type: 3}
+  version: 13
+  mGraphInstanceData:
+  - graphLabel: ground_012
+    prototypeName: ground_012
+    graphDescIndex: 0
+    generateAllOutputs: 1
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://ground_012/ground_012\" label=\"\" >\n  <presetinput
+      identifier=\"Depth\" uid=\"3357383045\" type=\"0\" value=\"-1\" />\n  <presetinput
+      identifier=\"Grass_Color_01\" uid=\"3082119731\" type=\"2\" value=\"0.533333,0.490196,0.45098\"
+      />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: 
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: specular
+      alphaSource: specular
+    - outputName: normal
+      alphaSource: normal
+    - outputName: bump
+      alphaSource: bump
+    - outputName: displacement
+      alphaSource: displacement
+    textureParameters:
+    - textureName: ground_012_diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: ground_012_specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: ground_012_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: ground_012_bump
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: ground_012_displacement
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: specular
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: bump
+      bLinear: 1
+    - outputName: displacement
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 256
+      textureHeight: 256
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100000, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+    generatedTextures:
+    - {fileID: 2800000, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+    - {fileID: 2800008, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+    - {fileID: 2800002, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+    - {fileID: 2800010, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+    - {fileID: 2800012, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+  - graphLabel: ground_012_1
+    prototypeName: ground_012
+    graphDescIndex: 0
+    generateAllOutputs: 1
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://ground_012/ground_012\" label=\"\" >\n  <presetinput
+      identifier=\"Leaves_1_Scale\" uid=\"3082212065\" type=\"4\" value=\"4\" />\n
+      \ <presetinput identifier=\"Leaves_2_Scale\" uid=\"3082212067\" type=\"4\" value=\"4\"
+      />\n  <presetinput identifier=\"Dirt\" uid=\"3082212092\" type=\"0\" value=\"0.486\"
+      />\n  <presetinput identifier=\"Grass_Color_01\" uid=\"3082119731\" type=\"2\"
+      value=\"0.533333,0.490196,0.45098\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: 
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: specular
+      alphaSource: specular
+    - outputName: normal
+      alphaSource: normal
+    - outputName: bump
+      alphaSource: bump
+    - outputName: displacement
+      alphaSource: displacement
+    textureParameters:
+    - textureName: ground_012_1_diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: ground_012_1_specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: ground_012_1_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: ground_012_1_bump
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: ground_012_1_displacement
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: specular
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: bump
+      bLinear: 1
+    - outputName: displacement
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 256
+      textureHeight: 256
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100002, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+    generatedTextures:
+    - {fileID: 2800004, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+    - {fileID: 2800014, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+    - {fileID: 2800006, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+    - {fileID: 2800016, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
+    - {fileID: 2800018, guid: 5ade84a42f71bc543aae68ef0f51cb74, type: 3}
