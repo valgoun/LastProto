@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 935ebe8d62d781e4ea96c6b00ff9ce6a
+guid: ba86b2060de1ee94997adcec04fff0a3
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -162,12 +162,12 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
