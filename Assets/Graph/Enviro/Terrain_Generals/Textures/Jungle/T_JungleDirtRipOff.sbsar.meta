@@ -186,16 +186,16 @@ ScriptedImporter:
       bGenerateOnLoad: 1
     material: {fileID: 2100000, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
     generatedTextures:
-    - {fileID: 2800024, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800038, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800000, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800002, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800040, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800036, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800004, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800006, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800042, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800048, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
   - graphLabel: Jungle Ground Roots
     prototypeName: Jungle Ground Roots
     graphDescIndex: 1
@@ -298,16 +298,16 @@ ScriptedImporter:
       bGenerateOnLoad: 1
     material: {fileID: 2100002, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
     generatedTextures:
-    - {fileID: 2800030, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800056, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800010, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800012, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800058, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800026, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800014, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800016, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800060, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800028, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
   - graphLabel: Jungle Ground Dirt_1
     prototypeName: Jungle Ground Dirt
     graphDescIndex: 0
@@ -418,16 +418,16 @@ ScriptedImporter:
       bGenerateOnLoad: 1
     material: {fileID: 2100004, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
     generatedTextures:
-    - {fileID: 2800062, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800044, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800046, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800068, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800076, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800050, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800052, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800054, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800078, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800080, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
   - graphLabel: Jungle Ground Dirt_2
     prototypeName: Jungle Ground Dirt
     graphDescIndex: 0
@@ -540,16 +540,16 @@ ScriptedImporter:
       bGenerateOnLoad: 1
     material: {fileID: 2100006, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
     generatedTextures:
-    - {fileID: 2800032, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800082, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800064, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800066, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800088, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800070, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800072, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800074, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800096, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800098, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
   - graphLabel: Jungle Ground Dirt_3
     prototypeName: Jungle Ground Dirt
     graphDescIndex: 0
@@ -664,13 +664,13 @@ ScriptedImporter:
       bGenerateOnLoad: 1
     material: {fileID: 2100008, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
     generatedTextures:
-    - {fileID: 2800034, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800100, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800084, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800086, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800102, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800090, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800092, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800094, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800104, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
-    - {fileID: 2800106, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
+    - {instanceID: 0}
