@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33984617599852070}
   - component: {fileID: 23671685927500388}
   - component: {fileID: 65302148645773720}
+  - component: {fileID: 208280353260279736}
   m_Layer: 0
   m_Name: PF_SpanishSet2_TentWallBack4m
   m_TagString: Untagged
@@ -96,3 +97,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.9372196, y: 3.5042362, z: 0.12963867}
   m_Center: {x: -2.0067868, y: 0.7968502, z: -4.086684}
+--- !u!208 &208280353260279736
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1810550718997896}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.9690001, y: 1.7520001, z: 0.065000005}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -2.0070002, y: 0.79700005, z: -4.0870004}
+  m_TimeToStationary: 0.5

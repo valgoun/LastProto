@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33744812560811758}
   - component: {fileID: 23453728898522586}
   - component: {fileID: 65519588651466648}
+  - component: {fileID: 208912957352584196}
   m_Layer: 0
   m_Name: PF_SpanishSet2_TentWallLeft3m
   m_TagString: Untagged
@@ -57,7 +58,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: c09c530398d2f824e939e7d065cb9dd4, type: 3}
+  - {fileID: 2100000, guid: 249b9b86e78a4534f891922ada3dda50, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,3 +97,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.016314626, y: 2.519013, z: 4.45245}
   m_Center: {x: -0.024226129, y: 1.2894616, z: -1.8762265}
+--- !u!208 &208912957352584196
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944944786741378}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.008, y: 1.2600001, z: 2.226}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.024, y: 1.289, z: -1.876}
+  m_TimeToStationary: 0.5
