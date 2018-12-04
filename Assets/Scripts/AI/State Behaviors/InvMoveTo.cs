@@ -27,7 +27,15 @@ public class InvMoveTo : StateMachineBehaviour
             return;
         }
 
-        _agent.SetDestination(_targetStimulus.Position);
+        _agent.stoppingDistance = _brain.NormalStoppingDistance;
+        if (_targetStimulus.Type == StimulusType.Transmission)
+        {
+            _agent.SetDestination(_targetStimulus.GetData<TransmissionData>().GetTrueStimulus().Position);
+        }
+        else
+        {
+            _agent.SetDestination(_targetStimulus.Position);
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -35,12 +43,21 @@ public class InvMoveTo : StateMachineBehaviour
     {
         _targetStimulus = _brain.BestStimulus;
 
-        if(_targetStimulus != null && Vector3.Distance(_agent.destination, _targetStimulus.Position) > 0.1f)
+        if (_targetStimulus != null)
         {
-            _agent.SetDestination(_targetStimulus.Position);
+            if (_targetStimulus.Type == StimulusType.Transmission)
+            {
+                var stimulus = _targetStimulus.GetData<TransmissionData>().GetTrueStimulus();
+                if (Vector3.Distance(_agent.destination, stimulus.Position) > 0.1f)
+                    _agent.SetDestination(stimulus.Position);
+            }
+            else if (Vector3.Distance(_agent.destination, _targetStimulus.Position) > 0.1f)
+            {
+                _agent.SetDestination(_targetStimulus.Position);
+            }
         }
 
-        if(!_agent.pathPending  && _agent.remainingDistance <= _agent.stoppingDistance)
+        if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
         {
             animator.SetTrigger("Wander");
         }

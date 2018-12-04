@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114257944214599148}
   - component: {fileID: 114356934204679454}
   - component: {fileID: 54383232044568536}
+  - component: {fileID: 114649679040784702}
   m_Layer: 0
   m_Name: Aztec
   m_TagString: Aztec
@@ -267,6 +268,18 @@ MonoBehaviour:
   MySelectable: {fileID: 1910934483600778}
   GhostMaterial: {fileID: 2100000, guid: ab50b7ab56cf51d46b1d23f7527aeed0, type: 2}
   JumpAttackRange: 7
+--- !u!114 &114649679040784702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234360217560950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d890aab1fd18f5f47a69b72d451bab05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visionRange: 10
 --- !u!135 &135419710549299528
 SphereCollider:
   m_ObjectHideFlags: 1

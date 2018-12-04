@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Wander : StateMachineBehaviour {
+public class Threat : StateMachineBehaviour
+{
 
     private AIBrain _brain;
     private NavMeshAgent _agent;
     private Stimulus _targetStimulus;
-    private Vector3 _wanderCenter;
 
-     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Debug.Log("Entering Threat");
         if (_brain == null)
         {
             _brain = animator.GetComponent<AIBrain>();
@@ -20,28 +21,35 @@ public class Wander : StateMachineBehaviour {
         }
 
         _targetStimulus = _brain.BestStimulus;
-        _wanderCenter = animator.transform.position;
 
-        var randomPos = Random.insideUnitSphere * _brain.WanderRadius;
-        randomPos.y = 0;
-        _agent.stoppingDistance = _brain.NormalStoppingDistance;
-        _agent.SetDestination(_wanderCenter + randomPos);
+        if (_targetStimulus == null)
+            return;
+
+        if (_targetStimulus.Type != StimulusType.Transmission)
+        {
+            _brain.CommunicateStimulus();
+            _agent.stoppingDistance = _brain.MinAimDistance;
+            _agent.SetDestination(_targetStimulus.Position);
+        }
+        else
+        {
+            _agent.stoppingDistance = _brain.MinAimDistance;
+            _agent.SetDestination(_targetStimulus.GetData<TransmissionData>().GetTrueStimulus().Position);
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(_brain.BestStimulus != null && _targetStimulus != _brain.BestStimulus)
-        {
-            animator.SetTrigger("MoveTo");
-            return;
-        }
+        _targetStimulus = _brain.BestStimulus;
 
-        if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
+        if (_targetStimulus != null)
         {
-            var randomPos = Random.insideUnitSphere * _brain.WanderRadius;
-            randomPos.y = 0;
-            _agent.SetDestination(_wanderCenter + randomPos);
+
+            if (_targetStimulus.Type != StimulusType.Transmission && Vector3.Distance(_agent.destination, _targetStimulus.Position) > 0.1f)
+                _agent.SetDestination(_targetStimulus.Position);
+            else if (_targetStimulus.Type == StimulusType.Transmission && Vector3.Distance(_agent.destination, _targetStimulus.GetData<TransmissionData>().GetTrueStimulus().Position) > 0.1f)
+                _agent.SetDestination(_targetStimulus.GetData<TransmissionData>().GetTrueStimulus().Position);
         }
     }
 

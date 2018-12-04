@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AiDummyObject : MonoBehaviour, IAiVisible
+public class AiDummyObject : MonoBehaviour, IAiFoe
 {
     public float StimuliLifetimeWhenSeen;
 

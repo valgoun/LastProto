@@ -41,7 +41,7 @@ public class CbtAim : StateMachineBehaviour {
         _timer += Time.deltaTime;
         if(_timer >= _brain.AimDuration)
         {
-            _brain.Shoot(_targetStimulus.Origin);
+            _brain.Shoot(_targetStimulus.GetData<EnemyData>().EnemyGameObject);
             animator.SetTrigger("Reload");
         }
     }
