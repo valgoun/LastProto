@@ -6,12 +6,10 @@ using UnityEngine.UI;
 public class CursorManager : MonoBehaviour {
 
     public static CursorManager cursorManagerInst;
-    private SelectionManager _selection;
-
+   
     public Texture2D[] cursorTextures;
 
-    public GameObject unitDestinationClickFX;
-
+  
     private bool _isCursorDefault = true;
 
 	// Use this for initialization
@@ -24,27 +22,10 @@ public class CursorManager : MonoBehaviour {
         ChangeCursor(0);
     }
 
-    void Start ()
-    {
-        _selection = SelectionManager.Instance;
-    }
-	
 	// Update is called once per frame
 	void Update ()
     {
-     // Fx de destination d'unité
-        if(Input.GetMouseButtonDown(1) && _selection.SelectedElements.Count > 0)
-        {
-
-            Ray rayDest = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitDest;
-            if (Physics.Raycast(rayDest, out hitDest, 1000, LayerMask.GetMask("Ground")))
-            {
-                SpawnFX(unitDestinationClickFX, hitDest.point + new Vector3(0,0.1f,0), 3f);
-            }
-               
-        }
-
+    
         // Targeting de spell
         if (!_isCursorDefault)
         {
@@ -75,13 +56,5 @@ public class CursorManager : MonoBehaviour {
 
         if(index != 0)
          _isCursorDefault = false;
-    }
-
-
-    public void SpawnFX(GameObject fx_go , Vector3 pos, float lifetime)
-    {    
-        var fxInst = Instantiate(fx_go);
-        fxInst.transform.position = pos;
-        Destroy(fxInst, lifetime);
     }
 }
