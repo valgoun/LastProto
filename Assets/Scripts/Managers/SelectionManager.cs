@@ -231,7 +231,7 @@ public class SelectionManager : MonoBehaviour {
         }
     }
 
-    private void CleanSelection()
+    public void CleanSelection()
     {
         foreach (var select in SelectedElements)
         {

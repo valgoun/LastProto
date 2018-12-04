@@ -52,8 +52,8 @@ public class SpellManager : MonoBehaviour {
             {
                 if (Input.GetMouseButtonDown(1))
                 {
-                    _selectedSpell = null;
                     _selectedSpell.StopCasting();
+                    _selectedSpell = null;
                 }
                 else
                 {

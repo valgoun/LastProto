@@ -38,6 +38,13 @@ public class TransformTargetSpell : Spell
             rot = Quaternion.identity;
         }
 
-        Instantiate(TransformInto, pos, rot);
+        GameObject testGhoul = Instantiate(TransformInto, pos, rot);
+        if (testGhoul.tag == "Aztec")
+        {
+            SelectionManager.Instance.CleanSelection();
+            Unit script = testGhoul.GetComponent<Unit>();
+            script.Select();
+            SelectionManager.Instance.SelectedElements.Add(script);
+        }
     }
 }
