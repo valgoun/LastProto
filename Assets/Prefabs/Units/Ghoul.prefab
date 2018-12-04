@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 114356934204679454}
   - component: {fileID: 54383232044568536}
   m_Layer: 0
-  m_Name: Aztec
+  m_Name: Ghoul
   m_TagString: Aztec
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

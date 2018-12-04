@@ -24,6 +24,10 @@ public class TransformTargetSpell : Spell
         Quaternion rot;
         if (target)
         {
+            if (target.tag == "Corpse")
+            {
+                target = target.transform.parent.gameObject;
+            }
             pos = target.transform.position;
             rot = target.transform.rotation;
             Destroy(target);

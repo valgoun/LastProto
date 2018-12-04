@@ -37,7 +37,7 @@ public class SelectionManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        Shortcuts();
+        //Shortcuts();
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -53,30 +53,6 @@ public class SelectionManager : MonoBehaviour {
             Selecting(Camera.main);
         }
 	}
-
-    /*void FireSingleSelection(Camera cam)
-    {
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
-            if (SelectedElement)
-                SelectedElement.UnSelect();
-
-            Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.nearClipPlane);
-            RaycastHit hit;
-            if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, SelectableLayer))
-            {
-                Unit unit = hit.transform.parent.GetComponent<Unit>();
-                if (unit)
-                {
-                    SelectedElement = unit;
-                    SelectedElement.Select();
-                    return;
-                }
-            }
-
-            SelectedElement = null;
-        }
-    }*/
 
     private void StartSelection(Camera cam)
     {
@@ -193,47 +169,64 @@ public class SelectionManager : MonoBehaviour {
 
     private void Shortcuts ()
     {
-        if (Input.GetButtonDown("Selection Shaman") && Shaman)
+        if (Input.GetButtonDown("Selection Shaman"))
+        {
+            SelectShaman();
+        }
+        else if (Input.GetButtonDown("Selection Aztec 01"))
+        {
+            SelectGhoul(0);
+        }
+        else if (Input.GetButtonDown("Selection Aztec 02"))
+        {
+            SelectGhoul(1);
+        }
+        else if (Input.GetButtonDown("Selection Aztec 03"))
+        {
+            SelectGhoul(2);
+        }
+        else if (Input.GetButtonDown("Selection All"))
+        {
+            SelectAll();
+        }
+    }
+
+    public void SelectShaman ()
+    {
+        if (Shaman)
         {
             CleanSelection();
             SelectedElements.Add(Shaman);
             Shaman.Select();
         }
-        else if (Input.GetButtonDown("Selection Aztec 01") && Aztecs[0])
-        {
-            CleanSelection();
-            SelectedElements.Add(Aztecs[0]);
-            Aztecs[0].Select();
-        }
-        else if (Input.GetButtonDown("Selection Aztec 02") && Aztecs[1])
-        {
-            CleanSelection();
-            SelectedElements.Add(Aztecs[1]);
-            Aztecs[1].Select();
-        }
-        else if (Input.GetButtonDown("Selection Aztec 03") && Aztecs[2])
-        {
-            CleanSelection();
-            SelectedElements.Add(Aztecs[2]);
-            Aztecs[2].Select();
-        }
-        else if (Input.GetButtonDown("Selection All"))
-        {
-            CleanSelection();
+    }
 
-            if (Shaman)
-            {
-                SelectedElements.Add(Shaman);
-                Shaman.Select();
-            }
+    public void SelectGhoul (int index)
+    {
+        if (Aztecs[index])
+        {
+            CleanSelection();
+            SelectedElements.Add(Aztecs[index]);
+            Aztecs[index].Select();
+        }
+    }
 
-            foreach(Unit unit in Aztecs)
+    public void SelectAll ()
+    {
+        CleanSelection();
+
+        if (Shaman)
+        {
+            SelectedElements.Add(Shaman);
+            Shaman.Select();
+        }
+
+        foreach (Unit unit in Aztecs)
+        {
+            if (unit)
             {
-                if (unit)
-                {
-                    SelectedElements.Add(unit);
-                    unit.Select();
-                }
+                SelectedElements.Add(unit);
+                unit.Select();
             }
         }
     }

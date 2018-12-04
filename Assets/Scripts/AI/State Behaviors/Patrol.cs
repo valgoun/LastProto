@@ -75,7 +75,7 @@ public class Patrol : StateMachineBehaviour
                 float angle = Quaternion.Angle(animator.transform.rotation, _brain.CurrentWaypoint.transform.rotation);
                 if (angle <= _agent.angularSpeed * Time.deltaTime)
                 {
-                    animator.transform.rotation = _brain.InitialRotation;
+                    animator.transform.rotation = _brain.CurrentWaypoint.transform.rotation;
                 }
                 else
                 {
