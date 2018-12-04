@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Sirenix.OdinInspector;
 
-public class AIBrain : MonoBehaviour
+public class AIBrain : MonoBehaviour, IAiFriend
 {
     [TabGroup("General")]
     public float ProcessRadius;
@@ -46,6 +46,9 @@ public class AIBrain : MonoBehaviour
     [TabGroup("Normal"), ShowIf("CheckNormalPatrol"), Space]
     public Transform NormalWaypointsHolder;
 
+    [TabGroup("Communication")]
+    public float StimulusTime;
+
     //Odin Property
     private bool CheckNormalWander { get { return (NormalBehaviour == NormalState.Wander || NormalBehaviour == NormalState.WanderGuard); } }
     private bool CheckNormalPatrol { get { return NormalBehaviour == NormalState.Patrol; } }
@@ -57,6 +60,12 @@ public class AIBrain : MonoBehaviour
     public float AlertLevel => _alertLevel;
     public NavMeshAgent Agent => _agent;
     public bool Reloaded => _reloaded;
+    public TransmissionData Data => _communicationData;
+    public Vector3 Position => _transform.position;
+    public Transform Transform => _transform;
+    public GameObject GameObject => gameObject;
+    public float StimuliLifetime => StimulusTime;
+    public float NormalStoppingDistance => _normalStoppingDistance;
 
     private NavMeshAgent _agent;
     private Stimulus _bestStimulus;
@@ -70,6 +79,8 @@ public class AIBrain : MonoBehaviour
     private bool _isReloading = false;
     private Transform _transform;
     private float _timeSinceLastStimulus;
+    private TransmissionData _communicationData;
+    private float _normalStoppingDistance;
 
     [NonSerialized]
     public Vector3 InitialPosition;
@@ -87,6 +98,7 @@ public class AIBrain : MonoBehaviour
         _subStates = GetComponent<Animator>();
         _transform = transform;
         _brainStates = _transform.GetChild(0).GetComponent<Animator>();
+        _normalStoppingDistance = _agent.stoppingDistance;
         InitialPosition = transform.position;
         InitialRotation = transform.rotation;
     }
@@ -114,7 +126,7 @@ public class AIBrain : MonoBehaviour
             var component = element.GetComponent<IAiVisible>();
             component = component ?? element.GetComponentInParent<IAiVisible>();
             component = component ?? element.GetComponentInChildren<IAiVisible>();
-            if (component != null && !_processedElements.Contains(component))
+            if (component != null && component != this  && !_processedElements.Contains(component))
                 _processedElements.Add(component);
         }
     }
@@ -157,6 +169,8 @@ public class AIBrain : MonoBehaviour
         foreach (var stimulus in _stimuli)
         {
             stimulus.TimeLeft -= deltaTime;
+            if (stimulus.Type == StimulusType.SightEnemy && stimulus.GetData<EnemyData>().EnemyGameObject == null)
+                stimulus.TimeLeft = 0.0f;
         }
 
         _stimuli.RemoveAll(x => x.TimeLeft <= 0.0f);
@@ -178,6 +192,9 @@ public class AIBrain : MonoBehaviour
                     break;
                 case StimulusType.SightSpell:
                     col = Color.blue;
+                    break;
+                case StimulusType.Transmission:
+                    col = Color.green;
                     break;
             }
             Gizmos.color = col;
@@ -225,5 +242,24 @@ public class AIBrain : MonoBehaviour
         yield return new WaitForSeconds(ReloadDuration);
         _isReloading = false;
         _reloaded = true;
+    }
+
+    public void CommunicateStimulus()
+    {
+        if (_bestStimulus == null)
+            return;
+        _communicationData = new TransmissionData
+        {
+            TransmittedStimulus = _bestStimulus,
+            Emitter = this
+        };
+        StartCoroutine(CutCommunication());
+    }
+
+    IEnumerator CutCommunication()
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        _communicationData = null;
     }
 }
