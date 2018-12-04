@@ -24,6 +24,7 @@ public class Wander : StateMachineBehaviour {
 
         var randomPos = Random.insideUnitSphere * _brain.WanderRadius;
         randomPos.y = 0;
+        _agent.stoppingDistance = _brain.NormalStoppingDistance;
         _agent.SetDestination(_wanderCenter + randomPos);
     }
 

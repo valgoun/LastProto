@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,8 +15,12 @@ public class VisionSensor : Sensor
         var forward = brain.transform.forward;
         var position = brain.transform.position;
         var dotLimit = Mathf.Cos(Mathf.Deg2Rad * VisionAngle * 0.5f);
-        int activeStimulus = 0;
-        foreach (var candidat in brain.ProcessedElements)
+        int activeStimuli = 0;
+
+        var EnemyStimuli = stimuli.Where(x => x.Type == StimulusType.SightEnemy);
+        var candidats = brain.ProcessedElements.Where(x => x is IAiFoe).Select(x => x as IAiFoe);
+
+        foreach (var candidat in candidats)
         {
             if (!candidat.IsVisible)
                 continue;
@@ -37,11 +42,15 @@ public class VisionSensor : Sensor
                     element = element ?? hit.collider.GetComponentInChildren<IAiVisible>();
                     if (element != null && element == candidat)
                     {
-                        activeStimulus++;
-                        var stimulus = stimuli.Find(x => x.Origin == candidat.GameObject);
+                        activeStimuli++;
+                        var stimulus = EnemyStimuli.Where(x => x.GetData<EnemyData>().EnemyGameObject == candidat.GameObject).FirstOrDefault();
                         if (stimulus == null)
                         {
-                            stimulus = new Stimulus { Origin = candidat.GameObject, Type = StimulusType.SightEnemy };
+                            stimulus = new Stimulus
+                            {
+                                Type = StimulusType.SightEnemy,
+                                Data = new EnemyData { EnemyGameObject = candidat.GameObject }
+                            };
                             stimuli.Add(stimulus);
                         }
                         stimulus.Position = candidat.Position;
@@ -52,13 +61,13 @@ public class VisionSensor : Sensor
             }
         }
 
-        return activeStimulus;
+        return activeStimuli;
     }
 
     public override void OnGizmos(Transform transform)
     {
         Gizmos.color = Color.green;
-        
+
         Vector3 pos = transform.position;
         Vector3 fw = pos + transform.forward * VisionDistance;
         Vector3 p1 = pos + Quaternion.AngleAxis(VisionAngle * 0.5f, transform.up) * transform.forward * VisionDistance;

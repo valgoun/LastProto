@@ -92,7 +92,7 @@ MonoBehaviour:
       Entry: 7
       Data: 0|UnityEngine.Experimental.Rendering.SerializedDictionary`2[[NormalState,
         Assembly-CSharp],[UnityEngine.RuntimeAnimatorController, UnityEngine.AnimationModule]],
-        com.unity.render-pipelines.core.Runtime
+        Unity.RenderPipelines.Core.Runtime
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[NormalState, Assembly-CSharp]],
@@ -184,7 +184,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: Alert
-    m_EventTreshold: 0.5
+    m_EventTreshold: 0.8
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102473955460853724}
   m_Solo: 0
@@ -256,7 +256,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: Alert
-    m_EventTreshold: 0.5
+    m_EventTreshold: 0.8
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102306157599062112}
   m_Solo: 0

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33075435353244960}
   - component: {fileID: 23488101333426406}
   - component: {fileID: 65215671718563448}
+  - component: {fileID: 208886959435888300}
   m_Layer: 0
   m_Name: PF_SpanishMisc_BraseroTripod
   m_TagString: Untagged
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1976116819531406}
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -109.037834, y: 1, z: 113.71573}
+  m_LocalPosition: {x: -38.437134, y: 1, z: 8.0277405}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -96,3 +97,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.92213964, y: 2.9899719, z: 0.9056363}
   m_Center: {x: 0.08756626, y: 1.4949859, z: -0.023096561}
+--- !u!208 &208886959435888300
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1976116819531406}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.46100003, y: 1.4950001, z: 0.453}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.08800001, y: 1.4950001, z: -0.023000002}
+  m_TimeToStationary: 0.5
