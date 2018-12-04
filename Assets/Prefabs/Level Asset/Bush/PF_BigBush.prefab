@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114201189405612030}
   - component: {fileID: 64880853510171702}
   - component: {fileID: 54789076409083304}
+  - component: {fileID: 114138937461596318}
   m_Layer: 12
   m_Name: PF_BigBush
   m_TagString: Untagged
@@ -115,6 +116,17 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 0}
+--- !u!114 &114138937461596318
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1085519410054740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3947780df61b1241a1eae28ce88f3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114201189405612030
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -23,7 +23,7 @@ public class Guard : StateMachineBehaviour {
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-        if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
+        if (_agent && !_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
         {
             float angle = Quaternion.Angle(_transform.rotation, _brain.InitialRotation);
             if (angle <= _agent.angularSpeed * Time.deltaTime)

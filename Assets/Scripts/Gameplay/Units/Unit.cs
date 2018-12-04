@@ -18,21 +18,25 @@ public class Unit : MonoBehaviour, IAiFoe
     [Header("References")]
     public MeshRenderer MyRenderer;
     public GameObject MySelectable;
+    public Animator ModelAnimator;
 
     [Header("Assets")]
     public Material GhostMaterial;
 
     [NonSerialized]
     public bool Selected;
+    [NonSerialized]
+    public Transform AttackTarget;
+    [NonSerialized]
+    public Transform _targetToFollow;
 
-    private NavMeshAgent _navAgent;
-    private Transform _targetToFollow;
     private Transform _transform;
     private int _squadNumber;
     private int _squadSize;
     private bool _isGhost;
 
     protected bool _isInBush;
+    protected NavMeshAgent _navAgent;
 
     public Vector3 Position => _transform.position;
     public Transform Transform => _transform;
@@ -95,7 +99,7 @@ public class Unit : MonoBehaviour, IAiFoe
 
     protected virtual bool AttackDecision (Transform target)
     {
-        if ((target.position - transform.position).magnitude <= AttackRange)
+        if (!_navAgent.isStopped && (target.position - transform.position).magnitude <= AttackRange)
         {
             DoBasicAttack(target);
             return true;
@@ -106,7 +110,11 @@ public class Unit : MonoBehaviour, IAiFoe
 
     protected void DoBasicAttack (Transform target)
     {
-        Destroy(target.gameObject);
+        AttackTarget = target;
+        _navAgent.isStopped = true;
+        ModelAnimator.SetTrigger("BasicAttack");
+        _navAgent.ResetPath();
+        _targetToFollow = null;
     }
 
     public void ChangeIntoGhost ()
@@ -121,7 +129,13 @@ public class Unit : MonoBehaviour, IAiFoe
     public void Killed ()
     {
         if (!Invincible)
-            Destroy(gameObject);
+        {
+            ModelAnimator.SetTrigger("Dead");
+            tag = "Untagged";
+            MySelectable.tag = "Untagged";
+            _navAgent.isStopped = true;
+            Destroy(this);
+        }
     }
 
     public void EnterBush()

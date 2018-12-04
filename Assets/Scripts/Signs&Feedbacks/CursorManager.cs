@@ -7,35 +7,21 @@ public class CursorManager : MonoBehaviour {
 
     public static CursorManager cursorManagerInst;
     private SelectionManager _selection;
-    public Vector3 cursorOffset;
 
- //   public GameObject movementCommandFeedback;
-
-    public Canvas cursorCanvas;
-
-    public Image cursorImage;
-
-    public Sprite[] cursorSprites;
+    public Texture2D[] cursorTextures;
 
     public GameObject unitDestinationClickFX;
 
-   public enum CursorType
-    {
-        Default,
-        Unit_Over,
-        Spell_Rez,
-        Spell_Wall,
-        Spell_Explosion
-    } 
+    private bool _isCursorDefault = true;
 
 	// Use this for initialization
 	void Awake ()
     {
         cursorManagerInst = this;
-      
-     //   Cursor.visible = false;
 
-     //   ChangeCursor(CursorType.Default);
+        //   Cursor.visible = false;
+
+        ChangeCursor(0);
     }
 
     void Start ()
@@ -46,66 +32,56 @@ public class CursorManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-      //  cursorImage.transform.position = Input.mousePosition + cursorOffset;
-
+     // Fx de destination d'unité
         if(Input.GetMouseButtonDown(1) && _selection.SelectedElements.Count > 0)
         {
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Ground")))
+            Ray rayDest = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitDest;
+            if (Physics.Raycast(rayDest, out hitDest, 1000, LayerMask.GetMask("Ground")))
             {
-                SpawnFX(unitDestinationClickFX, hit.point + new Vector3(0,0.1f,0));
+                SpawnFX(unitDestinationClickFX, hitDest.point + new Vector3(0,0.1f,0), 3f);
             }
                
+        }
+
+        // Targeting de spell
+        if (!_isCursorDefault)
+        {
+            if (Input.GetMouseButton(0) || Input.GetMouseButtonDown(1))
+            {
+                Cursor.SetCursor(cursorTextures[0], Vector2.zero, CursorMode.Auto);
+            }
+        }
+
+        // Highlight quand le curseur est sur un élement cliquable
+
+        Ray rayHL = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitHL;
+        if (Physics.Raycast(rayHL, out hitHL, 1000, LayerMask.GetMask("Selection")) && _isCursorDefault)
+        {
+            Cursor.SetCursor(cursorTextures[5], Vector2.zero, CursorMode.Auto);
+        }
+        else if(_isCursorDefault)
+        {
+            Cursor.SetCursor(cursorTextures[0], Vector2.zero, CursorMode.Auto);
         }
     }
 
 
-    public void ChangeCursor(CursorType type)
-    {
-        switch(type)
-        {
+    public void ChangeCursor(int index)
+    {        
+      Cursor.SetCursor(cursorTextures[index], Vector2.zero, CursorMode.Auto);
 
-            case CursorType.Default:
-                cursorImage.sprite = cursorSprites[0];
-                break;
-
-            case CursorType.Unit_Over:
-                cursorImage.sprite = cursorSprites[1];
-                break;
-
-            case CursorType.Spell_Rez:
-                Debug.Log("yolo");
-                break;
-
-            case CursorType.Spell_Wall:
-                Debug.Log("yolo");
-                break;
-
-            case CursorType.Spell_Explosion:
-                Debug.Log("yolo");
-                break;
-
-            default:
-                cursorImage.sprite = cursorSprites[0];
-                break;
-        }  
+        if(index != 0)
+         _isCursorDefault = false;
     }
 
-    public void CursorGlow(bool b)
-    {
-        if (b)
-            cursorImage.color = Color.green;
-        else
-            cursorImage.color = Color.white;
-    }
 
-    public void SpawnFX(GameObject fx_go , Vector3 pos)
-    {
-        
+    public void SpawnFX(GameObject fx_go , Vector3 pos, float lifetime)
+    {    
         var fxInst = Instantiate(fx_go);
         fxInst.transform.position = pos;
-        Destroy(fxInst, 3f);
+        Destroy(fxInst, lifetime);
     }
 }

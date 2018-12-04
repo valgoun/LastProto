@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114671192268738966}
   - component: {fileID: 64609135966995424}
   - component: {fileID: 54999136140006174}
+  - component: {fileID: 114921647801668528}
   m_Layer: 13
   m_Name: PF_SmallBush
   m_TagString: Untagged
@@ -1092,3 +1093,14 @@ MonoBehaviour:
   - x: 79
     y: 77
   m_selectedTriangles: 4700000048000000490000003b0000003c0000003d0000004100000042000000430000002f0000003000000031000000350000003600000037000000290000002a0000002b0000002300000024000000250000004d0000004e0000004f000000
+--- !u!114 &114921647801668528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004183620104886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3947780df61b1241a1eae28ce88f3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

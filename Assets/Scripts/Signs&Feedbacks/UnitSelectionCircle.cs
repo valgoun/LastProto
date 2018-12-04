@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Unit))]
 public class UnitSelectionCircle : MonoBehaviour {
 
     private Unit _unitScript;
@@ -20,10 +19,10 @@ public class UnitSelectionCircle : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-		if(_unitScript.Selected && !selectionCircleSprite.enabled)
+		if(_unitScript && _unitScript.Selected && !selectionCircleSprite.enabled)
             selectionCircleSprite.enabled = true;
 
-        if (!_unitScript.Selected && selectionCircleSprite.enabled)
+        if ((!_unitScript || !_unitScript.Selected) && selectionCircleSprite.enabled)
             selectionCircleSprite.enabled = false;
 
 

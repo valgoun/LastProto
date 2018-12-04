@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1492149483}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.05409084, g: 0.052477274, b: 0.07182664, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3911,10 +3911,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed25992e97dd4c840b3efd7ae7aaaf9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorOffset: {x: 0, y: 0, z: 0}
-  cursorCanvas: {fileID: 0}
-  cursorImage: {fileID: 0}
-  cursorSprites: []
+  cursorTextures:
+  - {fileID: 2800000, guid: a253c97adfb6e8046917f80250b65aff, type: 3}
+  - {fileID: 2800000, guid: a86ffc2c51ff05e4ebaa19700f3cb5a2, type: 3}
+  - {fileID: 2800000, guid: 68bf89fd697cf954b963f82d9621958d, type: 3}
+  - {fileID: 2800000, guid: ab9e515a273b1c34b96dbb0875e34851, type: 3}
+  - {fileID: 2800000, guid: 41f0f0ec0d87f6446851bdba7bb8c474, type: 3}
+  - {fileID: 2800000, guid: ffdfecb21786d734bbc6b32296b53c2a, type: 3}
   unitDestinationClickFX: {fileID: 1817622506259790, guid: fa43a865b386bcb4186bf2d707e8bc19,
     type: 2}
 --- !u!1 &1006136519
@@ -3954,6 +3957,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1043680462 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1234360217560950, guid: 053279678b3191347b394fcc8d20ce37,
+    type: 2}
+  m_PrefabInternal: {fileID: 1998190221}
+--- !u!114 &1043680463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1043680462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d890aab1fd18f5f47a69b72d451bab05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visionRange: 8
 --- !u!1 &1100993629
 GameObject:
   m_ObjectHideFlags: 0
