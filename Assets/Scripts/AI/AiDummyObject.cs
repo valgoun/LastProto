@@ -17,5 +17,11 @@ public class AiDummyObject : MonoBehaviour, IAiFoe
     private void Awake()
     {
         _transform = transform;
+        AIManager.Instance.AddElement(this);
+    }
+
+    private void OnDestroy()
+    {
+        AIManager.Instance.RemoveElement(this);
     }
 }

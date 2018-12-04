@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Sirenix.OdinInspector;
+using Unity.Collections;
 
 public class AIBrain : MonoBehaviour, IAiFriend
 {
@@ -71,6 +72,7 @@ public class AIBrain : MonoBehaviour, IAiFriend
     private Stimulus _bestStimulus;
     private List<Stimulus> _stimuli = new List<Stimulus>();
     private List<IAiVisible> _processedElements = new List<IAiVisible>();
+    private NativeArray<int> _processedIndices;
     private List<ISensor> _sensors = new List<ISensor>();
     private float _alertLevel;
     private Animator _brainStates;
@@ -81,6 +83,7 @@ public class AIBrain : MonoBehaviour, IAiFriend
     private float _timeSinceLastStimulus;
     private TransmissionData _communicationData;
     private float _normalStoppingDistance;
+    private AIManager _aiManager;
 
     [NonSerialized]
     public Vector3 InitialPosition;
@@ -101,6 +104,12 @@ public class AIBrain : MonoBehaviour, IAiFriend
         _normalStoppingDistance = _agent.stoppingDistance;
         InitialPosition = transform.position;
         InitialRotation = transform.rotation;
+        _aiManager = AIManager.Instance;
+    }
+
+    private void Start()
+    {
+        _aiManager.AddAI(this);
     }
 
     private void Update()
@@ -116,19 +125,38 @@ public class AIBrain : MonoBehaviour, IAiFriend
         _brainStates.SetFloat("Alert", _alertLevel);
     }
 
+    private void OnDestroy()
+    {
+        _aiManager.RemoveAI(this);
+
+        if (_processedIndices.IsCreated)
+            _processedIndices.Dispose();
+    }
+
     private void UpdateElements()
     {
         _processedElements.Clear();
-        var candidates = Physics.OverlapSphere(_transform.position, ProcessRadius);
 
-        foreach (var element in candidates)
+        if (_processedIndices.IsCreated)
         {
-            var component = element.GetComponent<IAiVisible>();
-            component = component ?? element.GetComponentInParent<IAiVisible>();
-            component = component ?? element.GetComponentInChildren<IAiVisible>();
-            if (component != null && component != this  && !_processedElements.Contains(component))
-                _processedElements.Add(component);
+            for (int i = 0; i < _processedIndices.Length; i++)
+            {
+                var element = _aiManager.ProcessedElements[_processedIndices[i]];
+                if (element != (this as IAiVisible))
+                    _processedElements.Add(element);
+            }
         }
+
+        //var candidates = Physics.OverlapSphere(_transform.position, ProcessRadius);
+
+        //foreach (var element in candidates)
+        //{
+        //    var component = element.GetComponent<IAiVisible>();
+        //    component = component ?? element.GetComponentInParent<IAiVisible>();
+        //    component = component ?? element.GetComponentInChildren<IAiVisible>();
+        //    if (component != null && component != this  && !_processedElements.Contains(component))
+        //        _processedElements.Add(component);
+        //}
     }
 
     private void SelectBestStimulus()
@@ -182,7 +210,7 @@ public class AIBrain : MonoBehaviour, IAiFriend
         {
             sensor.OnGizmos(transform);
         }
-        foreach(var stimulus in _stimuli)
+        foreach (var stimulus in _stimuli)
         {
             Color col = Color.white;
             switch (stimulus.Type)
@@ -202,6 +230,13 @@ public class AIBrain : MonoBehaviour, IAiFriend
         }
     }
 
+    public void SetProcessedIndices(NativeList<int> indices)
+    {
+        if (_processedIndices.IsCreated)
+            _processedIndices.Dispose();
+        _processedIndices = new NativeArray<int>(indices, Allocator.Temp);
+        indices.Dispose();
+    }
 
     public void Shoot(GameObject Target)
     {
@@ -262,4 +297,5 @@ public class AIBrain : MonoBehaviour, IAiFriend
         yield return new WaitForEndOfFrame();
         _communicationData = null;
     }
+
 }
