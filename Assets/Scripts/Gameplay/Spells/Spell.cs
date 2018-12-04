@@ -23,4 +23,9 @@ public abstract class Spell : ScriptableObject {
     }
 
     protected abstract void SpellEffect(GameObject target, Vector3 position);
+
+    public virtual bool GetAvailable ()
+    {
+        return (CurrentCooldown <= Time.time);
+    }
 }

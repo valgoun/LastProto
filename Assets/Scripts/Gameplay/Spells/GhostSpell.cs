@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Ghost Spell", menuName = "Spell/Invisibility", order = 24)]
+[CreateAssetMenu(fileName = "Ghost Spell", menuName = "Spell/Invisibility")]
 public class GhostSpell : Spell
 {
     [Header("Ghost Spell")]

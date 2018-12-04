@@ -10,12 +10,6 @@ public class AIBrain : MonoBehaviour, IAiFriend
 {
     [TabGroup("General")]
     public float ProcessRadius;
-    [TabGroup("General")]
-    public float AlertLevelIncreaseRate;
-    [TabGroup("General")]
-    public float AlertLevelDecreaseRate;
-    [TabGroup("General")]
-    public float AlertTimeBeforeDecrease;
 
     [TabGroup("Investigation")]
     public float WanderRadius;
@@ -32,7 +26,6 @@ public class AIBrain : MonoBehaviour, IAiFriend
     public float ReloadDuration;
     [TabGroup("Combat")]
     public float ShootAngle;
-
 
     [TabGroup("Combat")]
     public float ShootProbality;
@@ -90,6 +83,8 @@ public class AIBrain : MonoBehaviour, IAiFriend
     public Waypoint CurrentWaypoint;
     [NonSerialized]
     public float WaypointWaitTime;
+    [NonSerialized]
+    public AIState CurrentState;
 
     private void Awake()
     {
@@ -109,7 +104,8 @@ public class AIBrain : MonoBehaviour, IAiFriend
 
         UpdateStimuli();
 
-        UpdateSensorsAndAlertLevel();
+        if(CurrentState)
+            UpdateSensorsAndAlertLevel();
 
         SelectBestStimulus();
 
@@ -150,14 +146,14 @@ public class AIBrain : MonoBehaviour, IAiFriend
 
         if (newStimuli > 0)
         {
-            _alertLevel += Time.deltaTime * AlertLevelIncreaseRate;
+            _alertLevel += Time.deltaTime * CurrentState.AlertLevelIncreaseRate;
             _timeSinceLastStimulus = 0.0f;
         }
         else
         {
             _timeSinceLastStimulus += Time.deltaTime;
-            if (_timeSinceLastStimulus > AlertTimeBeforeDecrease)
-                _alertLevel -= Time.deltaTime * AlertLevelDecreaseRate;
+            if (_timeSinceLastStimulus > CurrentState.AlertTimeBeforeDecrease)
+                _alertLevel -= Time.deltaTime * CurrentState.AlertLevelDecreaseRate;
         }
         _alertLevel = Mathf.Clamp01(_alertLevel);
     }
