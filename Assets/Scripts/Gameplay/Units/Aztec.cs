@@ -6,6 +6,7 @@ public class Aztec : Unit {
 
     [Header("Aztec Tweaking")]
     public float JumpAttackRange;
+    public LayerMask JumpAttackLineOfSight;
 
     protected override void Start()
     {
@@ -19,8 +20,15 @@ public class Aztec : Unit {
         {
             if (!_navAgent.isStopped && (target.position - transform.position).magnitude <= JumpAttackRange)
             {
-                DoJumpAttack(target);
-                return true;
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, target.position - transform.position, out hit, (target.position - transform.position).magnitude, JumpAttackLineOfSight))
+                {
+                    if (hit.transform.gameObject == target.gameObject)
+                    {
+                        DoJumpAttack(target);
+                        return true;
+                    }
+                }
             }
             return false;
         }

@@ -2006,6 +2006,9 @@ MonoBehaviour:
   ModelAnimator: {fileID: 95114936327510096}
   GhostMaterial: {fileID: 2100000, guid: ab50b7ab56cf51d46b1d23f7527aeed0, type: 2}
   JumpAttackRange: 15
+  JumpAttackLineOfSight:
+    serializedVersion: 2
+    m_Bits: 1537
 --- !u!135 &135419710549299528
 SphereCollider:
   m_ObjectHideFlags: 1

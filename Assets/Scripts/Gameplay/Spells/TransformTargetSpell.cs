@@ -24,6 +24,10 @@ public class TransformTargetSpell : Spell
         Quaternion rot;
         if (target)
         {
+            if (target.tag == "Corpse")
+            {
+                target = target.transform.parent.gameObject;
+            }
             pos = target.transform.position;
             rot = target.transform.rotation;
             Destroy(target);
@@ -34,6 +38,13 @@ public class TransformTargetSpell : Spell
             rot = Quaternion.identity;
         }
 
-        Instantiate(TransformInto, pos, rot);
+        GameObject testGhoul = Instantiate(TransformInto, pos, rot);
+        if (testGhoul.tag == "Aztec")
+        {
+            SelectionManager.Instance.CleanSelection();
+            Unit script = testGhoul.GetComponent<Unit>();
+            script.Select();
+            SelectionManager.Instance.SelectedElements.Add(script);
+        }
     }
 }
