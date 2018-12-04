@@ -29,11 +29,13 @@ public class SelectionButton : MonoBehaviour {
         {
             if (!_active && SelectionManager.Instance.Aztecs[Index - 2])
             {
+                _active = true;
                 _button.interactable = true;
                 _image.sprite = ActiveSprite;
             }
             else if (_active && !SelectionManager.Instance.Aztecs[Index - 2])
             {
+                _active = false;
                 _button.interactable = false;
                 _image.sprite = _baseSprite;
             }

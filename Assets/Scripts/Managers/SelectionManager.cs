@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
+using Sirenix.OdinInspector;
 
 public class SelectionManager : MonoBehaviour {
 
@@ -11,8 +12,12 @@ public class SelectionManager : MonoBehaviour {
 
     public LayerMask SelectableLayer;
     public LayerMask GroundLayer;
-    [NonSerialized]
+
+    [Header("Debug")]
+    [ReadOnly]
     public List<Unit> SelectedElements = new List<Unit>();
+    [ReadOnly]
+    public Unit[] Aztecs = new Aztec[3];
 
     [NonSerialized]
     public bool IsSelecting;
@@ -22,8 +27,6 @@ public class SelectionManager : MonoBehaviour {
     public Vector3 Destination;
     [NonSerialized]
     public Unit Shaman;
-    [NonSerialized]
-    public Unit[] Aztecs = new Aztec[3];
 
     private Collider[] _results = new Collider[500];
 
