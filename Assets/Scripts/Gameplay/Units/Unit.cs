@@ -49,12 +49,18 @@ public class Unit : MonoBehaviour, IAiFoe
         _navAgent = GetComponent<NavMeshAgent>();
         _transform = transform;
         IsVisible = true;
+        AIManager.Instance.AddElement(this);
 	}
 	
 	void Update () {
         if (_targetToFollow)
             FollowRoutine();
 	}
+
+    private void OnDestroy()
+    {
+        AIManager.Instance.RemoveElement(this);   
+    }
 
     public void Select ()
     {
