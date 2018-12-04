@@ -6,7 +6,8 @@ using Unity.Mathematics;
 using Unity.Jobs;
 
 
-public class AIManager : MonoBehaviour {
+public class AIManager : MonoBehaviour
+{
 
     public static AIManager Instance => _instance;
     public IReadOnlyList<IAiVisible> ProcessedElements => _processedElements.AsReadOnly();
@@ -18,9 +19,9 @@ public class AIManager : MonoBehaviour {
 
     struct ProcessedListCreationJob : IJobParallelForFilter
     {
-        [ReadOnly] public float3                   _position;
-        [ReadOnly] public float                    _radius;
-        [ReadOnly] public NativeArray<float3>      _processedPositions;
+        [ReadOnly] public float3 _position;
+        [ReadOnly] public float _radius;
+        [ReadOnly] public NativeArray<float3> _processedPositions;
 
         public bool Execute(int index)
         {
@@ -30,7 +31,7 @@ public class AIManager : MonoBehaviour {
 
     private void Awake()
     {
-        if(_instance != null)
+        if (_instance != null)
         {
             Destroy(gameObject);
             return;
@@ -43,18 +44,19 @@ public class AIManager : MonoBehaviour {
     {
         //Update position array
         int i = 0;
-        for (i = 0; i < _processedPositions.Length; i++)
+        for (i = 0; i < math.min(_processedPositions.Length, _processedElements.Count); i++)
         {
             _processedPositions[i] = _processedElements[i].Position;
         }
-        for(; i < _processedElements.Count; i++)
-        {
-            _processedPositions.Add(_processedElements[i].Position);
-        }
+        if (_processedElements.Count > _processedPositions.Length)
+            for (; i < _processedElements.Count; i++)
+            {
+                _processedPositions.Add(_processedElements[i].Position);
+            }
 
         //Update brain
-        NativeArray<JobHandle> jobs             = new NativeArray<JobHandle>(_brains.Count, Allocator.TempJob);
-        List<NativeList<int>> filteredResult    = new List<NativeList<int>>();
+        NativeArray<JobHandle> jobs = new NativeArray<JobHandle>(_brains.Count, Allocator.TempJob);
+        List<NativeList<int>> filteredResult = new List<NativeList<int>>();
         for (int x = 0; x < _brains.Count; x++)
         {
             var job = new ProcessedListCreationJob
@@ -64,7 +66,7 @@ public class AIManager : MonoBehaviour {
                 _processedPositions = _processedPositions
             };
             filteredResult.Add(new NativeList<int>(Allocator.TempJob));
-            jobs[x] = job.ScheduleAppend(filteredResult[x], _processedPositions.Length, 1);
+            jobs[x] = job.ScheduleAppend(filteredResult[x], math.min(_processedPositions.Length, _processedElements.Count), 1);
         }
 
         JobHandle.CompleteAll(jobs);
