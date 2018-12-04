@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1492149483}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.05409084, g: 0.052477274, b: 0.07182664, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3043,26 +3043,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 195275625850841526, guid: d0c474d0c3cc12e49a6a641aa7b63d2d,
-        type: 2}
-      propertyPath: m_BaseOffset
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114412586677604522, guid: d0c474d0c3cc12e49a6a641aa7b63d2d,
-        type: 2}
-      propertyPath: _visionRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 195275625850841526, guid: d0c474d0c3cc12e49a6a641aa7b63d2d,
-        type: 2}
-      propertyPath: m_Speed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 195275625850841526, guid: d0c474d0c3cc12e49a6a641aa7b63d2d,
-        type: 2}
-      propertyPath: m_StoppingDistance
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0c474d0c3cc12e49a6a641aa7b63d2d, type: 2}
   m_IsPrefabAsset: 0
@@ -5145,20 +5125,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114356934204679454, guid: 053279678b3191347b394fcc8d20ce37,
-        type: 2}
-      propertyPath: _visionRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 195603302478706182, guid: 053279678b3191347b394fcc8d20ce37,
-        type: 2}
-      propertyPath: m_Speed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 195603302478706182, guid: 053279678b3191347b394fcc8d20ce37,
-        type: 2}
-      propertyPath: m_Acceleration
-      value: 30
+    - target: {fileID: 1234360217560950, guid: 053279678b3191347b394fcc8d20ce37, type: 2}
+      propertyPath: m_Name
+      value: Aztec
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 053279678b3191347b394fcc8d20ce37, type: 2}
