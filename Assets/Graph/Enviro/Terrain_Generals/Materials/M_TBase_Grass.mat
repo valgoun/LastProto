@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: M_TBase_Clearing 2
+  m_Name: M_TBase_Grass
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
   m_ShaderKeywords: _DISPLACEMENT_LOCK_TILING_SCALE _HEIGHTMAP _MASKMAP _NORMALMAP
     _NORMALMAP_TANGENT_SPACE _VERTEX_DISPLACEMENT _VERTEX_DISPLACEMENT_LOCK_OBJECT_SCALE
@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800082, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+        m_Texture: {fileID: 2800020, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
         m_Scale: {x: 40, y: 40}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -57,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
-        m_Texture: {fileID: 2800094, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+        m_Texture: {fileID: 2800114, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _IridescenceMaskMap:
@@ -69,15 +69,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800082, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+        m_Texture: {fileID: 2800020, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
-        m_Texture: {fileID: 2800098, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+        m_Texture: {fileID: 2800118, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800086, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+        m_Texture: {fileID: 2800022, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
