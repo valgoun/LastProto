@@ -33,7 +33,7 @@ public class SpellButton : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (SpellManager.Instance.Spells[SpellID].CurrentCooldown <= Time.time)
+		if (SpellManager.Instance.Spells[SpellID].GetAvailable())
         {
             _button.interactable = true;
             CooldownText.text = "";
@@ -41,7 +41,14 @@ public class SpellButton : MonoBehaviour {
         else
         {
             _button.interactable = false;
-            CooldownText.text = Mathf.Abs(Time.time - SpellManager.Instance.Spells[SpellID].CurrentCooldown).ToString("0.0");
+            if (Time.time < SpellManager.Instance.Spells[SpellID].CurrentCooldown)
+            {
+                CooldownText.text = Mathf.Abs(Time.time - SpellManager.Instance.Spells[SpellID].CurrentCooldown).ToString("0.0");
+            }
+            else
+            {
+                CooldownText.text = "";
+            }
         }
 
         if (!SpellManager.Instance.SmartCast && _button.interactable)

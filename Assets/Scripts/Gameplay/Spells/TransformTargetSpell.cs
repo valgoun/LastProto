@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Transform Spell", menuName = "Spell/Transform Target", order = 21)]
+[CreateAssetMenu(fileName = "Transform Spell", menuName = "Spell/Transform Target")]
 public class TransformTargetSpell : Spell
 {
     [Header("Transform Spell")]
@@ -46,5 +46,19 @@ public class TransformTargetSpell : Spell
             script.Select();
             SelectionManager.Instance.SelectedElements.Add(script);
         }
+    }
+
+    public override bool GetAvailable()
+    {
+        bool openSpot = false;
+        foreach(Unit ghoul in SelectionManager.Instance.Aztecs)
+        {
+            if (!ghoul)
+            {
+                openSpot = true;
+                break;
+            }
+        }
+        return base.GetAvailable() && openSpot;
     }
 }

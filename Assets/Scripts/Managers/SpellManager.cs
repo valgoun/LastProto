@@ -127,7 +127,7 @@ public class SpellManager : MonoBehaviour {
         {
             if (Input.GetButtonDown("Spell 0" + (i + 1).ToString()))
             {
-                if (Spells[i].CurrentCooldown <= Time.time)
+                if (Spells[i].GetAvailable())
                 {
                     spell = Spells[i];
                     break;
