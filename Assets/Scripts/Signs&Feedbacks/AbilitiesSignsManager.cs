@@ -8,7 +8,7 @@ public class AbilitiesSignsManager : MonoBehaviour {
 
     private SelectionManager _selection;
 
-    public LineRenderer[] jumpTrajectoryLineRenderer;
+    public LineRenderer jumpTrajectoryLineRenderer;
 
     void Start()
     {
@@ -45,33 +45,48 @@ public class AbilitiesSignsManager : MonoBehaviour {
     public void JumpAttackIndicator()
     {
 
-        jumpTrajectoryLineRenderer[0].SetPosition(0, Vector3.zero);
-        jumpTrajectoryLineRenderer[0].SetPosition(1, Vector3.zero);
-
+        jumpTrajectoryLineRenderer.SetPosition(0, Vector3.zero);
+        jumpTrajectoryLineRenderer.SetPosition(1, Vector3.zero);
+     
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (_selection.SelectedElements.Count > 0 && Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Selection")))
         {
 
-            foreach(Aztec ghoul in _selection.SelectedElements)
-            {
-
-                // The ghoul is in a bush
-
-                
-
-            if (!ghoul.IsVisible && hit.transform.tag == "Conquistador")
+            foreach(Unit unit in _selection.SelectedElements)
+            { 
+               
+                if(unit is Aztec)
                 {
-
-                    if ((hit.transform.position - ghoul.transform.position).magnitude <= ghoul.JumpAttackRange)
+                    Aztec ghoul = unit as Aztec;
+                    // The ghoul is in a bush and the cursor is over an enemy
+                    if (!ghoul.IsVisible && hit.transform.tag == "Conquistador")
                     {
-                        jumpTrajectoryLineRenderer[0].SetPosition(0, _selection.SelectedElements[0].transform.position);
-                        jumpTrajectoryLineRenderer[0].SetPosition(1, hit.transform.position);
+                        if ((hit.transform.position - ghoul.transform.position).magnitude <= ghoul.JumpAttackRange)
+                        {
+                            jumpTrajectoryLineRenderer.SetPosition(0, _selection.SelectedElements[0].transform.position);
+                            jumpTrajectoryLineRenderer.SetPosition(1, hit.transform.position);
 
-                        // Need color correction if unavailable;
+                            RaycastHit hit2;
+
+                            Debug.DrawRay(ghoul.transform.position, hit.transform.position - ghoul.transform.position);
+                            if (Physics.Raycast(ghoul.transform.position, hit.transform.position - ghoul.transform.position, out hit2, (hit.transform.position - ghoul.transform.position).magnitude, ghoul.JumpAttackLineOfSight))
+                            {
+
+                                if (hit2.transform.gameObject == hit.transform.gameObject)
+                                {
+                                    jumpTrajectoryLineRenderer.startColor = new Color (0,1,0,0.05f);
+                                    jumpTrajectoryLineRenderer.endColor = new Color(0, 1, 0, 0.05f);
+                                }
+                                else
+                                {
+                                    jumpTrajectoryLineRenderer.startColor = new Color(1, 0, 0, 0.05f);
+                                    jumpTrajectoryLineRenderer.endColor = new Color(1, 0, 0, 0.05f);
+                                }
+                            }
+                        }
                     }
-            
                 }
             }
         }
