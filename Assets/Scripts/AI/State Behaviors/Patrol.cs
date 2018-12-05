@@ -32,7 +32,7 @@ public class Patrol : StateMachineBehaviour
     {
         if (!_brain.CurrentWaypoint)
         {
-            if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
+            if (_agent && _agent.isActiveAndEnabled && !_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
             {
                 Waypoint waypoint = _brain.NormalWaypointsHolder.GetChild(_index).GetComponent<Waypoint>();
                 if (waypoint && waypoint.TimeToWait > 0)
