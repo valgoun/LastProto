@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 114257944214599148}
   - component: {fileID: 114356934204679454}
   - component: {fileID: 54383232044568536}
+  - component: {fileID: 114320343795014274}
   m_Layer: 0
   m_Name: Ghoul
   m_TagString: Aztec
@@ -1678,8 +1679,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1234360217560950}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: 2, z: 12}
+  m_LocalRotation: {x: -0, y: 0.74755365, z: -0, w: 0.66420144}
+  m_LocalPosition: {x: -97.619995, y: 2, z: -2.8399978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4903905413117112}
@@ -1986,6 +1987,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionCircleSprite: {fileID: 212339877586030166}
   destinationSprite: {fileID: 0}
+--- !u!114 &114320343795014274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234360217560950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d890aab1fd18f5f47a69b72d451bab05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visionRange: 10
 --- !u!114 &114356934204679454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2006,6 +2019,9 @@ MonoBehaviour:
   ModelAnimator: {fileID: 95114936327510096}
   GhostMaterial: {fileID: 2100000, guid: ab50b7ab56cf51d46b1d23f7527aeed0, type: 2}
   JumpAttackRange: 15
+  JumpAttackLineOfSight:
+    serializedVersion: 2
+    m_Bits: 1537
 --- !u!135 &135419710549299528
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -2125,7 +2141,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 4.5
-  m_Acceleration: 30
+  m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 360
   m_StoppingDistance: 0

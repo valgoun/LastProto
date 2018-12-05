@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Wall Spell", menuName = "Spell/Spawn Wall", order = 23)]
+[CreateAssetMenu(fileName = "Wall Spell", menuName = "Spell/Spawn Wall")]
 public class SpawnWallSpell : Spell
 {
     [Header("Spawn Wall Spell")]

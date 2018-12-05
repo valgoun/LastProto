@@ -7,6 +7,15 @@ public interface IAiVisible
     Vector3 Position { get; }
     Transform Transform { get; }
     GameObject GameObject { get; }
-    bool IsVisible { get; }
     float StimuliLifetime { get; }
+}
+
+public interface IAiFoe : IAiVisible
+{
+    bool IsVisible { get; }
+}
+
+public interface IAiFriend : IAiVisible
+{
+    TransmissionData Data { get; }
 }

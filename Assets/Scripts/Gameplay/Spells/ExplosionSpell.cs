@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Explosion Spell", menuName = "Spell/Explosion", order = 22)]
+[CreateAssetMenu(fileName = "Explosion Spell", menuName = "Spell/Explosion")]
 public class ExplosionSpell : Spell {
 
     [Header("Explosion Spell")]

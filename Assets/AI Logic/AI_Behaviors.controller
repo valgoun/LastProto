@@ -38,7 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4369fb48be1049448fe1242e26e86a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controller: {fileID: 9100000, guid: d0ff0860b93a7a74eac6a5668991a366, type: 2}
+  State: {fileID: 11400000, guid: 24ca0a335e7d5574590c4ed9f0b24e9f, type: 2}
 --- !u!114 &114328187395940482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -50,7 +50,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4369fb48be1049448fe1242e26e86a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controller: {fileID: 9100000, guid: 440a85c78fbb00c48a4a4814dab1470f, type: 2}
+  State: {fileID: 11400000, guid: b2254cf0765c0e142b08ba6d88aaaa0a, type: 2}
+--- !u!114 &114330139742676526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4369fb48be1049448fe1242e26e86a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  State: {fileID: 11400000, guid: 197636f72fcb6bf4fb8ab1b34082d68d, type: 2}
 --- !u!114 &114506800379998916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -62,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4369fb48be1049448fe1242e26e86a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controller: {fileID: 9100000, guid: 767f5cada71708044aeaead1f2e028df, type: 2}
+  State: {fileID: 11400000, guid: 0432b91d7b7addd44ab446fc6a19abee, type: 2}
 --- !u!114 &114534998430890090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -92,7 +104,7 @@ MonoBehaviour:
       Entry: 7
       Data: 0|UnityEngine.Experimental.Rendering.SerializedDictionary`2[[NormalState,
         Assembly-CSharp],[UnityEngine.RuntimeAnimatorController, UnityEngine.AnimationModule]],
-        com.unity.render-pipelines.core.Runtime
+        Unity.RenderPipelines.Core.Runtime
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[NormalState, Assembly-CSharp]],
@@ -184,7 +196,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: Alert
-    m_EventTreshold: 0.5
+    m_EventTreshold: 0.8
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102473955460853724}
   m_Solo: 0
@@ -256,7 +268,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: Alert
-    m_EventTreshold: 0.5
+    m_EventTreshold: 0.8
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102306157599062112}
   m_Solo: 0
@@ -387,7 +399,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101884198437690522}
   m_StateMachineBehaviours:
-  - {fileID: 114534998430890090}
+  - {fileID: 114330139742676526}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

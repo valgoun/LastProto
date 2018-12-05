@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public enum ZoomTypeEnum
 {
@@ -11,62 +12,98 @@ public enum ZoomTypeEnum
 
 public class CameraController : MonoBehaviour {
 
-    [Header("Plane Movement")]
+    [TabGroup("Plane Input")]
+    [Tooltip("Size of the zone in Screen ratio, originating from the Left side and going to the Right side.")]
     public float LeftZone;
+    [TabGroup("Plane Input")]
+    [Tooltip("Size of the zone in Screen ratio, originating from the Right side and going to the Left side.")]
     public float RightZone;
+    [TabGroup("Plane Input")]
+    [Tooltip("Size of the zone in Screen ratio, originating from the Top and going to the Bottom.")]
     public float TopZone;
+    [TabGroup("Plane Input")]
+    [Tooltip("Size of the zone in Screen ratio, originating from the Bottom and going to the Top.")]
     public float BottomZone;
-
-    [Space]
+    [TabGroup("Plane Input"), Space]
+    [Tooltip("If true, the input strength will depend of the distance of the cursor from the origin when it's in a zone. Otherwise, the input will always be flat 1.")]
     public bool ZoneUseGradient;
 
-    [Space]
+    [TabGroup("Plane Movement")]
     public float MaximumSpeed;
+    [TabGroup("Plane Movement")]
     public float Acceleration;
+    [TabGroup("Plane Movement")]
     public float Drag;
+    [TabGroup("Plane Movement")]
     public float VelocityThreshold;
-    public float MaxZoomMultiplier;
 
-    [Space]
+    [TabGroup("Plane Movement"), Space]
+    [Tooltip("Speed multiplier when the Camera is at Max Zoom. Useful for slowing down the speed of the Camera when the Camera is zoomed in to make it more enjoyable to control.")]
+    public float MaxZoomMultiplier;
+    [TabGroup("Plane Movement")]
+    [Tooltip("Speed multiplier when the camera is centering on selection. Useful to make camera feel more responsive when using the shortcuts.")]
+    public float CameraCenteringMultiplier = 3.5f;
+    [TabGroup("Plane Movement")]
+    [Tooltip("Distance at which the Camera starts decelerating when centering on selection. Allow to smooth more or less the centering movement (bigger value = more smoothing).")]
+    public float CameraCenteringDeccelerationTreshold = 5;
+
+    [TabGroup("Plane Movement"), Space]
     public LayerMask BoundariesLayer;
+    [TabGroup("Plane Movement")]
     public float DeccelerationGradient;
+    [TabGroup("Plane Movement")]
     public float DistanceThresholdForDecceleration;
+    [TabGroup("Plane Movement")]
     public float SafeDistanceFromBound;
 
-    [Header("Zoom")]
+    [TabGroup("Zoom")]
     public float ZoomInputForce;
 
-    [Space]
+    [TabGroup("Zoom"), Space]
     public float ZoomMovementForce;
+    [TabGroup("Zoom")]
     public float ZoomMovementThreshold;
 
-    [Space]
+    [TabGroup("Zoom"), Space]
     public LayerMask FloorLayer;
 
-    [Space]
+    [TabGroup("Zoom"), Space]
     public ZoomTypeEnum MinZoomType;
+    [TabGroup("Zoom"), ShowIf("IsMinLimit")]
     public float MinZoomLimit;
+    [TabGroup("Zoom"), ShowIf("IsMinHover")]
     public float MinZoomHover;
 
-    [Space]
+    [TabGroup("Zoom"), Space]
     public ZoomTypeEnum MaxZoomType;
+    [TabGroup("Zoom"), ShowIf("IsMaxLimit")]
     public float MaxZoomLimit;
+    [TabGroup("Zoom"), ShowIf("IsMaxHover")]
     public float MaxZoomHover;
 
-    [Space]
+    [TabGroup("Zoom"), Space]
     public float ZoomAngleForce;
+    [TabGroup("Zoom")]
     public float ZoomAngleThreshold;
-
-    [Space]
+    [TabGroup("Zoom")]
     public Vector3 MinAngle;
+    [TabGroup("Zoom")]
     public Vector3 MaxAngle;
 
+    [Header("Debug")]
+    [ReadOnly]
+    public Vector3 PlaneVelocity;
+    [Space, ReadOnly]
+    public float ZoomLevel = 0;
+    [ReadOnly]
+    public Vector3 ZoomVelocity;
+    [ReadOnly]
+    public Vector3 AngularVelocity;
 
-    //PRIVATE
-    private Vector3 _planeVelocity;
-    private float _zoomLevel = 0;
-    private Vector3 _zoomVelocity;
-    private Vector3 _angularVelocity;
+    private bool IsMinLimit { get { return (MinZoomType == ZoomTypeEnum.LIMIT || MinZoomType == ZoomTypeEnum.HOVER_LIMIT); } }
+    private bool IsMaxLimit { get { return (MaxZoomType == ZoomTypeEnum.LIMIT || MaxZoomType == ZoomTypeEnum.HOVER_LIMIT); } }
+    private bool IsMinHover { get { return (MinZoomType == ZoomTypeEnum.HOVER || MinZoomType == ZoomTypeEnum.HOVER_LIMIT); } }
+    private bool IsMaxHover { get { return (MaxZoomType == ZoomTypeEnum.HOVER || MaxZoomType == ZoomTypeEnum.HOVER_LIMIT); } }
 
     // Use this for initialization
     void Start () {
@@ -77,7 +114,7 @@ public class CameraController : MonoBehaviour {
 	void Update () {
 
         //Zoom Input
-        _zoomLevel = Mathf.Clamp(_zoomLevel + Input.GetAxis("Mouse ScrollWheel") * ZoomInputForce * Time.deltaTime, 0, 1);
+        ZoomLevel = Mathf.Clamp(ZoomLevel + Input.GetAxis("Mouse ScrollWheel") * ZoomInputForce * Time.deltaTime, 0, 1);
 
         //Zoom Movement
         RaycastHit hit;
@@ -86,83 +123,112 @@ public class CameraController : MonoBehaviour {
         float min = GetLimit(hit, MinZoomType, MinZoomLimit, MinZoomHover);
         float max = GetLimit(hit, MaxZoomType, MaxZoomLimit, MaxZoomHover);
 
-        float idealHeight = Mathf.Lerp(min, max, _zoomLevel);
+        float idealHeight = Mathf.Lerp(min, max, ZoomLevel);
 
         if ((transform.position.y >= idealHeight - ZoomMovementThreshold) && (transform.position.y <= idealHeight + ZoomMovementThreshold))
         {
-            _zoomVelocity = Vector3.zero;
+            ZoomVelocity = Vector3.zero;
         }
         else
         {
-            _zoomVelocity = new Vector3(0, 1, 0) * (idealHeight - transform.position.y) * ZoomMovementForce;
+            ZoomVelocity = new Vector3(0, 1, 0) * (idealHeight - transform.position.y) * ZoomMovementForce;
         }
 
         //Zoom Rotation
-        Vector3 idealRotation = new Vector3(Mathf.Lerp(MinAngle.x, MaxAngle.x, _zoomLevel), Mathf.Lerp(MinAngle.y, MaxAngle.y, _zoomLevel), Mathf.Lerp(MinAngle.z, MaxAngle.z, _zoomLevel));
+        Vector3 idealRotation = new Vector3(Mathf.Lerp(MinAngle.x, MaxAngle.x, ZoomLevel), Mathf.Lerp(MinAngle.y, MaxAngle.y, ZoomLevel), Mathf.Lerp(MinAngle.z, MaxAngle.z, ZoomLevel));
         Vector3 rot = transform.eulerAngles;
 
         if (((rot.x >= idealRotation.x - ZoomAngleThreshold) && (rot.x <= idealRotation.x + ZoomAngleThreshold))
             && ((rot.y >= idealRotation.y - ZoomAngleThreshold) && (rot.y <= idealRotation.y + ZoomAngleThreshold))
             && ((rot.z >= idealRotation.z - ZoomAngleThreshold) && (rot.z <= idealRotation.z + ZoomAngleThreshold)))
         {
-            _angularVelocity = Vector3.zero;
+            AngularVelocity = Vector3.zero;
         }
         else
         {
-            _angularVelocity = (idealRotation - rot) * ZoomAngleForce;
+            AngularVelocity = (idealRotation - rot) * ZoomAngleForce;
         }
 
         //Plane Movement Input
         Vector3 input = Vector3.zero;
+        float centeringGradient = 1;
 
-        Vector3 verticalInput = Vector3.zero;
-        float gradient = 1 - (Input.mousePosition.y / (BottomZone * Screen.height));
-        if (gradient >= 0)
+        int centeringLength = 0;
+        Vector3 point = Vector3.zero;
+        foreach (Unit unit in SelectionManager.Instance.SelectedElements)
         {
-            verticalInput = new Vector3(0, 0, -((ZoneUseGradient) ? gradient : 1));
-        }
-        else
-        {
-            gradient = (Input.mousePosition.y - (1 - TopZone) * Screen.height) / (TopZone * Screen.height);
-            if (gradient >= 0)
+            if (unit)
             {
-                verticalInput = new Vector3(0, 0, ((ZoneUseGradient) ? gradient : 1));
+                point += unit.transform.position;
+                centeringLength++;
             }
         }
-        if (verticalInput == Vector3.zero)
-        {
-            input += new Vector3(0, 0, Input.GetAxis("Vertical"));
-        }
-        else
-            input += verticalInput;
 
-        Vector3 horizontalInput = Vector3.zero;
-        gradient = 1 - (Input.mousePosition.x / (LeftZone * Screen.width));
-        if (gradient >= 0)
+        if (!Input.GetButton("Centering") || (centeringLength == 0))
         {
-            input += new Vector3(-((ZoneUseGradient) ? gradient : 1), 0, 0);
-        }
-        else
-        {
-            gradient = (Input.mousePosition.x - (1 - RightZone) * Screen.width) / (RightZone * Screen.width);
+            Vector3 verticalInput = Vector3.zero;
+            float gradient = 1 - (Input.mousePosition.y / (BottomZone * Screen.height));
             if (gradient >= 0)
             {
-                horizontalInput = new Vector3(((ZoneUseGradient) ? gradient : 1), 0, 0);
+                verticalInput = new Vector3(0, 0, -((ZoneUseGradient) ? gradient : 1));
             }
-        }
-        if (horizontalInput == Vector3.zero)
-        {
-            input += new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+            else
+            {
+                gradient = (Input.mousePosition.y - (1 - TopZone) * Screen.height) / (TopZone * Screen.height);
+                if (gradient >= 0)
+                {
+                    verticalInput = new Vector3(0, 0, ((ZoneUseGradient) ? gradient : 1));
+                }
+            }
+            if (verticalInput == Vector3.zero)
+            {
+                input += new Vector3(0, 0, Input.GetAxis("Vertical"));
+            }
+            else
+                input += verticalInput;
+
+            Vector3 horizontalInput = Vector3.zero;
+            gradient = 1 - (Input.mousePosition.x / (LeftZone * Screen.width));
+            if (gradient >= 0)
+            {
+                input += new Vector3(-((ZoneUseGradient) ? gradient : 1), 0, 0);
+            }
+            else
+            {
+                gradient = (Input.mousePosition.x - (1 - RightZone) * Screen.width) / (RightZone * Screen.width);
+                if (gradient >= 0)
+                {
+                    horizontalInput = new Vector3(((ZoneUseGradient) ? gradient : 1), 0, 0);
+                }
+            }
+            if (horizontalInput == Vector3.zero)
+            {
+                input += new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+            }
+            else
+                input += horizontalInput;
         }
         else
-            input += horizontalInput;
+        {
+            centeringGradient = CameraCenteringMultiplier;
+
+            point /= centeringLength;
+
+            Vector3 dir = point - transform.position;
+            dir.y = 0;
+            input = dir.normalized;
+            if (dir.magnitude < CameraCenteringDeccelerationTreshold)
+            {
+                centeringGradient *= (dir.magnitude / CameraCenteringDeccelerationTreshold);
+            }
+        }
 
         //Plane Movement
-        float zoomGradient = Mathf.Lerp(1, MaxZoomMultiplier, _zoomLevel);
-        _planeVelocity /= (1 + Drag * Time.deltaTime);
+        float speedGradient = Mathf.Lerp(1, MaxZoomMultiplier, ZoomLevel) * centeringGradient;
+        PlaneVelocity /= (1 + (Drag/centeringGradient) * Time.deltaTime);
 
-        float maxSpeed = MaximumSpeed * zoomGradient;
-        if (Physics.Raycast(transform.position, ((_planeVelocity.magnitude > 0f) ? _planeVelocity : input).normalized, out hit, DistanceThresholdForDecceleration + SafeDistanceFromBound, BoundariesLayer))
+        float maxSpeed = MaximumSpeed * speedGradient;
+        if (Physics.Raycast(transform.position, ((PlaneVelocity.magnitude > 0f) ? PlaneVelocity : input).normalized, out hit, DistanceThresholdForDecceleration + SafeDistanceFromBound, BoundariesLayer))
         {
             float dist = hit.distance - SafeDistanceFromBound;
             if (dist <= 0)
@@ -182,8 +248,8 @@ public class CameraController : MonoBehaviour {
                 }
             }
 
-            _planeVelocity += Acceleration * input;
-            _planeVelocity = (_planeVelocity.magnitude > maxSpeed) ? (_planeVelocity).normalized * maxSpeed : _planeVelocity;
+            PlaneVelocity += Acceleration * input;
+            PlaneVelocity = (PlaneVelocity.magnitude > maxSpeed) ? (PlaneVelocity).normalized * maxSpeed : PlaneVelocity;
         }
         else
         {
@@ -191,21 +257,21 @@ public class CameraController : MonoBehaviour {
             if (size < 1)
                 maxSpeed *= size;
 
-            if (_planeVelocity.magnitude < maxSpeed)
+            if (PlaneVelocity.magnitude < maxSpeed)
             {
-                _planeVelocity += Acceleration * input;
-                if (_planeVelocity.magnitude > maxSpeed)
+                PlaneVelocity += Acceleration * input;
+                if (PlaneVelocity.magnitude > maxSpeed)
                 {
-                    _planeVelocity = _planeVelocity.normalized * maxSpeed;
+                    PlaneVelocity = PlaneVelocity.normalized * maxSpeed;
                 }
             }
         }
 
-        _planeVelocity = (_planeVelocity.magnitude <= VelocityThreshold * zoomGradient) ? Vector3.zero : _planeVelocity;
+        PlaneVelocity = (PlaneVelocity.magnitude <= VelocityThreshold * speedGradient) ? Vector3.zero : PlaneVelocity;
 
         //Apply velocities
-        transform.position += (_planeVelocity + _zoomVelocity) * Time.deltaTime;
-        transform.rotation *= Quaternion.Euler(_angularVelocity * Time.deltaTime);
+        transform.position += (PlaneVelocity + ZoomVelocity) * Time.deltaTime;
+        transform.rotation *= Quaternion.Euler(AngularVelocity * Time.deltaTime);
     }
 
     private float GetLimit(RaycastHit hit, ZoomTypeEnum type, float limit, float hover)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit : MonoBehaviour, IAiVisible
+public class Unit : MonoBehaviour, IAiFoe
 {
 
     [Header("Tweaking")]
@@ -49,12 +49,18 @@ public class Unit : MonoBehaviour, IAiVisible
         _navAgent = GetComponent<NavMeshAgent>();
         _transform = transform;
         IsVisible = true;
+        AIManager.Instance.AddElement(this);
 	}
 	
 	void Update () {
         if (_targetToFollow)
             FollowRoutine();
 	}
+
+    private void OnDestroy()
+    {
+        AIManager.Instance.RemoveElement(this);   
+    }
 
     public void Select ()
     {

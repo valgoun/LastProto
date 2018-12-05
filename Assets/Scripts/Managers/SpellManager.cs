@@ -27,6 +27,9 @@ public class SpellManager : MonoBehaviour {
     private SelectionManager _selection;
     private OrderManager _order;
 
+    private int _oldSpellLength;
+    private string[] _spellButtons;
+
     private void Awake()
     {
         if (Instance == null)
@@ -39,6 +42,7 @@ public class SpellManager : MonoBehaviour {
     {
         _selection = GetComponent<SelectionManager>();
         _order = GetComponent<OrderManager>();
+        SetSpellButtons();
     }
 
     private void Update()
@@ -52,8 +56,8 @@ public class SpellManager : MonoBehaviour {
             {
                 if (Input.GetMouseButtonDown(1))
                 {
-                    _selectedSpell = null;
                     _selectedSpell.StopCasting();
+                    _selectedSpell = null;
                 }
                 else
                 {
@@ -122,12 +126,15 @@ public class SpellManager : MonoBehaviour {
 
     private void Shortcuts ()
     {
+        if (_oldSpellLength != Spells.Length)
+            SetSpellButtons();
+
         Spell spell = null;
         for (int i = 0; i < Spells.Length; i++)
         {
-            if (Input.GetButtonDown("Spell 0" + (i + 1).ToString()))
+            if (Input.GetButtonDown(_spellButtons[i]))
             {
-                if (Spells[i].CurrentCooldown <= Time.time)
+                if (Spells[i].GetAvailable())
                 {
                     spell = Spells[i];
                     break;
@@ -139,6 +146,16 @@ public class SpellManager : MonoBehaviour {
         {
             _selectedSpell = spell;
             CastingSpell(Camera.main, true);
+        }
+    }
+
+    private void SetSpellButtons ()
+    {
+        _oldSpellLength = Spells.Length;
+        _spellButtons = new string[_oldSpellLength];
+        for (int i = 0; i < _spellButtons.Length; i++)
+        {
+            _spellButtons[i] = "Spell 0" + (i + 1).ToString();
         }
     }
 }

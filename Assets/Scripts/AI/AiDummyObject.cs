@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AiDummyObject : MonoBehaviour, IAiVisible
+public class AiDummyObject : MonoBehaviour, IAiFoe
 {
     public float StimuliLifetimeWhenSeen;
 
@@ -17,5 +17,11 @@ public class AiDummyObject : MonoBehaviour, IAiVisible
     private void Awake()
     {
         _transform = transform;
+        AIManager.Instance.AddElement(this);
+    }
+
+    private void OnDestroy()
+    {
+        AIManager.Instance.RemoveElement(this);
     }
 }

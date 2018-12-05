@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Transform Spell", menuName = "Spell/Transform Target", order = 21)]
+[CreateAssetMenu(fileName = "Transform Spell", menuName = "Spell/Transform Target")]
 public class TransformTargetSpell : Spell
 {
     [Header("Transform Spell")]
@@ -24,6 +24,10 @@ public class TransformTargetSpell : Spell
         Quaternion rot;
         if (target)
         {
+            if (target.tag == "Corpse")
+            {
+                target = target.transform.parent.gameObject;
+            }
             pos = target.transform.position;
             rot = target.transform.rotation;
             Destroy(target);
@@ -34,6 +38,27 @@ public class TransformTargetSpell : Spell
             rot = Quaternion.identity;
         }
 
-        Instantiate(TransformInto, pos, rot);
+        GameObject testGhoul = Instantiate(TransformInto, pos, rot);
+        if (testGhoul.tag == "Aztec")
+        {
+            SelectionManager.Instance.CleanSelection();
+            Unit script = testGhoul.GetComponent<Unit>();
+            script.Select();
+            SelectionManager.Instance.SelectedElements.Add(script);
+        }
+    }
+
+    public override bool GetAvailable()
+    {
+        bool openSpot = false;
+        foreach(Unit ghoul in SelectionManager.Instance.Aztecs)
+        {
+            if (!ghoul)
+            {
+                openSpot = true;
+                break;
+            }
+        }
+        return base.GetAvailable() && openSpot;
     }
 }
