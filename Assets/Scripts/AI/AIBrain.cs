@@ -230,7 +230,7 @@ public class AIBrain : MonoBehaviour, IAiFriend
     {
         if (_processedIndices.IsCreated)
             _processedIndices.Dispose();
-        _processedIndices = new NativeArray<int>(indices, Allocator.Temp);
+        _processedIndices = new NativeArray<int>(indices, Allocator.Persistent);
         indices.Dispose();
     }
 
