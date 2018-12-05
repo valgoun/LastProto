@@ -9,15 +9,20 @@ ScriptedImporter:
     2100004: mat.Jungle Ground Dirt_1
     2100006: mat.Jungle Ground Dirt_2
     2100008: mat.Jungle Ground Dirt_3
+    2100010: mat.Jungle Ground Dirt_4
     2300000: T_JungleDirtRipOff/T_JungleDirtRipOff/MeshRenderer
     2800000: Jungle Ground Dirt_baseColor
     2800002: Jungle Ground Dirt_normal
     2800004: Jungle Ground Dirt_metallic
     2800006: Jungle Ground Dirt_height
+    2800008: Jungle Ground Dirt_4_glossiness
     2800010: Jungle Ground Roots_baseColor
     2800012: Jungle Ground Roots_normal
     2800014: Jungle Ground Roots_metallic
     2800016: Jungle Ground Roots_height
+    2800018: Jungle Ground Dirt_4_diffuse
+    2800020: Jungle Ground Dirt_4_baseColor
+    2800022: Jungle Ground Dirt_4_normal
     2800024: Jungle Ground Dirt_glossiness
     2800026: Jungle Ground Roots_roughness
     2800028: Jungle Ground Roots_mask
@@ -60,6 +65,12 @@ ScriptedImporter:
     2800102: Jungle Ground Dirt_3_specular
     2800104: Jungle Ground Dirt_3_ambientOcclusion
     2800106: Jungle Ground Dirt_3_any
+    2800108: Jungle Ground Dirt_4_specular
+    2800110: Jungle Ground Dirt_4_roughness
+    2800112: Jungle Ground Dirt_4_metallic
+    2800114: Jungle Ground Dirt_4_height
+    2800116: Jungle Ground Dirt_4_ambientOcclusion
+    2800118: Jungle Ground Dirt_4_any
     3300000: T_JungleDirtRipOff/T_JungleDirtRipOff/MeshFilter
     11400000: graph1
     11400002: sbsar
@@ -67,6 +78,7 @@ ScriptedImporter:
     11400006: graph2
     11400008: graph3
     11400010: graph4
+    11400012: graph5
     13500000: T_JungleDirtRipOff/T_JungleDirtRipOff/SphereCollider
     100100000: T_JungleDirtRipOff
   externalObjects: {}
@@ -186,16 +198,16 @@ ScriptedImporter:
       bGenerateOnLoad: 1
     material: {fileID: 2100000, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
     generatedTextures:
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
+    - {fileID: 2800024, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800038, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800000, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800002, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800040, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800036, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800004, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800006, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800042, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800048, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
   - graphLabel: Jungle Ground Roots
     prototypeName: Jungle Ground Roots
     graphDescIndex: 1
@@ -298,16 +310,16 @@ ScriptedImporter:
       bGenerateOnLoad: 1
     material: {fileID: 2100002, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
     generatedTextures:
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
+    - {fileID: 2800030, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800056, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800010, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800012, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800058, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800026, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800014, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800016, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800060, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800028, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
   - graphLabel: Jungle Ground Dirt_1
     prototypeName: Jungle Ground Dirt
     graphDescIndex: 0
@@ -418,16 +430,16 @@ ScriptedImporter:
       bGenerateOnLoad: 1
     material: {fileID: 2100004, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
     generatedTextures:
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
+    - {fileID: 2800062, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800044, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800046, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800068, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800076, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800050, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800052, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800054, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800078, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800080, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
   - graphLabel: Jungle Ground Dirt_2
     prototypeName: Jungle Ground Dirt
     graphDescIndex: 0
@@ -540,16 +552,16 @@ ScriptedImporter:
       bGenerateOnLoad: 1
     material: {fileID: 2100006, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
     generatedTextures:
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
+    - {fileID: 2800032, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800082, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800064, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800066, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800088, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800070, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800072, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800074, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800096, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800098, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
   - graphLabel: Jungle Ground Dirt_3
     prototypeName: Jungle Ground Dirt
     graphDescIndex: 0
@@ -664,13 +676,133 @@ ScriptedImporter:
       bGenerateOnLoad: 1
     material: {fileID: 2100008, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
     generatedTextures:
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
-    - {instanceID: 0}
+    - {fileID: 2800034, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800100, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800084, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800086, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800102, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800090, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800092, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800094, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800104, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800106, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+  - graphLabel: Jungle Ground Dirt_4
+    prototypeName: Jungle Ground Dirt
+    graphDescIndex: 0
+    generateAllOutputs: 1
+    generateMipMaps: 1
+    preset: " <sbspreset pkgurl=\"pkg://jungle_ground_Dirt_Ripoff\" label=\"\" >\n
+      \ <presetinput identifier=\"roots_amount\" uid=\"295657891\" type=\"0\" value=\"0\"
+      />\n  <presetinput identifier=\"Leaves_Normal_Intensity\" uid=\"331769652\"
+      type=\"0\" value=\"0.134\" />\n  <presetinput identifier=\"LeavesColor\" uid=\"331615023\"
+      type=\"3\" value=\"0.49,0.4312,0.27048,1\" />\n  <presetinput identifier=\"FoliageAmount\"
+      uid=\"331572243\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"FoliageColor\"
+      uid=\"331607548\" type=\"3\" value=\"0.347392,0.455,0.200655,0.407843\" />\n
+      \ <presetinput identifier=\"normal_intensity\" uid=\"1675486726\" type=\"0\"
+      value=\"0.26\" />\n </sbspreset>\n"
+    shaderName: Standard
+    outputNames: 
+    texturePackingList:
+    - outputName: diffuse
+      alphaSource: diffuse
+    - outputName: baseColor
+      alphaSource: baseColor
+    - outputName: normal
+      alphaSource: normal
+    - outputName: specular
+      alphaSource: specular
+    - outputName: glossiness
+      alphaSource: glossiness
+    - outputName: roughness
+      alphaSource: roughness
+    - outputName: metallic
+      alphaSource: smoothness
+    - outputName: height
+      alphaSource: height
+    - outputName: ambientOcclusion
+      alphaSource: ambientOcclusion
+    - outputName: any
+      alphaSource: any
+    textureParameters:
+    - textureName: Jungle Ground Dirt_4_glossiness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Jungle Ground Dirt_4_diffuse
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Jungle Ground Dirt_4_baseColor
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Jungle Ground Dirt_4_normal
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Jungle Ground Dirt_4_specular
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Jungle Ground Dirt_4_roughness
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Jungle Ground Dirt_4_metallic
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Jungle Ground Dirt_4_height
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Jungle Ground Dirt_4_ambientOcclusion
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    - textureName: Jungle Ground Dirt_4_any
+      wrapMode: 0
+      filterMode: 1
+      aniso: 1
+    colorSpaceList:
+    - outputName: diffuse
+      bLinear: 0
+    - outputName: baseColor
+      bLinear: 0
+    - outputName: normal
+      bLinear: 1
+    - outputName: specular
+      bLinear: 0
+    - outputName: glossiness
+      bLinear: 1
+    - outputName: roughness
+      bLinear: 1
+    - outputName: metallic
+      bLinear: 1
+    - outputName: height
+      bLinear: 1
+    - outputName: ambientOcclusion
+      bLinear: 1
+    - outputName: any
+      bLinear: 1
+    inputTextureMap: []
+    targetSettingList:
+    - label: 
+      bLockRatio: 1
+      bHighQuality: 0
+      textureWidth: 256
+      textureHeight: 256
+      textureFormat: 0
+      bGenerateOnLoad: 1
+    material: {fileID: 2100010, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    generatedTextures:
+    - {fileID: 2800008, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800018, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800020, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800022, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800108, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800110, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800112, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800114, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800116, guid: ed50dc08d559d874684d62d8c216f197, type: 3}
+    - {fileID: 2800118, guid: ed50dc08d559d874684d62d8c216f197, type: 3}

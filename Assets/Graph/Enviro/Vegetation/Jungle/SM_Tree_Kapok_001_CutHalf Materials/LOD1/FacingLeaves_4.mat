@@ -9,7 +9,7 @@ Material:
   m_Name: FacingLeaves_4
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
   m_ShaderKeywords: EFFECT_BUMP EFFECT_HUE_VARIATION GEOM_TYPE_LEAF _ALPHATEST_ON
-    _DISABLE_DBUFFER _NORMALMAP _NORMALMAP_TANGENT_SPACE
+    _DISABLE_DBUFFER _NORMALMAP _NORMALMAP_TANGENT_SPACE _VERTEX_WIND
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -165,7 +165,7 @@ Material:
     - _EnableGeometricSpecularAA: 0
     - _EnableMotionVectorForVertexAnimation: 0
     - _EnableSpecularOcclusion: 0
-    - _EnableWind: 0
+    - _EnableWind: 1
     - _EnergyConservingSpecularColor: 1
     - _HdrpVersion: 1
     - _HeightAmplitude: 0.02
@@ -177,7 +177,7 @@ Material:
     - _HeightPoMAmplitude: 2
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
-    - _InitialBend: 1
+    - _InitialBend: 0.8
     - _InvTilingScale: 1
     - _Ior: 1
     - _IridescenceMask: 1
@@ -196,7 +196,7 @@ Material:
     - _RefractionModel: 0
     - _SSRefractionProjectionModel: 0
     - _ShiverDirectionality: 0.5
-    - _ShiverDrag: 0.2
+    - _ShiverDrag: 1
     - _Smoothness: 0.303
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -207,7 +207,7 @@ Material:
     - _StencilRefMV: 128
     - _StencilWriteMask: 7
     - _StencilWriteMaskMV: 128
-    - _Stiffness: 1
+    - _Stiffness: 5
     - _SubsurfaceMask: 1
     - _SupportDBuffer: 0
     - _SurfaceType: 0

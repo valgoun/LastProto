@@ -240,15 +240,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adced1770c3a08443821cb49cf909ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WindSpeed: 30
-  Turbulence: 0.25
-  NoiseTexture: {fileID: 0}
-  FlexNoiseWorldSize: 175
-  ShiverNoiseWorldSize: 10
-  GustMaskTexture: {fileID: 0}
-  GustWorldSize: 600
-  GustSpeed: 50
-  GustScale: 1
+  WindSpeed: 0.005
+  Turbulence: 0.34
+  NoiseTexture: {fileID: 2800000, guid: fcecce6d2c9be8d418a27f0658a2210d, type: 3}
+  FlexNoiseWorldSize: 1
+  ShiverNoiseWorldSize: 1
+  GustMaskTexture: {fileID: 2800000, guid: 0fbcdcda305ecd54cb7c79f6c8cb48b7, type: 3}
+  GustWorldSize: 100
+  GustSpeed: 4
+  GustScale: 5
 --- !u!1 &1328092093
 GameObject:
   m_ObjectHideFlags: 0
