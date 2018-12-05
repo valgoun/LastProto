@@ -3092,7 +3092,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &197277922
 Transform:
   m_ObjectHideFlags: 0
@@ -4994,6 +4994,11 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 1024
+  SelectedElements: []
+  Aztecs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &931933468
 Transform:
   m_ObjectHideFlags: 0
@@ -5859,6 +5864,8 @@ MonoBehaviour:
   Drag: 10
   VelocityThreshold: 0.05
   MaxZoomMultiplier: 0.2
+  CameraCenteringMultiplier: 3.5
+  CameraCenteringDeccelerationTreshold: 5
   BoundariesLayer:
     serializedVersion: 2
     m_Bits: 2048
