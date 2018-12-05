@@ -6492,7 +6492,7 @@ MonoBehaviour:
   lightUnit: 0
   fadeDistance: 10000
   affectDiffuse: 1
-  affectSpecular: 1
+  affectSpecular: 0
   nonLightmappedOnly: 0
   lightTypeExtent: 0
   spotLightShape: 0
@@ -13498,7 +13498,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400116, guid: 45939a717327fb54bbfbdc841e593fb5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.599693
+      value: -36.86
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: 45939a717327fb54bbfbdc841e593fb5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13514,7 +13514,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: 45939a717327fb54bbfbdc841e593fb5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9468323
+      value: 0.022897054
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: 45939a717327fb54bbfbdc841e593fb5, type: 3}
       propertyPath: m_LocalRotation.z
@@ -13522,7 +13522,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: 45939a717327fb54bbfbdc841e593fb5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.32172763
+      value: 0.9997379
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: 45939a717327fb54bbfbdc841e593fb5, type: 3}
       propertyPath: m_RootOrder
@@ -13530,7 +13530,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: 45939a717327fb54bbfbdc841e593fb5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 142.46501
+      value: 2.624
       objectReference: {fileID: 0}
     - target: {fileID: 400116, guid: 45939a717327fb54bbfbdc841e593fb5, type: 3}
       propertyPath: m_LocalScale.x
@@ -15231,7 +15231,7 @@ MonoBehaviour:
   useOldInspector: 0
   featuresFoldout: 1
   showAdditionalSettings: 1
-  displayLightIntensity: 3000
+  displayLightIntensity: 1500
   displayAreaLightEmissiveMesh: 0
 --- !u!108 &1041739788
 Light:
@@ -15243,7 +15243,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.90288794, b: 0.6179246, a: 1}
-  m_Intensity: 238.7324
+  m_Intensity: 119.3662
   m_Range: 19.78
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -28999,7 +28999,7 @@ MonoBehaviour:
   useOldInspector: 0
   featuresFoldout: 1
   showAdditionalSettings: 1
-  displayLightIntensity: 1000
+  displayLightIntensity: 600
   displayAreaLightEmissiveMesh: 0
 --- !u!108 &1863296989
 Light:
@@ -29011,7 +29011,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 79.57747
+  m_Intensity: 47.746483
   m_Range: 20.5
   m_SpotAngle: 30
   m_CookieSize: 10

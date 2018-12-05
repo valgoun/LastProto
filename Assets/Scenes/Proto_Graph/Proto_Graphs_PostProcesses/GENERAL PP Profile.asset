@@ -14,6 +14,7 @@ MonoBehaviour:
   components:
   - {fileID: 114455404153926466}
   - {fileID: 114560936841509156}
+  - {fileID: 114543181699442212}
   - {fileID: 114263057637124968}
   - {fileID: 114432942629436212}
   - {fileID: 114665583116611100}
@@ -275,6 +276,40 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
     min: 0
+--- !u!114 &114543181699442212
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b6606ef2548734bb6d11b9d160bc7e, type: 3}
+  m_Name: HDRISky
+  m_EditorClassIdentifier: 
+  active: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  exposure:
+    m_OverrideState: 0
+    m_Value: 0
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  hdriSky:
+    m_OverrideState: 1
+    m_Value: {fileID: 0}
 --- !u!114 &114560936841509156
 MonoBehaviour:
   m_ObjectHideFlags: 3
