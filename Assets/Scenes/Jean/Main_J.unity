@@ -4956,6 +4956,7 @@ GameObject:
   - component: {fileID: 931933469}
   - component: {fileID: 931933471}
   - component: {fileID: 931933470}
+  - component: {fileID: 931933472}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -5057,6 +5058,17 @@ MonoBehaviour:
   - {fileID: 4013906744407316, guid: 760cfe1942998b540a2f1c4de42b5451, type: 2}
   - {fileID: 4450731506543048, guid: 66604a9d87a27e340b40f982657d4134, type: 2}
   - {fileID: 4326017942913154, guid: d3265100ef5a5454e88de233e9958162, type: 2}
+--- !u!114 &931933472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 931933465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3cfb89e73d14e44b531553f35dc2a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &987383826
 GameObject:
   m_ObjectHideFlags: 0
@@ -5888,6 +5900,10 @@ MonoBehaviour:
   ZoomAngleThreshold: 1.5
   MinAngle: {x: 80, y: 0, z: 0}
   MaxAngle: {x: 60, y: 0, z: 0}
+  PlaneVelocity: {x: 0, y: 0, z: 0}
+  ZoomLevel: 0
+  ZoomVelocity: {x: 0, y: 0, z: 0}
+  AngularVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1126090293
 MonoBehaviour:
   m_ObjectHideFlags: 0
