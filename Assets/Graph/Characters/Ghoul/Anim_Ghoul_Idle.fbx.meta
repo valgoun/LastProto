@@ -119,7 +119,7 @@ ModelImporter:
     400110: mixamorig:Spine
     400112: mixamorig:Spine1
     400114: mixamorig:Spine2
-    7400000: Idle
+    7400000: Ghoul_Idle
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -150,7 +150,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: Ghoul_Idle
       takeName: mixamo.com
       firstFrame: 0
       lastFrame: 130
