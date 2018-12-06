@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fbf191d4b60137499cd00aaea55cfc3, type: 3}
   m_Name: CommunicationSensor
   m_EditorClassIdentifier: 
-  CommunicationRadius: 8
+  CommunicationRadius: 10

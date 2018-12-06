@@ -140,8 +140,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1231563812433204}
-  m_LocalRotation: {x: -0, y: 0.0000064074998, z: -0, w: 1}
-  m_LocalPosition: {x: -6.1, y: 2, z: 25.35}
+  m_LocalRotation: {x: -0, y: -0.70710665, z: -0, w: 0.707107}
+  m_LocalPosition: {x: 17.5, y: 2, z: -0.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4157314996490648}
@@ -150,7 +150,7 @@ Transform:
   - {fileID: 4845758803786874}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -719.999, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
 --- !u!4 &4667479220782134
 Transform:
   m_ObjectHideFlags: 1
@@ -413,6 +413,7 @@ MonoBehaviour:
   Sensors:
   - {fileID: 11400000, guid: 21f5566e6147179418faa6393e8ccae4, type: 2}
   - {fileID: 11400000, guid: 34f3decf932befc4682eeae4ae043dae, type: 2}
+  - {fileID: 11400000, guid: 3bc64db2184bb5346b79df6f05450d9c, type: 2}
 --- !u!114 &114484237425641654
 MonoBehaviour:
   m_ObjectHideFlags: 1
