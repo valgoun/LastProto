@@ -15,7 +15,7 @@ public class Explosion : MonoBehaviour {
         {
             if (col.tag == "Conquistador")
             {
-                Destroy(col.transform.parent.gameObject);
+                col.transform.parent.gameObject.GetComponent<Conquistador>().KillMe();
             }
             else if (col.tag == "Destroyable")
             {

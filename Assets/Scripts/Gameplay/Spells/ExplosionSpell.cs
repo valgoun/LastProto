@@ -8,6 +8,7 @@ public class ExplosionSpell : Spell {
     [Header("Explosion Spell")]
     public float Delay;
     public GameObject ExplosionPrefab;
+    public GameObject UIPrefab;
 
     public override void StartCasting()
     {
@@ -22,6 +23,8 @@ public class ExplosionSpell : Spell {
     protected override void SpellEffect(GameObject target, Vector3 position)
     {
         SpellManager.Instance.StartCoroutine(ExplosionRoutine(target, Delay));
+        GameObject ui = Instantiate(UIPrefab, target.transform);
+        ui.GetComponent<TimerUI>().Initialize(Delay);
     }
 
     private IEnumerator ExplosionRoutine (GameObject target, float delay)
@@ -31,7 +34,12 @@ public class ExplosionSpell : Spell {
         if (target)
         {
             Instantiate(ExplosionPrefab, target.transform.position, target.transform.rotation);
-            Destroy(target);
+            if (target.tag == "Aztec")
+            {
+                target.GetComponent<Unit>().Killed();
+            }
+            else
+                Destroy(target);
         }
     }
 }

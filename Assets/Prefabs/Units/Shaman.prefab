@@ -2284,7 +2284,7 @@ Animator:
   m_GameObject: {fileID: 1602442481019808}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 7dad0baa8e3c84049819f646a974aee3, type: 3}
-  m_Controller: {fileID: 9100000, guid: 9896c50f3d9657545868757886292d94, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3b75850a75913454f9c942eb399aa5bb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2343,11 +2343,10 @@ MonoBehaviour:
   FollowPrecision: 0.2
   StimuliLifetimeWhenSeen: 0
   AttackRange: 2
-  Invincible: 1
-  MyRenderer: {fileID: 23995251070719716}
   MySelectable: {fileID: 1577731114074154}
   ModelAnimator: {fileID: 95946378730952996}
-  GhostMaterial: {fileID: 0}
+  Invincible: 1
+  Selected: 0
 --- !u!135 &135858809271724124
 SphereCollider:
   m_ObjectHideFlags: 1
