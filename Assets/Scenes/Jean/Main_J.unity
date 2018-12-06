@@ -5904,6 +5904,7 @@ MonoBehaviour:
   ZoomLevel: 0
   ZoomVelocity: {x: 0, y: 0, z: 0}
   AngularVelocity: {x: 0, y: 0, z: 0}
+  IsAutoCentering: 0
 --- !u!114 &1126090293
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -131,6 +131,9 @@ public class CameraController : MonoBehaviour {
     [ReadOnly]
     [Tooltip("Current Angular velocity of the camera.")]
     public Vector3 AngularVelocity;
+    [Space, ReadOnly]
+    [Tooltip("Is currently auto-centering on selection ?")]
+    public bool IsAutoCentering;
 
     private bool IsMinLimit { get { return (MinZoomType == ZoomTypeEnum.LIMIT || MinZoomType == ZoomTypeEnum.HOVER_LIMIT); } }
     private bool IsMaxLimit { get { return (MaxZoomType == ZoomTypeEnum.LIMIT || MaxZoomType == ZoomTypeEnum.HOVER_LIMIT); } }
@@ -240,8 +243,13 @@ public class CameraController : MonoBehaviour {
             }
             else
                 input += horizontalInput;
+
+            if (input != Vector3.zero)
+            {
+                IsAutoCentering = false;
+            }
         }
-        else
+        if(IsAutoCentering || (Input.GetButton("Centering") && (centeringLength != 0)))
         {
             centeringGradient = CameraCenteringMultiplier;
 
