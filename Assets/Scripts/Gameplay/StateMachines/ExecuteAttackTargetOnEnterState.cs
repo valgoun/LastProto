@@ -14,7 +14,12 @@ public class ExecuteAttackTargetOnEnterState : StateMachineBehaviour
             _unit = animator.transform.parent.GetComponent<Unit>();
         }
 
-        Destroy(_unit.AttackTarget.parent.gameObject);
+        if (_unit.AttackTarget.parent.gameObject.tag == "Conquistador")
+        {
+            _unit.AttackTarget.parent.gameObject.GetComponent<Conquistador>().KillMe();
+        }
+        else
+            Destroy(_unit.AttackTarget.parent.gameObject);
     }
 }
 

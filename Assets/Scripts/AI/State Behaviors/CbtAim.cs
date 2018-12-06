@@ -8,16 +8,22 @@ public class CbtAim : StateMachineBehaviour {
     private Transform _transform;
     private Stimulus _targetStimulus;
     private float _timer;
+    private Conquistador _conq;
 
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _brain = _brain ?? animator.GetComponent<AIBrain>();
-        _transform = _transform ?? _brain.transform;
+        if (!_brain)
+        {
+            _brain = animator.GetComponent<AIBrain>();
+            _transform = _brain.transform;
+            _conq = animator.GetComponent<Conquistador>();
+        }
 
         _targetStimulus = _brain.BestStimulus;
         _timer = 0.0f;
+        _conq.MyAnimator.SetBool("Aim", true);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -43,13 +49,14 @@ public class CbtAim : StateMachineBehaviour {
         {
             _brain.Shoot(_targetStimulus.GetData<EnemyData>().EnemyGameObject);
             animator.SetTrigger("Reload");
+            _conq.MyAnimator.SetTrigger("Shoot");
         }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+        _conq.MyAnimator.SetBool("Aim", false);
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
