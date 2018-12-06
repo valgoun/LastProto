@@ -23,9 +23,9 @@ public class GhostSpell : Spell
         if (!target)
             return;
 
-        if (target.tag == "Aztec" || target.tag == "Shaman")
+        if (target.tag == "Aztec")
         {
-            target.GetComponent<Unit>().ChangeIntoGhost();
+            target.GetComponent<Aztec>().ChangeIntoGhost();
         }
 
         target.AddComponent<Lifetime>().StartLifetime(DeathDelay);
