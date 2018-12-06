@@ -228,10 +228,10 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 60.60386, y: 14.616547, z: 34.30587}
-  - {x: 38.529896, y: 14.241276, z: 79.41135}
-  - {x: 124.582275, y: 17.15803, z: 74.35935}
-  - {x: 106.076, y: 15.562069, z: 34.052517}
+  - {x: 60.607864, y: 14.613659, z: 34.30664}
+  - {x: 38.53438, y: 14.236063, z: 79.42037}
+  - {x: 124.57291, y: 17.15803, z: 74.35935}
+  - {x: 106.070786, y: 15.56217, z: 34.052486}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 0.25
@@ -368,6 +368,8 @@ MonoBehaviour:
   Drag: 10
   VelocityThreshold: 0.05
   MaxZoomMultiplier: 0.2
+  CameraCenteringMultiplier: 3.5
+  CameraCenteringDeccelerationTreshold: 5
   BoundariesLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -390,6 +392,10 @@ MonoBehaviour:
   ZoomAngleThreshold: 1.5
   MinAngle: {x: 52.5, y: 0, z: 0}
   MaxAngle: {x: 40, y: 0, z: 0}
+  PlaneVelocity: {x: 0, y: 0, z: 0}
+  ZoomLevel: 0
+  ZoomVelocity: {x: 0, y: 0, z: 0}
+  AngularVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1595116470
 MonoBehaviour:
   m_ObjectHideFlags: 0
