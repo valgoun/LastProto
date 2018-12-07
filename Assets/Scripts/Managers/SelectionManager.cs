@@ -196,40 +196,80 @@ public class SelectionManager : MonoBehaviour {
 
     public void SelectShaman ()
     {
+        Camera.main.GetComponent<CameraController>().IsAutoCentering = false;
         if (Shaman)
         {
-            CleanSelection();
-            SelectedElements.Add(Shaman);
-            Shaman.Select();
+            if (SelectedElements.Count == 1 && SelectedElements[0] == Shaman)
+            {
+                Camera.main.GetComponent<CameraController>().IsAutoCentering = true;
+            }
+            else
+            {
+                CleanSelection();
+                SelectedElements.Add(Shaman);
+                Shaman.Select();
+            }
         }
     }
 
     public void SelectGhoul (int index)
     {
+        Camera.main.GetComponent<CameraController>().IsAutoCentering = false;
         if (Aztecs[index])
         {
-            CleanSelection();
-            SelectedElements.Add(Aztecs[index]);
-            Aztecs[index].Select();
+            if (SelectedElements.Count == 1 && SelectedElements[0] == Aztecs[index])
+            {
+                Camera.main.GetComponent<CameraController>().IsAutoCentering = true;
+            }
+            else
+            {
+                CleanSelection();
+                SelectedElements.Add(Aztecs[index]);
+                Aztecs[index].Select();
+            }
         }
     }
 
     public void SelectAll ()
     {
-        CleanSelection();
+        Camera.main.GetComponent<CameraController>().IsAutoCentering = false;
+
+        List<Unit> NewSelection = new List<Unit>();
 
         if (Shaman)
         {
-            SelectedElements.Add(Shaman);
-            Shaman.Select();
+            NewSelection.Add(Shaman);
         }
 
         foreach (Unit unit in Aztecs)
         {
             if (unit)
             {
-                SelectedElements.Add(unit);
+                NewSelection.Add(unit);
+            }
+        }
+
+        bool same = true;
+        foreach (Unit unit in NewSelection)
+        {
+            if (!SelectedElements.Contains(unit))
+            {
+                same = false;
+                break;
+            }
+        }
+
+        if (same)
+        {
+            Camera.main.GetComponent<CameraController>().IsAutoCentering = true;
+        }
+        else
+        {
+            CleanSelection();
+            foreach (Unit unit in NewSelection)
+            {
                 unit.Select();
+                SelectedElements.Add(unit);
             }
         }
     }

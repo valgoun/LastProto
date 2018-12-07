@@ -11,6 +11,9 @@ public class Aztec : Unit {
     [TabGroup("Ghoul")]
     public LayerMask JumpAttackLineOfSight;
 
+    [TabGroup("Asset")]
+    public GameObject GhostFX;
+
     [Space]
     [ReadOnly]
     public bool IsGhost;
@@ -62,6 +65,6 @@ public class Aztec : Unit {
         MySelectable.tag = "Untagged";
         IsGhost = true;
 
-        //Need to do the graphic stuff
+        Instantiate(GhostFX, transform);
     }
 }
