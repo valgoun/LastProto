@@ -51,7 +51,7 @@ public class CameraController : MonoBehaviour {
     [Tooltip("Distance at which the Camera starts decelerating when centering on selection. Allow to smooth more or less the centering movement (bigger value = more smoothing).")]
     public float CameraCenteringDeccelerationTreshold = 5;
     [TabGroup("Plane Movement")]
-    [Tooltip("Offset when centering on selection")]
+    [Tooltip("Offset when centering the camera on selection")]
     public Vector3 CameraCenteringOffset;
 
     [TabGroup("Plane Movement"), Space]
@@ -196,12 +196,12 @@ public class CameraController : MonoBehaviour {
 
         int centeringLength = 0;
 
-        Vector3 point = Vector3.zero + CameraCenteringOffset;
+        Vector3 point = Vector3.zero;
         foreach (Unit unit in SelectionManager.Instance.SelectedElements)
         {
             if (unit)
             {
-                point += unit.transform.position;
+                point += unit.transform.position + CameraCenteringOffset;
                 centeringLength++;
             }
         }
@@ -258,10 +258,10 @@ public class CameraController : MonoBehaviour {
         if(IsAutoCentering || (Input.GetButton("Centering") && (centeringLength != 0)))
         {
             centeringGradient = CameraCenteringMultiplier;
-
+           
             point /= centeringLength;
 
-            Vector3 dir = point - transform.position + CameraCenteringOffset;
+            Vector3 dir = point - transform.position; 
             dir.y = 0;
             input = dir.normalized;
             if (dir.magnitude < CameraCenteringDeccelerationTreshold)
