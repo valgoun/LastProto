@@ -261,7 +261,7 @@ public class CameraController : MonoBehaviour {
 
             point /= centeringLength;
 
-            Vector3 dir = point - transform.position;
+            Vector3 dir = point - transform.position + CameraCenteringOffset;
             dir.y = 0;
             input = dir.normalized;
             if (dir.magnitude < CameraCenteringDeccelerationTreshold)
