@@ -50,6 +50,9 @@ public class CameraController : MonoBehaviour {
     [TabGroup("Plane Movement")]
     [Tooltip("Distance at which the Camera starts decelerating when centering on selection. Allow to smooth more or less the centering movement (bigger value = more smoothing).")]
     public float CameraCenteringDeccelerationTreshold = 5;
+    [TabGroup("Plane Movement")]
+    [Tooltip("Offset when centering on selection")]
+    public Vector3 CameraCenteringOffset;
 
     [TabGroup("Plane Movement"), Space]
     [Tooltip("Physic Layer for the camera boundaries.")]
@@ -63,6 +66,8 @@ public class CameraController : MonoBehaviour {
     [TabGroup("Plane Movement")]
     [Tooltip("Distance from a boundary which the camera can't go under. This effectively make any boundary closer to the camera by the value of SafeDistanceFromBound. It is used to make sure that the camera doesn't go through the boundary and keep detecting it with its raycasts.")]
     public float SafeDistanceFromBound;
+
+
 
     [TabGroup("Zoom")]
     [Tooltip("Zoom force of a Scroll Wheel input.")]
@@ -190,7 +195,8 @@ public class CameraController : MonoBehaviour {
         float centeringGradient = 1;
 
         int centeringLength = 0;
-        Vector3 point = Vector3.zero;
+
+        Vector3 point = Vector3.zero + CameraCenteringOffset;
         foreach (Unit unit in SelectionManager.Instance.SelectedElements)
         {
             if (unit)
