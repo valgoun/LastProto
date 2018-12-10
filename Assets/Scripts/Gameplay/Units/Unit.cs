@@ -8,12 +8,14 @@ using Sirenix.OdinInspector;
 public class Unit : MonoBehaviour, IAiFoe
 {
 
-    [TabGroup("Group")]
+    [TabGroup("General")]
     public float FollowPrecision;
-    [TabGroup("Group")]
+    [TabGroup("General")]
     public float StimuliLifetimeWhenSeen;
-    [TabGroup("Group")]
+    [TabGroup("General")]
     public float AttackRange;
+    [TabGroup("General")]
+    public bool CanHandleRelic;
 
     [TabGroup("References")]
     public GameObject MySelectable;
@@ -82,6 +84,12 @@ public class Unit : MonoBehaviour, IAiFoe
 
     public void Follow (Transform target, int formationIndex, int size)
     {
+        if (TargetToFollow.tag == "Relic")
+        {
+            if (!CanHandleRelic)
+                return;
+        }
+
         TargetToFollow = target;
         _navAgent.stoppingDistance = 0.5f;
         _navAgent.SetDestination(FormationManager.Instance.GetPositionInFormation(target.position, formationIndex, size, target.position - transform.position));
@@ -95,6 +103,12 @@ public class Unit : MonoBehaviour, IAiFoe
         {
             if (AttackDecision(TargetToFollow))
                 return;
+        }
+        else if (TargetToFollow.tag == "Relic")
+        {
+            if (CanHandleRelic)
+                if (AttackDecision(TargetToFollow))
+                    return;
         }
 
         Vector3 pos = FormationManager.Instance.GetPositionInFormation(TargetToFollow.position, _squadNumber, _squadSize, TargetToFollow.position - transform.position);

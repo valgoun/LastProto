@@ -946,7 +946,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4324103148020268}
   - component: {fileID: 195275625850841526}
-  - component: {fileID: 114412586677604522}
   - component: {fileID: 114386836109569518}
   - component: {fileID: 114308216302813640}
   - component: {fileID: 54057091365042724}
@@ -2329,23 +2328,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7063c3ab08ce3c547aa6699d4d48b5c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114412586677604522
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904628821296382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ed9dcf5dbad14d43a903ff063468b9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   FollowPrecision: 0.2
   StimuliLifetimeWhenSeen: 0
   AttackRange: 2
+  CanHandleRelic: 1
   MySelectable: {fileID: 1577731114074154}
   ModelAnimator: {fileID: 95946378730952996}
-  Invincible: 1
+  Invincible: 0
   Selected: 0
 --- !u!135 &135858809271724124
 SphereCollider:
