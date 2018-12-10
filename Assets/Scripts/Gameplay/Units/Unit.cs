@@ -84,7 +84,7 @@ public class Unit : MonoBehaviour, IAiFoe
 
     public void Follow (Transform target, int formationIndex, int size)
     {
-        if (TargetToFollow.tag == "Relic")
+        if (target.tag == "Relic")
         {
             if (!CanHandleRelic)
                 return;
