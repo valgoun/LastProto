@@ -29,12 +29,16 @@ public class CameraController : MonoBehaviour {
     public bool ZoneUseGradient;
 
     [TabGroup("Plane Movement")]
+    [Tooltip("Maximum Speed the camera can reach.")]
     public float MaximumSpeed;
     [TabGroup("Plane Movement")]
+    [Tooltip("Rate at which the camera accelerate and eventually reach the Maximum Speed. A low value make the camera movements smoother, while a higher value make it feel more responsive.")]
     public float Acceleration;
     [TabGroup("Plane Movement")]
+    [Tooltip("Drag value to let the camera decelerate on its own when no force is applied to it. The higher the value, the faster the camera will lose velocity.")]
     public float Drag;
     [TabGroup("Plane Movement")]
+    [Tooltip("Velocity threshold under which the velocity is automatically nullified. This is to avoid very small velocity value due to the effect of the drag.")]
     public float VelocityThreshold;
 
     [TabGroup("Plane Movement"), Space]
@@ -46,64 +50,101 @@ public class CameraController : MonoBehaviour {
     [TabGroup("Plane Movement")]
     [Tooltip("Distance at which the Camera starts decelerating when centering on selection. Allow to smooth more or less the centering movement (bigger value = more smoothing).")]
     public float CameraCenteringDeccelerationTreshold = 5;
+    [TabGroup("Plane Movement")]
+    [Tooltip("Offset when centering the camera on selection")]
+    public Vector3 CameraCenteringOffset;
 
     [TabGroup("Plane Movement"), Space]
+    [Tooltip("Physic Layer for the camera boundaries.")]
     public LayerMask BoundariesLayer;
     [TabGroup("Plane Movement")]
+    [Tooltip("How the Camera will decelerate when approaching a boundary. 1 is a linear curve, 2 is a square curve, etc...")]
     public float DeccelerationGradient;
     [TabGroup("Plane Movement")]
+    [Tooltip("Distance from a boundary at which the camera will start decelerating.")]
     public float DistanceThresholdForDecceleration;
     [TabGroup("Plane Movement")]
+    [Tooltip("Distance from a boundary which the camera can't go under. This effectively make any boundary closer to the camera by the value of SafeDistanceFromBound. It is used to make sure that the camera doesn't go through the boundary and keep detecting it with its raycasts.")]
     public float SafeDistanceFromBound;
 
+
+
     [TabGroup("Zoom")]
+    [Tooltip("Zoom force of a Scroll Wheel input.")]
     public float ZoomInputForce;
 
     [TabGroup("Zoom"), Space]
+    [Tooltip("How quickly the camera will catchup to the zoom level height it's supposed to be at. A lower value will make it smoother while a higher value will make it feel more responsive.")]
     public float ZoomMovementForce;
     [TabGroup("Zoom")]
+    [Tooltip("Velocity threshold under which the velocity is automatically nullified. This is to avoid very small velocity values.")]
     public float ZoomMovementThreshold;
 
-    [TabGroup("Zoom"), Space]
+    [TabGroup("Zoom"), Space, ShowIf("NeedHover")]
+    [Tooltip("Physic Layer for the ground so that the camera can hover it.")]
     public LayerMask FloorLayer;
 
     [TabGroup("Zoom"), Space]
+    [Tooltip("Compute mode of the Camera height for the minimum level of Zoom (normal state of the camera).\n\n" +
+        "LIMIT is a flat height value.\n\n" +
+        "HOVER means the camera height will be at a set distance from the ground.\n\n" +
+        "HOVER_LIMIT means the camera height will be at a set distance from the ground but cannot go under a flat height limit.")]
     public ZoomTypeEnum MinZoomType;
     [TabGroup("Zoom"), ShowIf("IsMinLimit")]
+    [Tooltip("Flat height Limit.")]
     public float MinZoomLimit;
     [TabGroup("Zoom"), ShowIf("IsMinHover")]
+    [Tooltip("Distance from the ground at which the camera should hover.")]
     public float MinZoomHover;
 
     [TabGroup("Zoom"), Space]
+    [Tooltip("Compute mode of the Camera height for the maximum level of Zoom.\n\n" +
+        "LIMIT is a flat height value.\n\n" +
+        "HOVER means the camera height will be at a set distance from the ground.\n\n" +
+        "HOVER_LIMIT means the camera height will be at a set distance from the ground but cannot go under a flat height limit.")]
     public ZoomTypeEnum MaxZoomType;
     [TabGroup("Zoom"), ShowIf("IsMaxLimit")]
+    [Tooltip("Flat height Limit.")]
     public float MaxZoomLimit;
     [TabGroup("Zoom"), ShowIf("IsMaxHover")]
+    [Tooltip("Distance from the ground at which the camera should hover.")]
     public float MaxZoomHover;
 
     [TabGroup("Zoom"), Space]
+    [Tooltip("How quickly the camera will catchup to the zoom level angle it's supposed to be at. A lower value will make it smoother while a higher value will make it feel more responsive.")]
     public float ZoomAngleForce;
     [TabGroup("Zoom")]
+    [Tooltip("Angular Velocity threshold under which the velocity is automatically nullified. This is to avoid very small velocity values.")]
     public float ZoomAngleThreshold;
     [TabGroup("Zoom")]
+    [Tooltip("Desired Camera angle for the minimum level of Zoom (normal state of the camera).")]
     public Vector3 MinAngle;
     [TabGroup("Zoom")]
+    [Tooltip("Desired Camera angle for the maximum level of Zoom.")]
     public Vector3 MaxAngle;
 
     [Header("Debug")]
     [ReadOnly]
+    [Tooltip("Current Horizontal velocity of the camera.")]
     public Vector3 PlaneVelocity;
     [Space, ReadOnly]
+    [Tooltip("Current Zoom level of the camera. Goes from 0 (Minimum level) to 1 (Maximum Level).")]
     public float ZoomLevel = 0;
     [ReadOnly]
+    [Tooltip("Current Vertical velocity of the camera.")]
     public Vector3 ZoomVelocity;
     [ReadOnly]
+    [Tooltip("Current Angular velocity of the camera.")]
     public Vector3 AngularVelocity;
+    [Space, ReadOnly]
+    [Tooltip("Is currently auto-centering on selection ?")]
+    public bool IsAutoCentering;
 
     private bool IsMinLimit { get { return (MinZoomType == ZoomTypeEnum.LIMIT || MinZoomType == ZoomTypeEnum.HOVER_LIMIT); } }
     private bool IsMaxLimit { get { return (MaxZoomType == ZoomTypeEnum.LIMIT || MaxZoomType == ZoomTypeEnum.HOVER_LIMIT); } }
     private bool IsMinHover { get { return (MinZoomType == ZoomTypeEnum.HOVER || MinZoomType == ZoomTypeEnum.HOVER_LIMIT); } }
     private bool IsMaxHover { get { return (MaxZoomType == ZoomTypeEnum.HOVER || MaxZoomType == ZoomTypeEnum.HOVER_LIMIT); } }
+    private bool NeedHover { get { return IsMinHover && IsMaxHover; } }
 
     // Use this for initialization
     void Start () {
@@ -154,12 +195,13 @@ public class CameraController : MonoBehaviour {
         float centeringGradient = 1;
 
         int centeringLength = 0;
+
         Vector3 point = Vector3.zero;
         foreach (Unit unit in SelectionManager.Instance.SelectedElements)
         {
             if (unit)
             {
-                point += unit.transform.position;
+                point += unit.transform.position + CameraCenteringOffset;
                 centeringLength++;
             }
         }
@@ -207,14 +249,19 @@ public class CameraController : MonoBehaviour {
             }
             else
                 input += horizontalInput;
+
+            if (input != Vector3.zero)
+            {
+                IsAutoCentering = false;
+            }
         }
-        else
+        if(IsAutoCentering || (Input.GetButton("Centering") && (centeringLength != 0)))
         {
             centeringGradient = CameraCenteringMultiplier;
-
+           
             point /= centeringLength;
 
-            Vector3 dir = point - transform.position;
+            Vector3 dir = point - transform.position; 
             dir.y = 0;
             input = dir.normalized;
             if (dir.magnitude < CameraCenteringDeccelerationTreshold)

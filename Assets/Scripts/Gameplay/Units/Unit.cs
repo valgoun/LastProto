@@ -3,37 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Sirenix.OdinInspector;
 
 public class Unit : MonoBehaviour, IAiFoe
 {
 
-    [Header("Tweaking")]
+    [TabGroup("General")]
     public float FollowPrecision;
+    [TabGroup("General")]
     public float StimuliLifetimeWhenSeen;
+    [TabGroup("General")]
     public float AttackRange;
+    [TabGroup("General")]
+    public bool CanHandleRelic;
+
+    [TabGroup("References")]
+    public GameObject MySelectable;
+    [TabGroup("References")]
+    public Animator ModelAnimator;
 
     [Header("Debug")]
     public bool Invincible;
 
-    [Header("References")]
-    public MeshRenderer MyRenderer;
-    public GameObject MySelectable;
-    public Animator ModelAnimator;
-
-    [Header("Assets")]
-    public Material GhostMaterial;
-
-    [NonSerialized]
+    [Space]
+    [ReadOnly]
     public bool Selected;
+
     [NonSerialized]
     public Transform AttackTarget;
     [NonSerialized]
-    public Transform _targetToFollow;
+    public Transform TargetToFollow;
 
     private Transform _transform;
     private int _squadNumber;
     private int _squadSize;
-    private bool _isGhost;
 
     protected bool _isInBush;
     protected NavMeshAgent _navAgent;
@@ -53,7 +56,7 @@ public class Unit : MonoBehaviour, IAiFoe
 	}
 	
 	void Update () {
-        if (_targetToFollow)
+        if (TargetToFollow)
             FollowRoutine();
 	}
 
@@ -74,14 +77,20 @@ public class Unit : MonoBehaviour, IAiFoe
 
     public void MoveTo (Vector3 destination, int formationIndex, int size)
     {
-        _targetToFollow = null;
+        TargetToFollow = null;
         _navAgent.stoppingDistance = 0;
         _navAgent.SetDestination(FormationManager.Instance.GetPositionInFormation(destination, formationIndex, size, destination - transform.position));
     }
 
     public void Follow (Transform target, int formationIndex, int size)
     {
-        _targetToFollow = target;
+        if (target.tag == "Relic")
+        {
+            if (!CanHandleRelic)
+                return;
+        }
+
+        TargetToFollow = target;
         _navAgent.stoppingDistance = 0.5f;
         _navAgent.SetDestination(FormationManager.Instance.GetPositionInFormation(target.position, formationIndex, size, target.position - transform.position));
         _squadNumber = formationIndex;
@@ -90,13 +99,19 @@ public class Unit : MonoBehaviour, IAiFoe
 
     private void FollowRoutine ()
     {
-        if (_targetToFollow.tag == "Conquistador")
+        if (TargetToFollow.tag == "Conquistador")
         {
-            if (AttackDecision(_targetToFollow))
+            if (AttackDecision(TargetToFollow))
                 return;
         }
+        else if (TargetToFollow.tag == "Relic")
+        {
+            if (CanHandleRelic)
+                if (AttackDecision(TargetToFollow))
+                    return;
+        }
 
-        Vector3 pos = FormationManager.Instance.GetPositionInFormation(_targetToFollow.position, _squadNumber, _squadSize, _targetToFollow.position - transform.position);
+        Vector3 pos = FormationManager.Instance.GetPositionInFormation(TargetToFollow.position, _squadNumber, _squadSize, TargetToFollow.position - transform.position);
         if ((pos - _navAgent.destination).magnitude >= FollowPrecision)
         {
             _navAgent.SetDestination(pos);
@@ -120,16 +135,7 @@ public class Unit : MonoBehaviour, IAiFoe
         _navAgent.isStopped = true;
         ModelAnimator.SetTrigger("BasicAttack");
         _navAgent.ResetPath();
-        _targetToFollow = null;
-    }
-
-    public void ChangeIntoGhost ()
-    {
-        MyRenderer.material = GhostMaterial;
-        IsVisible = false;
-        tag = "Untagged";
-        MySelectable.tag = "Untagged";
-        _isGhost = true;
+        TargetToFollow = null;
     }
 
     public void Killed ()

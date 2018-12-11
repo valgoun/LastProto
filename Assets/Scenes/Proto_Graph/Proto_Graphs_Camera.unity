@@ -379,6 +379,7 @@ MonoBehaviour:
   MaxZoomMultiplier: 0.2
   CameraCenteringMultiplier: 3.5
   CameraCenteringDeccelerationTreshold: 5
+  CameraCenteringOffset: {x: 0, y: 0, z: 0}
   BoundariesLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -405,6 +406,7 @@ MonoBehaviour:
   ZoomLevel: 0
   ZoomVelocity: {x: 0, y: 0, z: 0}
   AngularVelocity: {x: 0, y: 0, z: 0}
+  IsAutoCentering: 0
 --- !u!114 &1595116470
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,7 +37,7 @@ public class Wander : StateMachineBehaviour {
             return;
         }
 
-        if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
+        if (_agent && _agent.isActiveAndEnabled && !_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
         {
             var randomPos = Random.insideUnitSphere * _brain.WanderRadius;
             randomPos.y = 0;

@@ -12,7 +12,7 @@ public class OffscreenUnitIndicator : MonoBehaviour {
 
 	void Awake ()
     {
-        _myCam = GetComponent<Camera>();
+        _myCam = Camera.main;
     }
 
 	void Update ()

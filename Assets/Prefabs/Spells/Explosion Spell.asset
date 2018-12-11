@@ -14,6 +14,7 @@ MonoBehaviour:
   SpellName: Explosion
   Targets: 4
   CooldownDuration: 7
-  Delay: 1
+  Delay: 3.5
   ExplosionPrefab: {fileID: 1678775384954208, guid: 8c252ffedc8adff488cf099373037c68,
     type: 2}
+  UIPrefab: {fileID: 1316023923276624, guid: a2d6252fc795bce4b9e6504fbdb1981d, type: 2}

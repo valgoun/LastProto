@@ -1,12 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class Aztec : Unit {
 
-    [Header("Aztec Tweaking")]
+    [TabGroup("Ghoul")]
     public float JumpAttackRange;
+    [TabGroup("Ghoul")]
     public LayerMask JumpAttackLineOfSight;
+
+    [TabGroup("Asset")]
+    public GameObject GhostFX;
+
+    [Space]
+    [ReadOnly]
+    public bool IsGhost;
 
     protected override void Start()
     {
@@ -16,6 +26,9 @@ public class Aztec : Unit {
 
     protected override bool AttackDecision(Transform target)
     {
+        if (IsGhost)
+            return false;
+
         if (_isInBush)
         {
             if (!_navAgent.isStopped && (target.position - transform.position).magnitude <= JumpAttackRange)
@@ -42,6 +55,16 @@ public class Aztec : Unit {
         ModelAnimator.SetTrigger("JumpAttack");
         AttackTarget = target;
         _navAgent.ResetPath();
-        _targetToFollow = null;
+        TargetToFollow = null;
+    }
+
+    public void ChangeIntoGhost()
+    {
+        IsVisible = false;
+        tag = "Untagged";
+        MySelectable.tag = "Untagged";
+        IsGhost = true;
+
+        Instantiate(GhostFX, transform);
     }
 }
