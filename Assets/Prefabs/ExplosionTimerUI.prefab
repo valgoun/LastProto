@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4784898907059352}
   - component: {fileID: 114099073003205606}
   m_Layer: 0
-  m_Name: World Timer UI
+  m_Name: ExplosionTimerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
