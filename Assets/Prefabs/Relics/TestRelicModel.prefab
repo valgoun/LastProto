@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33519698937426832}
   - component: {fileID: 23144835082272424}
   - component: {fileID: 65422537362620462}
-  m_Layer: 0
-  m_Name: TestRelicPrefab
+  m_Layer: 14
+  m_Name: TestRelicModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
