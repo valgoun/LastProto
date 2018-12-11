@@ -169,7 +169,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
+  m_RenderingLayerMask: 2
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9e389b0f3cc3084458b5083d09d87b2c, type: 2}
@@ -734,7 +734,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1234360217560950}
-  m_LocalRotation: {x: -0, y: 0.74755365, z: -0, w: 0.66420144}
+  m_LocalRotation: {x: 0, y: 0.7475547, z: 0, w: 0.6642003}
   m_LocalPosition: {x: -97.619995, y: 2, z: -2.8399978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -744,7 +744,7 @@ Transform:
   - {fileID: 4447026138762706}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 96.758, z: 0}
 --- !u!195 &195603302478706182
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -877,9 +877,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedData:
     Value:
-      x: -9.95
-      y: 2
-      z: 12.13
+      x: 89.52524
+      y: 16.74
+      z: 45.135
 --- !u!114 &3881130634865178857
 MonoBehaviour:
   m_ObjectHideFlags: 0
