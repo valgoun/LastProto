@@ -1998,7 +1998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d890aab1fd18f5f47a69b72d451bab05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visionRange: 13
+  _visionRange: 18
 --- !u!114 &114356934204679454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2013,6 +2013,7 @@ MonoBehaviour:
   FollowPrecision: 0.2
   StimuliLifetimeWhenSeen: 10
   AttackRange: 1.75
+  CanHandleRelic: 0
   MySelectable: {fileID: 1910934483600778}
   ModelAnimator: {fileID: 95114936327510096}
   Invincible: 0

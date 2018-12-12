@@ -140,8 +140,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1271522250928342}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000012367963}
+  m_LocalPosition: {x: -13.23, y: 2, z: 28.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4116953762765748}
@@ -150,7 +150,7 @@ Transform:
   - {fileID: 4968058396267006}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
 --- !u!4 &4833104363292646
 Transform:
   m_ObjectHideFlags: 1
@@ -454,6 +454,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4a6e9510c83ad4486331b0e267f868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MyAnimator: {fileID: 0}
+  AI_Brain: {fileID: 1680216852198526}
+  Selection: {fileID: 1146721885311516}
   Corpse: {fileID: 1748831402585722, guid: 981f0d30982575445ba45f6d6dcba66b, type: 2}
 --- !u!114 &114683459299701844
 MonoBehaviour:

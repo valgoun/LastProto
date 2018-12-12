@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eab4a5690d1e1f44bd769a8a389de0e, type: 3}
+  m_Name: Relique_01_03
+  m_EditorClassIdentifier: 
+  Head: Vie Religieuse
+  Subhead: "Dague de c\xE9r\xE9nomie"
+  Description: "Une magnifique dague de c\xE9r\xE9monie en obsidienne. Tous les pr\xEAtres
+    de mon peuple poss\xE8daient la leur pour effectuer les rituels \xE0 la gloire
+    des dieux. Il s'agit d'un objet sacr\xE9, et a l'odeur de celle-ci, ces envahisseurs
+    n'ont pas montr\xE9 le moindre signe de respect."
+  RenderObject: {fileID: 1890726698337424, guid: db1721bd95f23de4e939cc645a9509e5,
+    type: 2}
+  InitialRotation: {x: 0, y: 0, z: 0}
+  Scale: {x: 1.5, y: 1.5, z: 1.5}
+  Offset: {x: 0, y: 0, z: 0}

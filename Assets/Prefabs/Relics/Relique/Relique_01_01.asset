@@ -15,8 +15,8 @@ MonoBehaviour:
   Subhead: Casque de Guerrier Jaguar
   Description: "Le casque d'un grand guerrier. Mon peuple se battait avec honneur
     sur les champs de bataille, mais l'envahisseur n'en a aucun. Des r\xE8gles aussi
-    simple que la r\xE9dition lors de d\xE9faite leurs sont inconnu "
-  RenderObject: {fileID: 1890726698337424, guid: ae7e1428fc07ebb4ba0dce7fa6827c29,
+    simples que de donner la vie des  vaincus aux dieux leur sont inconnues."
+  RenderObject: {fileID: 1890726698337424, guid: e2b8b8820dd565d4fa84d3b335c54d46,
     type: 2}
   InitialRotation: {x: 0, y: 0, z: 0}
   Scale: {x: 1.5, y: 1.5, z: 1.5}

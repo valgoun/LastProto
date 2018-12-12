@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpellName: Resurrection
   Targets: 8
-  CooldownDuration: 5
+  CooldownDuration: 6
   TransformInto: {fileID: 1234360217560950, guid: 053279678b3191347b394fcc8d20ce37,
     type: 2}

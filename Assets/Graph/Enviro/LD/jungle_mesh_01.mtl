@@ -1,0 +1,8 @@
+newmtl DefaultHDMaterial
+Kd 0.7279412 0.7279412 0.7279412
+d 1
+
+newmtl M_JungleTransparent
+Kd 0.05098031 1 0.3301311
+d 0.4039216
+

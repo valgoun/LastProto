@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpellName: Explosion
   Targets: 4
-  CooldownDuration: 7
+  CooldownDuration: 8
   Delay: 3.5
   ExplosionPrefab: {fileID: 1678775384954208, guid: 8c252ffedc8adff488cf099373037c68,
     type: 2}
