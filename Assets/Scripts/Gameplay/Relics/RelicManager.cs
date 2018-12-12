@@ -77,6 +77,7 @@ public class RelicManager : MonoBehaviour {
     {
         Time.timeScale = 0;
         IsReadingRelic = true;
+        IsRotatingObject = false;
 
         RelicUI.SetActive(true);
         _relicObject = Instantiate(relic.RenderObject, RenderHolder);
