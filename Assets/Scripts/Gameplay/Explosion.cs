@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Explosion : MonoBehaviour {
 
+    [NonSerialized]
     public float Radius;
     public LayerMask SelectableLayer;
     

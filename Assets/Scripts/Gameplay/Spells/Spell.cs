@@ -15,6 +15,7 @@ public abstract class Spell : ScriptableObject {
 
     public abstract void StartCasting();
     public abstract void StopCasting();
+    public abstract void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target);
 
     public void ExecuteSpell(GameObject target, Vector3 position)
     {

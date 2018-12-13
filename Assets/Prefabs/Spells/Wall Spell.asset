@@ -16,3 +16,9 @@ MonoBehaviour:
   CooldownDuration: 10
   WallPrefab: {fileID: 1039914043577508, guid: 622787c985246cf4886cbd340468fb74, type: 2}
   Lifetime: 15
+  WallScale: {x: 7, y: 1.5, z: 1}
+  ExplosionCursor: {fileID: 1576647954367100, guid: 6f29df03d9f73364ea40de8a7cccc414,
+    type: 2}
+  ValidTargetMaterial: {fileID: 2100000, guid: 56232773b263a8949a2b21d5faf6a30d, type: 2}
+  UnvalidTargetMaterial: {fileID: 2100000, guid: a6400bf5ee9ee2c45aa0a577ff050b12,
+    type: 2}

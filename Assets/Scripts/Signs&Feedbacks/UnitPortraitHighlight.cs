@@ -15,9 +15,7 @@ public class UnitPortraitHighlight : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-
-        if (SelectionManager.Instance.SelectedElements.Contains(SelectionManager.Instance.Shaman))
+        if (SelectionManager.Instance.Shaman && SelectionManager.Instance.SelectedElements.Contains(SelectionManager.Instance.Shaman))
         {
             if (!highlightImages[0].enabled)
                 highlightImages[0].enabled = true;
@@ -28,9 +26,9 @@ public class UnitPortraitHighlight : MonoBehaviour {
                 highlightImages[0].enabled = false;
         }
 
-            for (int i = 0; i <= 2; i++)
+        for (int i = 0; i <= 2; i++)
         {
-            if (SelectionManager.Instance.SelectedElements.Contains(SelectionManager.Instance.Aztecs[i]))
+            if (SelectionManager.Instance.Aztecs[i] && SelectionManager.Instance.SelectedElements.Contains(SelectionManager.Instance.Aztecs[i]))
             {
                 if (!highlightImages[i+1].enabled)
                     highlightImages[i+1].enabled = true;
@@ -41,7 +39,5 @@ public class UnitPortraitHighlight : MonoBehaviour {
                     highlightImages[i+1].enabled = false;
             }
         }
-        
-
     }
 }

@@ -9,6 +9,7 @@ public class AbilitiesSignsManager : MonoBehaviour {
     private SelectionManager _selection;
 
     public LineRenderer jumpTrajectoryLineRenderer;
+    public LineRenderer jumpRangeLineRenderer;
 
     void Start()
     {
@@ -44,49 +45,73 @@ public class AbilitiesSignsManager : MonoBehaviour {
 
     public void JumpAttackIndicator()
     {
-
         jumpTrajectoryLineRenderer.SetPosition(0, Vector3.zero);
         jumpTrajectoryLineRenderer.SetPosition(1, Vector3.zero);
-     
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        bool didItHit = Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Selection"));
 
-        if (_selection.SelectedElements.Count > 0 && Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Selection")))
+        foreach (Unit unit in _selection.SelectedElements)
         {
-
-            foreach(Unit unit in _selection.SelectedElements)
-            { 
-               
-                if(unit is Aztec)
+            if (unit is Aztec)
+            {
+                Aztec ghoul = unit as Aztec;
+                // The ghoul is in a bush and the cursor is over an enemy
+                if (!ghoul.IsVisible)
                 {
-                    Aztec ghoul = unit as Aztec;
-                    // The ghoul is in a bush and the cursor is over an enemy
-                    if (!ghoul.IsVisible && hit.transform.tag == "Conquistador")
+                    jumpRangeLineRenderer.enabled = true;
+                    jumpRangeLineRenderer.transform.position = ghoul.transform.position;
+
+                    float x;
+                    float z;
+
+                    float change = 2 * Mathf.PI / jumpRangeLineRenderer.positionCount;
+                    float angle = change;
+
+                    for (int i = 0; i < jumpRangeLineRenderer.positionCount; i++)
                     {
-                        if ((hit.transform.position - ghoul.transform.position).magnitude <= ghoul.JumpAttackRange)
+                        x = Mathf.Sin(angle) * ghoul.JumpAttackRange;
+                        z = Mathf.Cos(angle) * ghoul.JumpAttackRange;
+
+                        jumpRangeLineRenderer.SetPosition(i, new Vector3(x, 0, z));
+
+                        angle += change;
+                    }
+
+                    if (_selection.SelectedElements.Count > 0 && didItHit)
+                    {
+                        if (hit.transform.tag == "Conquistador")
                         {
-                            jumpTrajectoryLineRenderer.SetPosition(0, _selection.SelectedElements[0].transform.position);
-                            jumpTrajectoryLineRenderer.SetPosition(1, hit.transform.position);
-
-                            RaycastHit hit2;
-
-                            Debug.DrawRay(ghoul.transform.position, hit.transform.position - ghoul.transform.position);
-                            if (Physics.Raycast(ghoul.transform.position, hit.transform.position - ghoul.transform.position, out hit2, (hit.transform.position - ghoul.transform.position).magnitude, ghoul.JumpAttackLineOfSight))
+                            if ((hit.transform.position - ghoul.transform.position).magnitude <= ghoul.JumpAttackRange)
                             {
+                                jumpTrajectoryLineRenderer.SetPosition(0, _selection.SelectedElements[0].transform.position);
+                                jumpTrajectoryLineRenderer.SetPosition(1, hit.transform.position);
 
-                                if (hit2.transform.gameObject == hit.transform.gameObject)
+                                RaycastHit hit2;
+
+                                Debug.DrawRay(ghoul.transform.position, hit.transform.position - ghoul.transform.position);
+                                if (Physics.Raycast(ghoul.transform.position, hit.transform.position - ghoul.transform.position, out hit2, (hit.transform.position - ghoul.transform.position).magnitude, ghoul.JumpAttackLineOfSight))
                                 {
-                                    jumpTrajectoryLineRenderer.startColor = new Color (0,1,0,0.05f);
-                                    jumpTrajectoryLineRenderer.endColor = new Color(0, 1, 0, 0.05f);
-                                }
-                                else
-                                {
-                                    jumpTrajectoryLineRenderer.startColor = new Color(1, 0, 0, 0.05f);
-                                    jumpTrajectoryLineRenderer.endColor = new Color(1, 0, 0, 0.05f);
+
+                                    if (hit2.transform.gameObject == hit.transform.gameObject)
+                                    {
+                                        jumpTrajectoryLineRenderer.startColor = new Color(0, 1, 0, 0.05f);
+                                        jumpTrajectoryLineRenderer.endColor = new Color(0, 1, 0, 0.05f);
+                                    }
+                                    else
+                                    {
+                                        jumpTrajectoryLineRenderer.startColor = new Color(1, 0, 0, 0.05f);
+                                        jumpTrajectoryLineRenderer.endColor = new Color(1, 0, 0, 0.05f);
+                                    }
                                 }
                             }
                         }
-                    }
+                    } 
+                }
+                else
+                {
+                    jumpRangeLineRenderer.enabled = false;
                 }
             }
         }
