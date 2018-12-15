@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.067802474, g: 0.063659616, b: 0.06625262, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -234,10 +234,10 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 60.564735, y: 14.565115, z: 34.31965}
-  - {x: 38.52989, y: 14.241274, z: 79.41135}
-  - {x: 124.58229, y: 17.15803, z: 74.35936}
-  - {x: 106.076, y: 15.562069, z: 34.052513}
+  - {x: 60.56866, y: 14.562098, z: 34.320457}
+  - {x: 38.534378, y: 14.236065, z: 79.42037}
+  - {x: 124.57289, y: 17.158031, z: 74.35935}
+  - {x: 106.070786, y: 15.562168, z: 34.05249}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.25

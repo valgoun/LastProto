@@ -305,6 +305,7 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
+  minFilterSize: 0.00001
 --- !u!108 &1779826103
 Light:
   m_ObjectHideFlags: 0
@@ -471,6 +472,7 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
+  minFilterSize: 0.00001
 --- !u!108 &1903051429
 Light:
   m_ObjectHideFlags: 0
@@ -675,3 +677,4 @@ MonoBehaviour:
   shadowSoftness: 0.5
   blockerSampleCount: 24
   filterSampleCount: 16
+  minFilterSize: 0.00001
