@@ -31,16 +31,23 @@ public class Conquistador : MonoBehaviour {
     {
         if(!_destroyed)
         {
-            MyAnimator.SetTrigger("Dead");
-            GetComponent<NavMeshAgent>().isStopped = true;
+            if (MyAnimator)
+            {
+                MyAnimator.SetTrigger("Dead");
+                GetComponent<NavMeshAgent>().isStopped = true;
 
-            tag = "Untagged";
-            Selection.tag = "Untagged";
+                tag = "Untagged";
+                Selection.tag = "Untagged";
 
-            Destroy(AI_Brain);
-            Destroy(GetComponent<Animator>());
-            Destroy(GetComponent<AIBrain>());
-            _destroyed = true;
+                Destroy(AI_Brain);
+                Destroy(GetComponent<Animator>());
+                Destroy(GetComponent<AIBrain>());
+                _destroyed = true;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
