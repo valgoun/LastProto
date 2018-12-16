@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Stephane/Main_LD_2.unity
+    guid: 423f0d5d5d6fe6542afcdd4c72e7370f
   m_configObjects: {}
