@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 95143794802343878}
   - component: {fileID: 114153992953499542}
   - component: {fileID: 114008916214112224}
+  - component: {fileID: 114356165364335328}
   m_Layer: 0
   m_Name: Conquistador
   m_TagString: Conquistador
@@ -283,6 +284,7 @@ GameObject:
   - component: {fileID: 4465928031101834}
   - component: {fileID: 33159412825965178}
   - component: {fileID: 23604587622788172}
+  - component: {fileID: 114820543273230398}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -557,6 +559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4851519871587756}
   - component: {fileID: 137137396082227512}
+  - component: {fileID: 114452677565015438}
   m_Layer: 0
   m_Name: Extract43
   m_TagString: Untagged
@@ -1458,8 +1461,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1231563812433204}
-  m_LocalRotation: {x: -0, y: -0.70710665, z: -0, w: 0.707107}
-  m_LocalPosition: {x: 17.5, y: 2, z: -0.79}
+  m_LocalRotation: {x: -0, y: 0.6647706, z: -0, w: 0.74704754}
+  m_LocalPosition: {x: -53.56, y: 2, z: -4.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4157314996490648}
@@ -1469,7 +1472,7 @@ Transform:
   - {fileID: 4205323783646132}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -539.999, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -636.671, z: 0}
 --- !u!4 &4397887199462032
 Transform:
   m_ObjectHideFlags: 1
@@ -2454,6 +2457,28 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21f5566e6147179418faa6393e8ccae4, type: 2}
   - {fileID: 11400000, guid: 34f3decf932befc4682eeae4ae043dae, type: 2}
   - {fileID: 11400000, guid: 3bc64db2184bb5346b79df6f05450d9c, type: 2}
+--- !u!114 &114356165364335328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231563812433204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2799f8cea6dc1994abc35f2217ee43ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114452677565015438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441234298090816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38a0b3ea1e1c654b9541022e92bb01e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114484237425641654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2490,6 +2515,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ee608cd8a4180740a9678ff276199fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114820543273230398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1245933211020568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d32e75449c53ae43ab178bc12ca1112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114961370528960710

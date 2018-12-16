@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4833104363292646}
   - component: {fileID: 33128356631976130}
   - component: {fileID: 23137808329483716}
-  m_Layer: 0
+  - component: {fileID: 114163678734364766}
+  m_Layer: 18
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +40,7 @@ GameObject:
   - component: {fileID: 33769082345634976}
   - component: {fileID: 23732761677612178}
   - component: {fileID: 135514040821820870}
-  m_Layer: 9
+  m_Layer: 18
   m_Name: SelectionSphere
   m_TagString: Conquistador
   m_Icon: {fileID: 0}
@@ -61,7 +62,9 @@ GameObject:
   - component: {fileID: 95112298708898446}
   - component: {fileID: 114183702887037784}
   - component: {fileID: 114677373395854194}
-  m_Layer: 0
+  - component: {fileID: 114841508641150814}
+  - component: {fileID: 114139087157864514}
+  m_Layer: 18
   m_Name: Spearman
   m_TagString: Conquistador
   m_Icon: {fileID: 0}
@@ -80,7 +83,7 @@ GameObject:
   - component: {fileID: 114413543976938422}
   - component: {fileID: 114387261729048344}
   - component: {fileID: 114455064211416960}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4116953762765748}
   - component: {fileID: 95461573926219386}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: AI_Brain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +117,7 @@ GameObject:
   - component: {fileID: 222249865396009802}
   - component: {fileID: 114444131652586252}
   - component: {fileID: 114683459299701844}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: AlertLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,8 +143,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1271522250928342}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000012367963}
-  m_LocalPosition: {x: -13.23, y: 2, z: 28.78}
+  m_LocalRotation: {x: -0, y: 0.13439192, z: -0, w: 0.99092823}
+  m_LocalPosition: {x: -43.19, y: 2, z: -2.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4116953762765748}
@@ -150,7 +153,7 @@ Transform:
   - {fileID: 4968058396267006}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 15.4470005, z: 0}
 --- !u!4 &4833104363292646
 Transform:
   m_ObjectHideFlags: 1
@@ -339,6 +342,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114139087157864514
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1271522250928342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2799f8cea6dc1994abc35f2217ee43ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114163678734364766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1028584563585290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d32e75449c53ae43ab178bc12ca1112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114183702887037784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,6 +495,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Brain: {fileID: 114183702887037784}
+--- !u!114 &114841508641150814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1271522250928342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d32e75449c53ae43ab178bc12ca1112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135514040821820870
 SphereCollider:
   m_ObjectHideFlags: 1
