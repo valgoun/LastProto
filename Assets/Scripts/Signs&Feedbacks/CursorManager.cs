@@ -16,14 +16,17 @@ public class CursorManager : MonoBehaviour {
 	void Awake ()
     {
         cursorManagerInst = this;
-
         //   Cursor.visible = false;
-
         ChangeCursor(0);
     }
 
-	// Update is called once per frame
-	void Update ()
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
     
         // Targeting de spell
