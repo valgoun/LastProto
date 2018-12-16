@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eab4a5690d1e1f44bd769a8a389de0e, type: 3}
   m_Name: Codex_01_04
   m_EditorClassIdentifier: 
-  Head: Vie Quotidienne
-  Subhead: Le Tlachtli
+  Head: Daily Life
+  Subhead: Tlachtli
   Description: 
   RenderObject: {fileID: 1161882574584962, guid: 76a8d599aa57e57428629d85a37c1709,
     type: 2}

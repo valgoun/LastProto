@@ -11,11 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eab4a5690d1e1f44bd769a8a389de0e, type: 3}
   m_Name: Relique_01_01
   m_EditorClassIdentifier: 
-  Head: Armes
-  Subhead: Casque de Guerrier Jaguar
-  Description: "Le casque d'un grand guerrier. Mon peuple se battait avec honneur
-    sur les champs de bataille, mais l'envahisseur n'en a aucun. Des r\xE8gles aussi
-    simples que de donner la vie des  vaincus aux dieux leur sont inconnues."
+  Head: Weapon
+  Subhead: Jaguar Warrior's Helmet
+  Description: It(s the helmet of a brave warrior. My people fought with honors on
+    the battlefields. But the invaders had no respect, and killed them without feeding
+    the gods. What a waste.
   RenderObject: {fileID: 1890726698337424, guid: e2b8b8820dd565d4fa84d3b335c54d46,
     type: 2}
   InitialRotation: {x: 0, y: 0, z: 0}

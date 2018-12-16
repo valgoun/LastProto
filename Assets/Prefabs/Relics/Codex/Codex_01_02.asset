@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eab4a5690d1e1f44bd769a8a389de0e, type: 3}
   m_Name: Codex_01_02
   m_EditorClassIdentifier: 
-  Head: Le Sacrifice
-  Subhead: Nourrir ce qui importe
+  Head: The Sacrifice
+  Subhead: Feed what matters
   Description: 
   RenderObject: {fileID: 1344842636466404, guid: 3360775de1b0d454c9a9baf445106779,
     type: 2}

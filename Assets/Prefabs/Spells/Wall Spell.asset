@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Name: Wall Spell
   m_EditorClassIdentifier: 
   SpellName: Wall
-  SpellDescription: "St\xE9pahe est un infame PD etne me lancer m\xEAme pas sur Antoine."
+  SpellDescription: Sacrifice a Ghoul to create a vegetation wall on the ghoul location.
+    The wall will face the High Priest position. This sacrifice will consume the Ghoul.
   Targets: 4
-  CooldownDuration: 12
+  CooldownDuration: 12.5
   WallPrefab: {fileID: 1039914043577508, guid: 622787c985246cf4886cbd340468fb74, type: 2}
-  Lifetime: 15
+  Lifetime: 10
   WallScale: {x: 7, y: 1.5, z: 1}
   ExplosionCursor: {fileID: 1576647954367100, guid: 6f29df03d9f73364ea40de8a7cccc414,
     type: 2}

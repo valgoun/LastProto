@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eab4a5690d1e1f44bd769a8a389de0e, type: 3}
   m_Name: Codex_01_01
   m_EditorClassIdentifier: 
-  Head: Le Sacrifice
-  Subhead: "Une C\xE9r\xE9monie d'importance"
+  Head: The Sacrifice
+  Subhead: An important ceremony
   Description: 
   RenderObject: {fileID: 1890726698337424, guid: c0ef0e8a6a1445d4b8446b8bedb89f03,
     type: 2}

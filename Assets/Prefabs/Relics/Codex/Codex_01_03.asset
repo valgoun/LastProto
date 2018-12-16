@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eab4a5690d1e1f44bd769a8a389de0e, type: 3}
   m_Name: Codex_01_03
   m_EditorClassIdentifier: 
-  Head: Vie Quotidienne
-  Subhead: Le Pulque Traditionnel
+  Head: Daily Life
+  Subhead: Traditional Pulque
   Description: 
   RenderObject: {fileID: 1571236381727260, guid: 06759862d5ea58b46beeff2cb4382a49,
     type: 2}
