@@ -51,10 +51,10 @@ public class Aztec : Unit {
 
     private void DoJumpAttack(Transform target)
     {
-        _navAgent.isStopped = true;
         ModelAnimator.SetTrigger("JumpAttack");
         AttackTarget = target;
         _navAgent.ResetPath();
+        _navAgent.isStopped = true;
         TargetToFollow = null;
     }
 
