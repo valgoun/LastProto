@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: Wall Spell
   m_EditorClassIdentifier: 
   SpellName: Wall
+  SpellDescription: "St\xE9pahe est un infame PD etne me lancer m\xEAme pas sur Antoine."
   Targets: 4
   CooldownDuration: 10
   WallPrefab: {fileID: 1039914043577508, guid: 622787c985246cf4886cbd340468fb74, type: 2}

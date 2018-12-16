@@ -6,6 +6,8 @@ using UnityEngine;
 public abstract class Spell : ScriptableObject {
 
     public string SpellName;
+    [TextArea(7, 20)]
+    public string SpellDescription;
     [Space]
     public TargetEnum Targets;
     public float CooldownDuration;
