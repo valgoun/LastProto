@@ -10,6 +10,7 @@ public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     [Header("References")]
     public Text CooldownText;
+    public Image CooldownImage;
 
     private Button _button;
     
@@ -37,6 +38,7 @@ public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             _button.interactable = true;
             CooldownText.text = "";
+            CooldownImage.fillAmount = 0;
         }
         else
         {
@@ -44,10 +46,12 @@ public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             if (Time.time < SpellManager.Instance.Spells[SpellID].CurrentCooldown)
             {
                 CooldownText.text = Mathf.Abs(Time.time - SpellManager.Instance.Spells[SpellID].CurrentCooldown).ToString("0.0");
+                CooldownImage.fillAmount = Mathf.Abs(Time.time - SpellManager.Instance.Spells[SpellID].CurrentCooldown) / SpellManager.Instance.Spells[SpellID].CooldownDuration;
             }
             else
             {
                 CooldownText.text = "";
+                CooldownImage.fillAmount = 0;
             }
         }
 
