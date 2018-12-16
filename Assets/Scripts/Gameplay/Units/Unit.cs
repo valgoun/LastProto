@@ -132,9 +132,9 @@ public class Unit : MonoBehaviour, IAiFoe
     protected void DoBasicAttack (Transform target)
     {
         AttackTarget = target;
-        _navAgent.isStopped = true;
         ModelAnimator.SetTrigger("BasicAttack");
         _navAgent.ResetPath();
+        _navAgent.isStopped = true;
         TargetToFollow = null;
     }
 
