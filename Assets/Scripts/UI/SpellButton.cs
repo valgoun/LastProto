@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SpellButton : MonoBehaviour {
+public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     public uint SpellID;
 
@@ -63,5 +63,15 @@ public class SpellButton : MonoBehaviour {
     public void OnClick ()
     {
         SpellManager.Instance.CastSpell(SpellManager.Instance.Spells[SpellID]);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SpellDescriptionWindow.Instance.ActivateMe(SpellManager.Instance.Spells[SpellID]);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SpellDescriptionWindow.Instance.DeactivateMe(SpellManager.Instance.Spells[SpellID]);
     }
 }

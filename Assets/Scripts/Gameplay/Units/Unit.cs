@@ -138,7 +138,7 @@ public class Unit : MonoBehaviour, IAiFoe
         TargetToFollow = null;
     }
 
-    public void Killed ()
+    public virtual void Killed ()
     {
         if (!Invincible)
         {

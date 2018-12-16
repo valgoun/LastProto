@@ -13,6 +13,11 @@ public class TransformTargetSpell : Spell
         
     }
 
+    public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target)
+    {
+        
+    }
+
     public override void StopCasting()
     {
 

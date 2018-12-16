@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Sirenix.OdinInspector;
 
 public enum TargetEnum
 {
@@ -23,7 +24,9 @@ public class SpellManager : MonoBehaviour {
     [Space]
     public Spell[] Spells;
 
-    private Spell _selectedSpell;
+    [ReadOnly]
+    public Spell SelectedSpell;
+
     private SelectionManager _selection;
     private OrderManager _order;
 
@@ -50,14 +53,14 @@ public class SpellManager : MonoBehaviour {
         if (SmartCast)
             Shortcuts();
 
-        if (_selectedSpell)
+        if (SelectedSpell)
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 if (Input.GetMouseButtonDown(1))
                 {
-                    _selectedSpell.StopCasting();
-                    _selectedSpell = null;
+                    SelectedSpell.StopCasting();
+                    SelectedSpell = null;
                 }
                 else
                 {
@@ -69,14 +72,15 @@ public class SpellManager : MonoBehaviour {
 
     public void CastSpell (Spell spell)
     {
-        if (_selectedSpell != spell)
+        if (SelectedSpell != spell)
         {
-            _selectedSpell = spell;
+            SelectedSpell = spell;
             spell.StartCasting();
         }
         else
         {
-            _selectedSpell = null;
+            SelectedSpell.StopCasting();
+            SelectedSpell = null;
         }
     }
 
@@ -103,23 +107,31 @@ public class SpellManager : MonoBehaviour {
                         targetType = TargetEnum.Conquistador;
                 }
 
+                if (!bypassClick)
+                    SelectedSpell.CastUpdate(worldPoint, targetType, (targetType == TargetEnum.Void) ? null : hit.transform.gameObject);
+
                 if (Input.GetMouseButtonDown(0) || bypassClick)
                 {
-                    if ((targetType != TargetEnum.Void) && ((_selectedSpell.Targets & targetType) != 0))
+                    if ((targetType != TargetEnum.Void) && ((SelectedSpell.Targets & targetType) != 0))
                     {
-                        _selectedSpell.ExecuteSpell(hit.transform.gameObject, Vector3.zero);
+                        SelectedSpell.ExecuteSpell(hit.transform.gameObject, Vector3.zero);
                     }
-                    else if ((_selectedSpell.Targets & TargetEnum.Void) != 0)
+                    else if ((SelectedSpell.Targets & TargetEnum.Void) != 0)
                     {
-                            _selectedSpell.ExecuteSpell(null, worldPoint);
+                        SelectedSpell.ExecuteSpell(null, worldPoint);
+                    }
+                    else
+                    {
+                        SelectedSpell.StopCasting();
                     }
 
-                    _selectedSpell = null;
+                    SelectedSpell = null;
                 }
             }
             else if (Input.GetMouseButtonDown(0) || bypassClick)
             {
-                _selectedSpell = null;
+                SelectedSpell.StopCasting();
+                SelectedSpell = null;
             }
         }
     }
@@ -144,7 +156,7 @@ public class SpellManager : MonoBehaviour {
 
         if (spell)
         {
-            _selectedSpell = spell;
+            SelectedSpell = spell;
             CastingSpell(Camera.main, true);
         }
     }

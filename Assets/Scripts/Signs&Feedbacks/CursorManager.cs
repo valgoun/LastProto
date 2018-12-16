@@ -29,7 +29,7 @@ public class CursorManager : MonoBehaviour {
         // Targeting de spell
         if (!_isCursorDefault)
         {
-            if (Input.GetMouseButton(0) || Input.GetMouseButtonDown(1))
+            if (!SpellManager.Instance.SelectedSpell)
             {
                 Cursor.SetCursor(cursorTextures[0], Vector2.zero, CursorMode.Auto);
             }

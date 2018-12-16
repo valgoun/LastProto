@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Conquistador : MonoBehaviour {
 
@@ -13,18 +14,11 @@ public class Conquistador : MonoBehaviour {
     [Header("Asset")]
     public GameObject Corpse;
 
-    bool _isQuitting = false;
     bool _destroyed = false;
 
-    void OnApplicationQuit()
+    public void SpawnCorpse()
     {
-        _isQuitting = true;
-    }
-
-    private void OnDestroy()
-    {
-        if (!_isQuitting)
-            Instantiate(Corpse, transform.position, transform.rotation);
+        Instantiate(Corpse, transform.position, transform.rotation);
     }
 
     public void KillMe ()
@@ -46,6 +40,7 @@ public class Conquistador : MonoBehaviour {
             }
             else
             {
+                SpawnCorpse();
                 Destroy(gameObject);
             }
         }

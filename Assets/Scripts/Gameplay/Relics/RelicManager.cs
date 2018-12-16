@@ -40,6 +40,11 @@ public class RelicManager : MonoBehaviour {
             Destroy(this);
 	}
 
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
+
     private void Update()
     {
         if (IsReadingRelic)
@@ -64,9 +69,6 @@ public class RelicManager : MonoBehaviour {
             }
             else if (IsRotatingObject)
             {
-                Quaternion qx = Quaternion.AngleAxis(Input.GetAxis("Mouse X") * RotationSpeed * Time.fixedDeltaTime, RelicCamera.transform.forward);
-                Quaternion qy = Quaternion.AngleAxis(Input.GetAxis("Mouse Y") * RotationSpeed * Time.fixedDeltaTime, RelicCamera.transform.right);
-
                 _relicObject.transform.Rotate(RelicCamera.transform.up, Input.GetAxis("Mouse X") * -RotationSpeed * Time.fixedDeltaTime, Space.World);
                 _relicObject.transform.Rotate(RelicCamera.transform.right, Input.GetAxis("Mouse Y") * RotationSpeed * Time.fixedDeltaTime, Space.World);
             }
