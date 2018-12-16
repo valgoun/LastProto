@@ -40,6 +40,11 @@ public class RelicManager : MonoBehaviour {
             Destroy(this);
 	}
 
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
+
     private void Update()
     {
         if (IsReadingRelic)

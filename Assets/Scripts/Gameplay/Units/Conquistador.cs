@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Conquistador : MonoBehaviour {
 
@@ -13,34 +14,35 @@ public class Conquistador : MonoBehaviour {
     [Header("Asset")]
     public GameObject Corpse;
 
-    bool _isQuitting = false;
     bool _destroyed = false;
 
-    void OnApplicationQuit()
+    public void SpawnCorpse()
     {
-        _isQuitting = true;
-    }
-
-    private void OnDestroy()
-    {
-        if (!_isQuitting)
-            Instantiate(Corpse, transform.position, transform.rotation);
+        Instantiate(Corpse, transform.position, transform.rotation);
     }
 
     public void KillMe ()
     {
         if(!_destroyed)
         {
-            MyAnimator.SetTrigger("Dead");
-            GetComponent<NavMeshAgent>().isStopped = true;
+            if (MyAnimator)
+            {
+                MyAnimator.SetTrigger("Dead");
+                GetComponent<NavMeshAgent>().isStopped = true;
 
-            tag = "Untagged";
-            Selection.tag = "Untagged";
+                tag = "Untagged";
+                Selection.tag = "Untagged";
 
-            Destroy(AI_Brain);
-            Destroy(GetComponent<Animator>());
-            Destroy(GetComponent<AIBrain>());
-            _destroyed = true;
+                Destroy(AI_Brain);
+                Destroy(GetComponent<Animator>());
+                Destroy(GetComponent<AIBrain>());
+                _destroyed = true;
+            }
+            else
+            {
+                SpawnCorpse();
+                Destroy(gameObject);
+            }
         }
     }
 }
