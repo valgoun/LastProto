@@ -177,7 +177,7 @@ Material:
     - _EnableGeometricSpecularAA: 0
     - _EnableMotionVectorForVertexAnimation: 0
     - _EnableSpecularOcclusion: 0
-    - _EnableWind: 1
+    - _EnableWind: 0
     - _EnergyConservingSpecularColor: 1
     - _FadeDistance: 7
     - _HdrpVersion: 1

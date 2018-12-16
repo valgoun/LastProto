@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Fronds_2
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
   m_ShaderKeywords: EFFECT_BUMP EFFECT_HUE_VARIATION GEOM_TYPE_FROND _DISABLE_DBUFFER
@@ -129,7 +130,7 @@ Material:
     - _Anisotropy: 0
     - _BlendMode: 0
     - _CoatMask: 0
-    - _Cull: 0
+    - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
     - _Cutoff: 0.5
@@ -140,7 +141,7 @@ Material:
     - _DiffusionProfile: 0
     - _DisplacementLockObjectScale: 1
     - _DisplacementLockTilingScale: 1
-    - _DisplacementMode: 1
+    - _DisplacementMode: 0
     - _DistortionBlendMode: 0
     - _DistortionBlurBlendMode: 0
     - _DistortionBlurDstBlend: 1
@@ -165,7 +166,7 @@ Material:
     - _EnableGeometricSpecularAA: 0
     - _EnableMotionVectorForVertexAnimation: 0
     - _EnableSpecularOcclusion: 0
-    - _EnableWind: 1
+    - _EnableWind: 0
     - _EnergyConservingSpecularColor: 1
     - _HdrpVersion: 1
     - _HeightAmplitude: 0.02
@@ -177,7 +178,7 @@ Material:
     - _HeightPoMAmplitude: 2
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
-    - _InitialBend: 0.8
+    - _InitialBend: -100
     - _InvTilingScale: 1
     - _Ior: 1
     - _IridescenceMask: 1
@@ -193,11 +194,12 @@ Material:
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
     - _PreRefractionPass: 0
+    - _ReceivesSSR: 1
     - _RefractionModel: 0
     - _SSRefractionProjectionModel: 0
     - _ShiverDirectionality: 0.5
-    - _ShiverDrag: 1
-    - _Smoothness: 0.303
+    - _ShiverDrag: 100
+    - _Smoothness: 0.318
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
     - _SpecularAAScreenSpaceVariance: 0.1
@@ -207,9 +209,10 @@ Material:
     - _StencilRefMV: 128
     - _StencilWriteMask: 7
     - _StencilWriteMaskMV: 128
-    - _Stiffness: 5
+    - _Stiffness: 100
     - _SubsurfaceMask: 1
-    - _SupportDBuffer: 0
+    - _SupportDBuffer: 1
+    - _SupportDecals: 1
     - _SurfaceType: 0
     - _TexWorldScale: 1
     - _TexWorldScaleEmissive: 1
