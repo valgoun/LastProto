@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: Wall Spell
   m_EditorClassIdentifier: 
   SpellName: Wall
-  SpellDescription: Sacrifice a Ghoul to create a vegetation wall on the ghoul location.
-    The wall will face the High Priest position. This sacrifice will consume the Ghoul.
+  SpellDescription: "Sacrifice a Ghoul to create a vegetation wall on itsl location.
+    The wall will face the High Priest position. \n\nSacrifices kill the targeted
+    Ghoul."
   Targets: 4
-  CooldownDuration: 12.5
+  CooldownDuration: 12
   WallPrefab: {fileID: 1039914043577508, guid: 622787c985246cf4886cbd340468fb74, type: 2}
   Lifetime: 10
   WallScale: {x: 7, y: 1.5, z: 1}

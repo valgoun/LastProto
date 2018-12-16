@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33769082345634976}
   - component: {fileID: 23732761677612178}
   - component: {fileID: 135514040821820870}
-  m_Layer: 18
+  m_Layer: 9
   m_Name: SelectionSphere
   m_TagString: Conquistador
   m_Icon: {fileID: 0}
@@ -143,8 +143,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1271522250928342}
-  m_LocalRotation: {x: -0, y: 0.13439192, z: -0, w: 0.99092823}
-  m_LocalPosition: {x: -43.19, y: 2, z: -2.42}
+  m_LocalRotation: {x: -0, y: 0.13439193, z: -0, w: 0.9909283}
+  m_LocalPosition: {x: -46.56, y: 2, z: -3.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4116953762765748}

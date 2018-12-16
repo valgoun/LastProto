@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4851936119489482}
   - component: {fileID: 33166181133721220}
   - component: {fileID: 23056104882785912}
-  - component: {fileID: 114198452752741994}
   m_Layer: 0
   m_Name: Graph
   m_TagString: Untagged
@@ -57,7 +56,6 @@ GameObject:
   - component: {fileID: 4623522419111530}
   - component: {fileID: 208267504629926402}
   - component: {fileID: 114745716313926400}
-  - component: {fileID: 114166415891560812}
   m_Layer: 0
   m_Name: Codex
   m_TagString: Relic
@@ -190,28 +188,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1402944651561150}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114166415891560812
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1528191860129740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2799f8cea6dc1994abc35f2217ee43ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114198452752741994
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1192209968994312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d32e75449c53ae43ab178bc12ca1112, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114745716313926400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b33dab85ed2c04d96fec8c3e03c477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyRelic: {fileID: 11400000, guid: e30628fdaeb04a24e97289205c9a219b, type: 2}
+  MyRelic: {fileID: 11400000, guid: 42f6899e8992caf4aa2d39bbaa706aa8, type: 2}
 --- !u!135 &135722234777690044
 SphereCollider:
   m_ObjectHideFlags: 1

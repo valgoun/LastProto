@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Name: Ghost Spell
   m_EditorClassIdentifier: 
   SpellName: Ghost Walk
-  SpellDescription: Sacrifice a Ghoul to create an invisible Spirit. The Spirit cannot
-    be seen by Conquistadors units. This sacrifice will consume the Ghoul.
+  SpellDescription: 'Sacrifice a Ghoul to create an invisible Spirit. The Spirit cannot
+    be seen by Conquistadors units.
+
+
+    Sacrifices kill the targeted Ghoul.'
   Targets: 4
   CooldownDuration: 20
   DeathDelay: 15

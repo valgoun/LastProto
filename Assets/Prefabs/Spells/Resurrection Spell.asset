@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Name: Resurrection Spell
   m_EditorClassIdentifier: 
   SpellName: Resurrection
-  SpellDescription: 'Resurrect an Aztec Warrior from a flesh corps on the ground. '
+  SpellDescription: "Resurrect an Aztec Warrior from a fresh corpse on the ground.
+    \n\nYou can only have a maximum of 3 ghouls at the same time."
   Targets: 8
   CooldownDuration: 8
   TransformInto: {fileID: 1234360217560950, guid: 053279678b3191347b394fcc8d20ce37,
