@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SpellDescriptionWindow : MonoBehaviour {
 
-    public Text SpellTitle;
-    public Text SpellCooldown;
-    public Text SpellDescription;
+    public TextMeshProUGUI SpellTitle;
+    public TextMeshProUGUI SpellCooldown;
+    public TextMeshProUGUI SpellDescription;
 
     private RectTransform _myRect;
     private Spell _currentSpell;
