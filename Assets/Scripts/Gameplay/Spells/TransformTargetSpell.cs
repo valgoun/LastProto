@@ -55,6 +55,8 @@ public class TransformTargetSpell : Spell
 
     public override bool GetAvailable()
     {
+        return base.GetAvailable();
+
         bool openSpot = false;
         foreach(Unit ghoul in SelectionManager.Instance.Aztecs)
         {

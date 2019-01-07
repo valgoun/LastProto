@@ -10,6 +10,12 @@ public class Aztec : Unit {
     public float JumpAttackRange;
     [TabGroup("Ghoul")]
     public LayerMask JumpAttackLineOfSight;
+    [TabGroup("Ghoul")]
+    public float ShamanFormationDistance;
+    [TabGroup("Ghoul")]
+    public float MaxShamanDistance;
+    [TabGroup("Ghoul")]
+    public float MaxAggroDistance;
 
     [TabGroup("Asset")]
     public GameObject GhostFX;
@@ -17,11 +23,66 @@ public class Aztec : Unit {
     [Space]
     [ReadOnly]
     public bool IsGhost;
+    [ReadOnly]
+    public int FormationPosition = 0;
 
     protected override void Start()
     {
         base.Start();
-        SelectionManager.Instance.RegisterAztec(this);
+        FormationPosition = SelectionManager.Instance.RegisterAztec(this);
+    }
+
+    protected override void Update()
+    {
+        if (!TargetToFollow)
+            AggroCheck();
+        else
+        {
+            if ((SelectionManager.Instance.Shaman.transform.position - transform.position).magnitude > MaxShamanDistance)
+                TargetToFollow = null;
+            else if ((SelectionManager.Instance.Shaman.transform.position - TargetToFollow.position).magnitude > MaxShamanDistance)
+                TargetToFollow = null;
+        }
+
+        if (!TargetToFollow)
+        {
+            float angle = ((float)FormationPosition / (float)SelectionManager.Instance.Aztecs.Count) * 360;
+            angle += 90;
+            Vector3 offset = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), 0, Mathf.Sin(Mathf.Deg2Rad * angle));
+            offset *= ShamanFormationDistance;
+
+            Vector3 pos = SelectionManager.Instance.Shaman.transform.position + offset;
+            _navAgent.SetDestination(pos);
+        }
+        else
+            FollowRoutine();
+    }
+
+    void AggroCheck ()
+    {
+        Transform target = null;
+        foreach (Collider coll in Physics.OverlapSphere(transform.position, MaxAggroDistance, SelectionManager.Instance.SelectableLayer))
+        {
+            if (coll.tag == "Conquistador")
+            {
+                if ((SelectionManager.Instance.Shaman.transform.position - coll.transform.position).magnitude > MaxShamanDistance)
+                    continue;
+
+                if (!target)
+                {
+                    target = coll.transform;
+                }
+                else if ((target.position - transform.position).sqrMagnitude > (coll.transform.position - transform.position).sqrMagnitude)
+                {
+                    target = coll.transform;
+                }
+            }
+        }
+
+        if (target != null)
+        {
+            Follow(target, 0, 1);
+        }
     }
 
     protected override bool AttackDecision(Transform target)

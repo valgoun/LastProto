@@ -55,7 +55,7 @@ public class Unit : MonoBehaviour, IAiFoe
         AIManager.Instance.AddElement(this);
 	}
 	
-	void Update () {
+	protected virtual void Update () {
         if (TargetToFollow)
             FollowRoutine();
 	}
@@ -97,7 +97,7 @@ public class Unit : MonoBehaviour, IAiFoe
         _squadSize = size;
     }
 
-    private void FollowRoutine ()
+    protected void FollowRoutine ()
     {
         if (TargetToFollow.tag == "Conquistador")
         {
