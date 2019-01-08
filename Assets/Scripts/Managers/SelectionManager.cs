@@ -17,7 +17,7 @@ public class SelectionManager : MonoBehaviour {
     [ReadOnly]
     public List<Unit> SelectedElements = new List<Unit>();
     [ReadOnly]
-    public List<Unit> Aztecs = new List<Unit>();
+    public List<Aztec> Aztecs = new List<Aztec>();
 
     [NonSerialized]
     public bool IsSelecting;
@@ -37,7 +37,7 @@ public class SelectionManager : MonoBehaviour {
         else
             Destroy(this);
 
-        Aztecs = new List<Unit>();
+        Aztecs = new List<Aztec>();
     }
 
     // Update is called once per frame
@@ -153,7 +153,7 @@ public class SelectionManager : MonoBehaviour {
         }
     }
 
-    public int RegisterAztec (Unit unit)
+    public int RegisterAztec (Aztec unit)
     {
         int registered = -1;
         for (int i = 0; i < Aztecs.Count; i++)

@@ -26,6 +26,8 @@ public class Aztec : Unit {
     [ReadOnly]
     public int FormationPosition = 0;
 
+    private Vector3? _stopPosition;
+
     protected override void Start()
     {
         base.Start();
@@ -51,7 +53,8 @@ public class Aztec : Unit {
             Vector3 offset = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), 0, Mathf.Sin(Mathf.Deg2Rad * angle));
             offset *= ShamanFormationDistance;
 
-            Vector3 pos = SelectionManager.Instance.Shaman.transform.position + offset;
+            Vector3 pos = (_stopPosition.HasValue) ? _stopPosition.Value : SelectionManager.Instance.Shaman.transform.position;
+            pos += offset;
             _navAgent.SetDestination(pos);
         }
         else
@@ -67,6 +70,11 @@ public class Aztec : Unit {
             {
                 if ((SelectionManager.Instance.Shaman.transform.position - coll.transform.position).magnitude > MaxShamanDistance)
                     continue;
+
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, coll.transform.position - transform.position, out hit, (coll.transform.position - transform.position).magnitude, JumpAttackLineOfSight))
+                    if (hit.transform != coll.transform)
+                        continue;
 
                 if (!target)
                 {
@@ -127,5 +135,15 @@ public class Aztec : Unit {
         IsGhost = true;
 
         Instantiate(GhostFX, transform);
+    }
+
+    public void StopHere (Vector3 pos)
+    {
+        _stopPosition = pos;
+    }
+
+    public void UndoStop ()
+    {
+        _stopPosition = null;
     }
 }

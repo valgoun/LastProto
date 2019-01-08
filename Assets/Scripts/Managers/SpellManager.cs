@@ -75,7 +75,8 @@ public class SpellManager : MonoBehaviour {
         if (SelectedSpell != spell)
         {
             SelectedSpell = spell;
-            spell.StartCasting();
+            if (!spell.StartCasting())
+                SelectedSpell = null;
         }
         else
         {
@@ -92,7 +93,7 @@ public class SpellManager : MonoBehaviour {
         if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, _order.GroundLayer))
         {
             Vector3 worldPoint = hit.point;
-            if ((worldPoint - _selection.Shaman.transform.position).magnitude <= ShamanMaxDistance)
+            if (((worldPoint - _selection.Shaman.transform.position).magnitude <= ShamanMaxDistance) || !SelectedSpell.UseShamanCastDistance)
             {
                 TargetEnum targetType = TargetEnum.Void;
                 if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, _selection.SelectableLayer))

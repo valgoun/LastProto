@@ -19,13 +19,15 @@ public class ExplosionSpell : Spell {
     private GameObject _cursor;
     private LineRenderer _rend;
 
-    public override void StartCasting()
+    public override bool StartCasting()
     {
         if (!_cursor)
         {
             _cursor = Instantiate(ExplosionCursor);
             _rend = _cursor.GetComponent<LineRenderer>();
         }
+
+        return true;
     }
 
     public override void CastUpdate(Vector3 pos, TargetEnum targetType, GameObject target)

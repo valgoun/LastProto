@@ -17,7 +17,7 @@ public class SpawnWallSpell : Spell
     private GameObject _cursor;
     private LineRenderer _rend;
 
-    public override void StartCasting()
+    public override bool StartCasting()
     {
         if (!_cursor)
         {
@@ -25,6 +25,8 @@ public class SpawnWallSpell : Spell
             _rend = _cursor.GetComponent<LineRenderer>();
             _rend.positionCount = 4;
         }
+
+        return true;
     }
 
     public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target)

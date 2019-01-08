@@ -25,7 +25,7 @@ public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         else
         {
-            Debug.LogError("Spell Button on " + gameObject.name + " as an ID superior to the number of available Spells.");
+            Debug.LogError("Spell Button on " + gameObject.name + " has an ID superior to the number of available Spells.");
             SpellID = 0;
         }
 

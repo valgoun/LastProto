@@ -8,9 +8,9 @@ public class TransformTargetSpell : Spell
     [Header("Transform Spell")]
     public GameObject TransformInto;
 
-    public override void StartCasting()
+    public override bool StartCasting()
     {
-        
+        return true;
     }
 
     public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target)
