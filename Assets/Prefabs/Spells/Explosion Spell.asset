@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -15,15 +16,16 @@ MonoBehaviour:
   SpellDescription: "Sacrifice a Ghoul to create a living weapon. The Ghoul will explode
     in a large radius after a short period of time. \n\nSacrifices kill the targeted
     Ghoul."
-  Targets: 4
+  Targets: 16
   CooldownDuration: 10
+  UseShamanCastDistance: 1
   Delay: 3
   Radius: 4
   ExplosionPrefab: {fileID: 1678775384954208, guid: 8c252ffedc8adff488cf099373037c68,
-    type: 2}
-  UIPrefab: {fileID: 1316023923276624, guid: a2d6252fc795bce4b9e6504fbdb1981d, type: 2}
+    type: 3}
+  UIPrefab: {fileID: 1316023923276624, guid: a2d6252fc795bce4b9e6504fbdb1981d, type: 3}
   ExplosionCursor: {fileID: 1576647954367100, guid: 6f29df03d9f73364ea40de8a7cccc414,
-    type: 2}
+    type: 3}
   CursorIndicatorPrecision: 50
   ValidTargetMaterial: {fileID: 2100000, guid: 56232773b263a8949a2b21d5faf6a30d, type: 2}
   UnvalidTargetMaterial: {fileID: 2100000, guid: a6400bf5ee9ee2c45aa0a577ff050b12,

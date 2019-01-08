@@ -25,6 +25,8 @@ public class Aztec : Unit {
     public bool IsGhost;
     [ReadOnly]
     public int FormationPosition = 0;
+    [ReadOnly]
+    public bool ManWithAMission;
 
     private Vector3? _stopPosition;
 
@@ -36,29 +38,32 @@ public class Aztec : Unit {
 
     protected override void Update()
     {
-        if (!TargetToFollow)
-            AggroCheck();
-        else
+        if (!ManWithAMission)
         {
-            if ((SelectionManager.Instance.Shaman.transform.position - transform.position).magnitude > MaxShamanDistance)
-                TargetToFollow = null;
-            else if ((SelectionManager.Instance.Shaman.transform.position - TargetToFollow.position).magnitude > MaxShamanDistance)
-                TargetToFollow = null;
-        }
+            if (!TargetToFollow)
+                AggroCheck();
+            else
+            {
+                if ((SelectionManager.Instance.Shaman.transform.position - transform.position).magnitude > MaxShamanDistance)
+                    TargetToFollow = null;
+                else if ((SelectionManager.Instance.Shaman.transform.position - TargetToFollow.position).magnitude > MaxShamanDistance)
+                    TargetToFollow = null;
+            }
 
-        if (!TargetToFollow)
-        {
-            float angle = ((float)FormationPosition / (float)SelectionManager.Instance.Aztecs.Count) * 360;
-            angle += 90;
-            Vector3 offset = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), 0, Mathf.Sin(Mathf.Deg2Rad * angle));
-            offset *= ShamanFormationDistance;
+            if (!TargetToFollow)
+            {
+                float angle = ((float)FormationPosition / (float)SelectionManager.Instance.Aztecs.Count) * 360;
+                angle += 90;
+                Vector3 offset = new Vector3(Mathf.Cos(Mathf.Deg2Rad * angle), 0, Mathf.Sin(Mathf.Deg2Rad * angle));
+                offset *= ShamanFormationDistance;
 
-            Vector3 pos = (_stopPosition.HasValue) ? _stopPosition.Value : SelectionManager.Instance.Shaman.transform.position;
-            pos += offset;
-            _navAgent.SetDestination(pos);
+                Vector3 pos = (_stopPosition.HasValue) ? _stopPosition.Value : SelectionManager.Instance.Shaman.transform.position;
+                pos += offset;
+                NavAgent.SetDestination(pos);
+            }
+            else
+                FollowRoutine();
         }
-        else
-            FollowRoutine();
     }
 
     void AggroCheck ()
@@ -100,7 +105,7 @@ public class Aztec : Unit {
 
         if (_isInBush)
         {
-            if (!_navAgent.isStopped && (target.position - transform.position).magnitude <= JumpAttackRange)
+            if (!NavAgent.isStopped && (target.position - transform.position).magnitude <= JumpAttackRange)
             {
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, target.position - transform.position, out hit, (target.position - transform.position).magnitude, JumpAttackLineOfSight))
@@ -122,8 +127,8 @@ public class Aztec : Unit {
     {
         ModelAnimator.SetTrigger("JumpAttack");
         AttackTarget = target;
-        _navAgent.ResetPath();
-        _navAgent.isStopped = true;
+        NavAgent.ResetPath();
+        NavAgent.isStopped = true;
         TargetToFollow = null;
     }
 
@@ -145,5 +150,11 @@ public class Aztec : Unit {
     public void UndoStop ()
     {
         _stopPosition = null;
+    }
+
+    public void SendAndForget (Vector3 pos)
+    {
+        ManWithAMission = true;
+        MoveTo(pos, 0, 1);
     }
 }

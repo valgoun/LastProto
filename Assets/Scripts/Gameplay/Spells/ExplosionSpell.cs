@@ -32,10 +32,13 @@ public class ExplosionSpell : Spell {
 
     public override void CastUpdate(Vector3 pos, TargetEnum targetType, GameObject target)
     {
-        if ((Targets & targetType) != 0)
+        if ((Targets & TargetEnum.Void) != 0 || (Targets & targetType) != 0)
         {
             _rend.material = ValidTargetMaterial;
-            _cursor.transform.position = target.transform.position;
+            if (target)
+                _cursor.transform.position = target.transform.position;
+            else
+                _cursor.transform.position = pos;
         }
         else
         {
@@ -70,12 +73,32 @@ public class ExplosionSpell : Spell {
 
     protected override void SpellEffect(GameObject target, Vector3 position)
     {
-        _cursor.transform.parent = target.transform;
-        _cursor = null;
+        Aztec ghoul = null;
+        foreach (Aztec aztec in SelectionManager.Instance.Aztecs)
+        {
+            if (!aztec)
+                continue;
 
-        SpellManager.Instance.StartCoroutine(ExplosionRoutine(target, Delay));
-        GameObject ui = Instantiate(UIPrefab, target.transform);
-        ui.GetComponent<TimerUI>().Initialize(Delay);
+            if (aztec.ManWithAMission)
+                continue;
+
+            if (!ghoul)
+                ghoul = aztec;
+            else if ((position - aztec.transform.position).sqrMagnitude < (position - ghoul.transform.position).sqrMagnitude)
+                ghoul = aztec;
+        }
+
+        if (ghoul)
+        {
+            _cursor.transform.parent = ghoul.transform;
+            _cursor.transform.localPosition = Vector3.zero;
+            _cursor = null;
+
+            ghoul.SendAndForget(position);
+            SpellManager.Instance.StartCoroutine(ExplosionRoutine(ghoul.gameObject, Delay));
+            GameObject ui = Instantiate(UIPrefab, ghoul.transform);
+            ui.GetComponent<TimerUI>().Initialize(Delay);
+        }
     }
 
     private IEnumerator ExplosionRoutine (GameObject target, float delay)

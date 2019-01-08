@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [CreateAssetMenu(fileName = "Wall Spell", menuName = "Spell/Spawn Wall")]
 public class SpawnWallSpell : Spell
@@ -32,10 +33,13 @@ public class SpawnWallSpell : Spell
     public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target)
     {
         Vector3 pos;
-        if ((Targets & targetType) != 0)
+        if ((Targets & TargetEnum.Void) != 0 || (Targets & targetType) != 0)
         {
             _rend.material = ValidTargetMaterial;
-            pos = target.transform.position;
+            if (target)
+                pos = target.transform.position;
+            else
+                pos = position;
         }
         else
         {
@@ -65,16 +69,35 @@ public class SpawnWallSpell : Spell
     {
         StopCasting();
 
-        Vector3 pos;
-        if (target)
+        Aztec ghoul = null;
+        foreach (Aztec aztec in SelectionManager.Instance.Aztecs)
         {
-            pos = target.transform.position;
-            Destroy(target);
+            if (!aztec)
+                continue;
+
+            if (aztec.ManWithAMission)
+                continue;
+
+            if (!ghoul)
+                ghoul = aztec;
+            else if ((position - aztec.transform.position).sqrMagnitude < (position - ghoul.transform.position).sqrMagnitude)
+                ghoul = aztec;
         }
-        else
+
+        if (ghoul)
         {
-            pos = position;
+            ghoul.SendAndForget(position);
+            ghoul.StartCoroutine(WallRoutine(ghoul.NavAgent));
         }
+    }
+
+    private IEnumerator WallRoutine(NavMeshAgent target)
+    {
+        while (target.pathPending || target.remainingDistance > target.stoppingDistance)
+            yield return null;
+
+        Vector3 pos = target.transform.position;
+        Destroy(target.gameObject);
 
         Vector3 dir = pos - SelectionManager.Instance.Shaman.transform.position;
         dir.y = 0;
