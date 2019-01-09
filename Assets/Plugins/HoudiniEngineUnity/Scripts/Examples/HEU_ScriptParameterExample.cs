@@ -65,6 +65,7 @@ public class HEU_ScriptParameterExample : MonoBehaviour
 
 			// Use helper to set float parameter with name
 			HEU_ParameterUtility.SetFloat(_evergreenAsset, "gravity", g);
+            //HEU_HAPIUtility.
 
 			// Use helper to set random color
 			HEU_ParameterUtility.SetColor(_evergreenAsset, "branch_vtx_color_color", Random.ColorHSV());
