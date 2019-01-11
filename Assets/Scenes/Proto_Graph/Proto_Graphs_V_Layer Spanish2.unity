@@ -10108,7 +10108,7 @@ MonoBehaviour:
   _assetName: LG_splinemeshhousetool
   _assetOpName: Sop/LG_splinemeshhousetool
   _assetHelp: 
-  _assetID: 0
+  _assetID: -1
   _assetPath: Assets/Graph/Enviro/Building_Features/Cadastre/splinemeshhousetool.hdanc
   _assetFileObject: {fileID: 0}
   _objectNodes:
@@ -12139,7 +12139,7 @@ MonoBehaviour:
   _assetName: LG_splinemeshhousetool2
   _assetOpName: Sop/LG_splinemeshhousetool
   _assetHelp: 
-  _assetID: 98
+  _assetID: -1
   _assetPath: Assets/Graph/Enviro/Building_Features/Cadastre/splinemeshhousetool.hdanc
   _assetFileObject: {fileID: 0}
   _objectNodes:
