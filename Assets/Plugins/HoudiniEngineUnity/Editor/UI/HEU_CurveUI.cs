@@ -120,7 +120,6 @@ namespace HoudiniEngineUnity
 		private int _closestPointIndex;
 		private Vector3 _newPointPosition;
 
-		private GUIStyle _toolsBGStyle;
 
 		// UI LOGIC ---------------------------------------------------------------------------------------------------
 
@@ -132,14 +131,11 @@ namespace HoudiniEngineUnity
 			_lineTexture.SetPixel(0, 1, new Color(1, 1, 0, 1));
 			_lineTexture.Apply();
 
-			GUISkin heuSkin = HEU_EditorUI.LoadHEUSkin();
-			_toolsBGStyle = heuSkin.GetStyle("toolsbg");
-
 			_selectedCurvePoints.Clear();
 
 			HEU_Curve.Interaction setInteraction = HEU_Curve.PreferredNextInteractionMode;
 			HEU_Curve.PreferredNextInteractionMode = HEU_Curve.Interaction.VIEW;
-			SwitchToMode(setInteraction);
+			SwitchToMode(setInteraction); ;
 
 			// Moves focus to the Scene window, which we need for keyboard input at start
 			if (SceneView.currentDrawingSceneView != null)
@@ -1087,10 +1083,12 @@ namespace HoudiniEngineUnity
 			float screenWidth = Screen.width / pixelsPerPoint;
 			float screenHeight = Screen.height / pixelsPerPoint;
 
+			GUIStyle textBackground = HEU_EditorUI.GetWindowStyle();
+
 			Handles.BeginGUI();
 
 			_curveEditorUIRect = new Rect(10, screenHeight - 150, screenWidth - 30, 100);
-			GUILayout.BeginArea(_curveEditorUIRect, _toolsBGStyle);
+			GUILayout.BeginArea(_curveEditorUIRect, textBackground);
 
 			GUILayout.BeginHorizontal();
 

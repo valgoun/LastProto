@@ -52,6 +52,8 @@ namespace HoudiniEngineUnity
 
 				inputNode._uiCache._inputObjectsProperty = HEU_EditorUtility.GetSerializedProperty(inputNode._uiCache._inputNodeSerializedObject, "_inputObjects");
 
+				inputNode._uiCache._inputAssetProperty = HEU_EditorUtility.GetSerializedProperty(inputNode._uiCache._inputNodeSerializedObject, "_inputAsset");
+
 				int inputCount = inputNode._uiCache._inputObjectsProperty.arraySize;
 				for (int i = 0; i < inputCount; ++i)
 				{
@@ -68,20 +70,6 @@ namespace HoudiniEngineUnity
 					objectCache._scaleProperty = inputObjectProperty.FindPropertyRelative("_scaleOffset");
 
 					inputNode._uiCache._inputObjectCache.Add(objectCache);
-				}
-
-				inputNode._uiCache._inputAssetsProperty = HEU_EditorUtility.GetSerializedProperty(inputNode._uiCache._inputNodeSerializedObject, "_inputAssetInfos");
-
-				inputCount = inputNode._uiCache._inputAssetsProperty.arraySize;
-				for (int i = 0; i < inputCount; ++i)
-				{
-					SerializedProperty inputAssetProperty = inputNode._uiCache._inputAssetsProperty.GetArrayElementAtIndex(i);
-
-					HEU_InputNodeUICache.HEU_InputAssetUICache assetInfoCache = new HEU_InputNodeUICache.HEU_InputAssetUICache();
-
-					assetInfoCache._gameObjectProperty = inputAssetProperty.FindPropertyRelative("_pendingGO");
-
-					inputNode._uiCache._inputAssetCache.Add(assetInfoCache);
 				}
 			}
 		}
@@ -129,81 +117,18 @@ namespace HoudiniEngineUnity
 			}
 			else
 			{
-				EditorGUILayout.PropertyField(inputNode._uiCache._keepWorldTransformProperty);
-				EditorGUILayout.PropertyField(inputNode._uiCache._packBeforeMergeProperty);
-
 				if (inputObjectType == HEU_InputNode.InputObjectType.HDA)
 				{
-					SerializedProperty inputAssetsProperty = inputNode._uiCache._inputAssetsProperty;
-					if (inputAssetsProperty != null)
+					// For input asset, filter out other Component types
+					UnityEngine.Object setObject = EditorGUILayout.ObjectField(inputNode._uiCache._inputAssetProperty.objectReferenceValue, typeof(HEU_HoudiniAssetRoot), true);
+					if(setObject != inputNode._uiCache._inputAssetProperty.objectReferenceValue)
 					{
-						int inputCount = inputAssetsProperty.arraySize;
-						bool bSkipElements = false;
-
-						HEU_EditorUI.DrawSeparator();
-
-						using (var hs1 = new EditorGUILayout.HorizontalScope())
+						GameObject inputGO = setObject != null ? (setObject as HEU_HoudiniAssetRoot).gameObject : null;
+						// Check not setting same asset as self
+						if (inputGO == null || inputGO != inputNode.ParentAsset.RootGameObject)
 						{
-							EditorGUILayout.LabelField(string.Format("{0} input objects", inputCount));
-
-							if (GUILayout.Button("Add"))
-							{
-								inputAssetsProperty.InsertArrayElementAtIndex(inputCount);
-
-								bSkipElements = true;
-							}
-
-							if (GUILayout.Button("Clear"))
-							{
-								inputAssetsProperty.ClearArray();
-								bSkipElements = true;
-							}
+							inputNode._uiCache._inputAssetProperty.objectReferenceValue = inputGO;
 						}
-
-						if (!bSkipElements)
-						{
-							using (var vs1 = new EditorGUILayout.VerticalScope())
-							{
-								for (int i = 0; i < inputCount; ++i)
-								{
-									using (var hs2 = new EditorGUILayout.HorizontalScope())
-									{
-										EditorGUILayout.LabelField("Input " + (i + 1));
-
-										if (GUILayout.Button("+", GUILayout.Width(plusButtonWidth)))
-										{
-											inputAssetsProperty.InsertArrayElementAtIndex(i);
-											break;
-										}
-
-										if (GUILayout.Button("-", GUILayout.Width(plusButtonWidth)))
-										{
-											inputAssetsProperty.DeleteArrayElementAtIndex(i);
-											break;
-										}
-									}
-
-									EditorGUI.indentLevel++;
-									using (var vs4 = new EditorGUILayout.VerticalScope())
-									{
-										HEU_InputNodeUICache.HEU_InputAssetUICache assetCache = inputNode._uiCache._inputAssetCache[i];
-
-										UnityEngine.Object setObject = EditorGUILayout.ObjectField(assetCache._gameObjectProperty.objectReferenceValue, typeof(HEU_HoudiniAssetRoot), true);
-										if (setObject != assetCache._gameObjectProperty.objectReferenceValue)
-										{
-											GameObject inputGO = setObject != null ? (setObject as HEU_HoudiniAssetRoot).gameObject : null;
-											// Check not setting same asset as self
-											if (inputGO == null || inputGO != inputNode.ParentAsset.RootGameObject)
-											{
-												assetCache._gameObjectProperty.objectReferenceValue = inputGO;
-											}
-										}
-									}
-									EditorGUI.indentLevel--;
-								}
-							}
-						}
-
 					}
 
 				}
@@ -213,6 +138,9 @@ namespace HoudiniEngineUnity
 				//}
 				else if (inputObjectType == HEU_InputNode.InputObjectType.UNITY_MESH)
 				{
+					EditorGUILayout.PropertyField(inputNode._uiCache._keepWorldTransformProperty);
+					EditorGUILayout.PropertyField(inputNode._uiCache._packBeforeMergeProperty);
+
 					SerializedProperty inputObjectsProperty = inputNode._uiCache._inputObjectsProperty;
 					if (inputObjectsProperty != null)
 					{

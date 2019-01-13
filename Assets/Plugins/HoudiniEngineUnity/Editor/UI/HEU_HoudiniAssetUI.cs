@@ -683,9 +683,9 @@ namespace HoudiniEngineUnity
 											GameObject bakeGO = assetRoot._bakeTargets[i];
 											if (bakeGO != null)
 											{
-												if (HEU_EditorUtility.IsPrefabAsset(bakeGO))
+												if (HEU_EditorUtility.IsPrefabOriginal(bakeGO))
 												{
-													// Prefab asset means its the source prefab, and not an instance of it
+													// Prefab original means its true prefab, and not an instance of it
 													asset.BakeToExistingPrefab(bakeGO);
 												}
 												else

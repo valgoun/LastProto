@@ -39,11 +39,7 @@ namespace HoudiniEngineUnity
 	/// </summary>
 	public static class HEU_EditorUI
 	{
-		public static GUISkin LoadHEUSkin()
-		{
-			string skinName = IsEditorDarkSkin() ? "heu_skin_d" : "heu_skin";
-			return Resources.Load(skinName) as GUISkin;
-		}
+
 
 		public static void DrawSeparator()
 		{

@@ -255,7 +255,7 @@ namespace HoudiniEngineUnity
 					MeshRenderer meshRenderer = _outputGameObject.GetComponent<MeshRenderer>();
 					if(meshRenderer != null)
 					{
-						_localMaterial = HEU_MaterialFactory.GetNewMaterialWithShader(null, HEU_PluginSettings.DefaultVertexColorShader, HEU_Defines.EDITABLE_MATERIAL, false);
+						_localMaterial = HEU_MaterialFactory.GetNewMaterialWithShader(null, HEU_MaterialFactory.GetHoudiniShaderPath(HEU_Defines.DEFAULT_VERTEXCOLOR_SHADER), HEU_Defines.EDITABLE_MATERIAL, false);
 					}
 				}
 			}
@@ -421,9 +421,9 @@ namespace HoudiniEngineUnity
 							// New attribute, so create and populate
 
 							HAPI_AttributeInfo attributeInfo = new HAPI_AttributeInfo();
-							if (!session.GetAttributeInfo(geoID, partID, attributeNames[i], ownerType, ref attributeInfo) || !attributeInfo.exists)
+							if (!session.GetAttributeInfo(geoID, partID, attributeNames[i], ownerType, ref attributeInfo))
 							{
-								continue;
+								return;
 							}
 
 							attrData = CreateAttribute(attributeNames[i], ref attributeInfo);
@@ -572,10 +572,10 @@ namespace HoudiniEngineUnity
 			newPartInfo.faceCount = faceCount;
 			newPartInfo.vertexCount = vertexCount;
 			newPartInfo.pointCount = pointCount;
-			newPartInfo.pointAttributeCount = pointAttributeDatas.Count;
-			newPartInfo.vertexAttributeCount = vertexAttributeDatas.Count;
-			newPartInfo.primitiveAttributeCount = primitiveAttributeDatas.Count;
-			newPartInfo.detailAttributeCount = detailAttributeDatas.Count;
+			newPartInfo.pointAttributeCount = oldPartInfo.pointAttributeCount;
+			newPartInfo.vertexAttributeCount = oldPartInfo.vertexAttributeCount;
+			newPartInfo.primitiveAttributeCount = oldPartInfo.primitiveAttributeCount;
+			newPartInfo.detailAttributeCount = oldPartInfo.detailAttributeCount;
 
 			int newPartID = partID;
 

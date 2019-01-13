@@ -250,7 +250,7 @@ namespace HoudiniEngineUnity
 			{
 				meshRenderer = _targetGameObject.AddComponent<MeshRenderer>();
 
-				Shader shader = HEU_MaterialFactory.FindPluginShader(HEU_PluginSettings.DefaultCurveShader);
+				Shader shader = HEU_MaterialFactory.FindPluginShader("LineShader");
 				meshRenderer.sharedMaterial = new Material(shader);
 				meshRenderer.sharedMaterial.SetColor("_Color", HEU_PluginSettings.LineColor);
 			}

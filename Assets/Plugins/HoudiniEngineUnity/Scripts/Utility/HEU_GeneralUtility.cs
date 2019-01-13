@@ -661,43 +661,9 @@ namespace HoudiniEngineUnity
 					int numObjects = gameObjects.Length;
 					for(int j = 0; j < numObjects; ++j)
 					{
-						Transform[] childTransforms = gameObjects[j].GetComponentsInChildren<Transform>();
-						foreach(Transform t in childTransforms)
+						if(gameObjects[j].name.Equals(name))
 						{
-							if (t.gameObject.name.Equals(name))
-							{
-								return t.gameObject;
-							}
-						}
-					}
-				}
-			}
-#else
-			Debug.LogWarning(HEU_Defines.HEU_USERMSG_NONEDITOR_NOT_SUPPORTED);
-#endif
-			return null;
-		}
-
-		public static HEU_HoudiniAssetRoot GetHDAByGameObjectNameInScene(string name)
-		{
-#if UNITY_EDITOR
-			int numScenes = UnityEditor.SceneManagement.EditorSceneManager.sceneCount;
-			for (int i = 0; i < numScenes; ++i)
-			{
-				var scene = UnityEditor.SceneManagement.EditorSceneManager.GetSceneAt(i);
-				if (scene.isLoaded)
-				{
-					GameObject[] gameObjects = scene.GetRootGameObjects();
-					int numObjects = gameObjects.Length;
-					for (int j = 0; j < numObjects; ++j)
-					{
-						HEU_HoudiniAssetRoot[] assetRoots = gameObjects[j].GetComponentsInChildren<HEU_HoudiniAssetRoot>();
-						foreach (HEU_HoudiniAssetRoot ar in assetRoots)
-						{
-							if (ar.gameObject.name.Equals(name))
-							{
-								return ar;
-							}
+							return gameObjects[j];
 						}
 					}
 				}
@@ -860,10 +826,6 @@ namespace HoudiniEngineUnity
 				return;
 			}
 
-			// Delete the target mesh collider's mesh
-			// Do this before deleting the mesh below since its stored under the mesh's asset on file
-			DestroyMeshCollider(targetGO, bDontDeletePersistantResources);
-
 			// Delete the target mesh filter's mesh
 			MeshFilter targetMeshFilter = targetGO.GetComponent<MeshFilter>();
 			if (targetMeshFilter != null)
@@ -880,6 +842,9 @@ namespace HoudiniEngineUnity
 					targetMeshFilter.sharedMesh = null;
 				}
 			}
+
+			// Delete the target mesh collider's mesh
+			DestroyMeshCollider(targetGO, bDontDeletePersistantResources);
 
 			// Delete existing materials and textures
 			MeshRenderer targetMeshRenderer = targetGO.GetComponent<MeshRenderer>();
@@ -945,8 +910,7 @@ namespace HoudiniEngineUnity
 				{
 					if (!bDontDeletePersistantResources || !HEU_EditorUtility.IsPersistant(targetColliderMesh))
 					{
-						// Need to call DestroyImmediate with bAllowDestroyingAssets to force deleting the asset file
-						DestroyImmediate(targetColliderMesh, bAllowDestroyingAssets: true);
+						DestroyImmediate(targetColliderMesh);
 					}
 
 					targetColliderMesh = null;

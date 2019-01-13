@@ -24,6 +24,8 @@
 * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -34,6 +36,7 @@ namespace HoudiniEngineUnity
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Typedefs (copy these from HEU_Common.cs)
 	using HAPI_NodeId = System.Int32;
+	using HAPI_PartId = System.Int32;
 
 
 	// <summary>
@@ -48,9 +51,9 @@ namespace HoudiniEngineUnity
 		// The type of input node based on how it was specified in the HDA
 		public enum InputNodeType
 		{
-			CONNECTION,     // As an asset connection
-			NODE,           // Pure input asset node
-			PARAMETER,      // As an input parameter
+			CONNECTION,		// As an asset connection
+			NODE,			// Pure input asset node
+			PARAMETER,		// As an input parameter
 		}
 
 		[SerializeField]
@@ -80,25 +83,16 @@ namespace HoudiniEngineUnity
 		[SerializeField]
 		private List<HEU_InputObjectInfo> _inputObjects = new List<HEU_InputObjectInfo>();
 
-		// This holds node IDs of input nodes that are created for uploading mesh data
 		[SerializeField]
 		private List<HAPI_NodeId> _inputObjectsConnectedAssetIDs = new List<HAPI_NodeId>();
 
-#pragma warning disable 0414
-		// [DEPRECATED: replaced with _inputAssetInfos]
 		// Asset input: external reference used for UI
 		[SerializeField]
 		private GameObject _inputAsset;
 
-		// [DEPRECATED: replaced with _inputAssetInfos]
 		// Asset input: internal reference to the connected asset (valid if connected)
 		[SerializeField]
 		private GameObject _connectedInputAsset;
-#pragma warning restore 0414
-
-		// List of input HDAs
-		[SerializeField]
-		private List<HEU_InputHDAInfo> _inputAssetInfos = new List<HEU_InputHDAInfo>();
 
 		[SerializeField]
 		private HAPI_NodeId _nodeID;
@@ -185,13 +179,12 @@ namespace HoudiniEngineUnity
 		{
 			ClearUICache();
 
-			DisconnectAndDestroyInputs(session);
-			RemoveAllInputEntries();
+			DisconnectAndDestroyInputAssets(session);
 		}
 
 		private void ResetInputObjectTransforms()
 		{
-			for (int i = 0; i < _inputObjects.Count; ++i)
+			for(int i = 0; i < _inputObjects.Count; ++i)
 			{
 				_inputObjects[i]._syncdTransform = Matrix4x4.identity;
 			}
@@ -200,105 +193,70 @@ namespace HoudiniEngineUnity
 		public void ResetInputNode(HEU_SessionBase session)
 		{
 			ResetConnectionForForceUpdate(session);
-			RemoveAllInputEntries();
+			RemoveAllInputObjects();
 			ClearUICache();
 
 			ChangeInputType(session, InputObjectType.UNITY_MESH);
 		}
 
-		public void InsertInputEntry(int index, GameObject newInputGameObject)
+		private HEU_InputObjectInfo CreateInputObjectInfo(GameObject inputGameObject)
 		{
-			if (_inputObjectType == InputObjectType.UNITY_MESH)
+			HEU_InputObjectInfo newObjectInfo = new HEU_InputObjectInfo();
+			newObjectInfo._gameObject = inputGameObject;
+
+			return newObjectInfo;
+		}
+
+		public void InsertInputObject(int index, GameObject newInputGameObject)
+		{
+			if(index >= 0 && index < _inputObjects.Count)
 			{
-				if (index >= 0 && index < _inputObjects.Count)
-				{
-					_inputObjects.Insert(index, CreateInputObjectInfo(newInputGameObject));
-				}
-				else
-				{
-					Debug.LogErrorFormat("Insert index {0} out of range (number of items is {1})", index, _inputObjects.Count);
-				}
+				_inputObjects.Insert(index, CreateInputObjectInfo(newInputGameObject));
 			}
-			else if (_inputObjectType == InputObjectType.HDA)
+			else
 			{
-				if (index >= 0 && index < _inputAssetInfos.Count)
-				{
-					_inputAssetInfos.Insert(index, CreateInputHDAInfo(newInputGameObject));
-				}
-				else
-				{
-					Debug.LogErrorFormat("Insert index {0} out of range (number of items is {1})", index, _inputAssetInfos.Count);
-				}
+				Debug.LogErrorFormat("Insert index {0} out of range (number of items is {1})", index, _inputObjects.Count);
 			}
 		}
 
-		public GameObject GetInputEntryGameObject(int index)
+		public HEU_InputObjectInfo GetInputObject(int index)
 		{
-			if (_inputObjectType == InputObjectType.UNITY_MESH)
+			if (index >= 0 && index < _inputObjects.Count)
 			{
-				if (index >= 0 && index < _inputObjects.Count)
-				{
-					return _inputObjects[index]._gameObject;
-				}
-				else
-				{
-					Debug.LogErrorFormat("Get index {0} out of range (number of items is {1})", index, _inputObjects.Count);
-				}
+				return _inputObjects[index];
 			}
-			else if (_inputObjectType == InputObjectType.HDA)
+			else
 			{
-				if (index >= 0 && index < _inputAssetInfos.Count)
-				{
-					return _inputAssetInfos[index]._pendingGO;
-				}
-				else
-				{
-					Debug.LogErrorFormat("Get index {0} out of range (number of items is {1})", index, _inputAssetInfos.Count);
-				}
+				Debug.LogErrorFormat("Get index {0} out of range (number of items is {1})", index, _inputObjects.Count);
 			}
 			return null;
 		}
 
-		public HEU_InputObjectInfo AddInputEntryAtEnd(GameObject newEntryGameObject)
+		public HEU_InputObjectInfo AddInputObjectAtEnd(GameObject newInputGameObject)
 		{
-			if (_inputObjectType == InputObjectType.UNITY_MESH)
-			{
-				InternalAddInputObjectAtEnd(newEntryGameObject);
-			}
-			else if (_inputObjectType == InputObjectType.HDA)
-			{
-				InternalAddInputHDAAtEnd(newEntryGameObject);
-			}
-			return null;
+			HEU_InputObjectInfo inputObject = CreateInputObjectInfo(newInputGameObject);
+			_inputObjects.Add(inputObject);
+			return inputObject;
 		}
 
-		public void RemoveAllInputEntries()
+		public void RemoveAllInputObjects()
 		{
 			_inputObjects.Clear();
-			_inputAssetInfos.Clear();
 		}
 
-		public int NumInputEntries()
+		public int NumInputObjects()
 		{
-			if (_inputObjectType == InputObjectType.UNITY_MESH)
-			{
-				return _inputObjects.Count;
-			}
-			else if (_inputObjectType == InputObjectType.HDA)
-			{
-				return _inputAssetInfos.Count;
-			}
-			return 0;
+			return _inputObjects.Count;
 		}
 
 		public void ChangeInputType(HEU_SessionBase session, InputObjectType newType)
 		{
-			if (newType == _inputObjectType)
+			if(newType == _inputObjectType)
 			{
 				return;
 			}
 
-			DisconnectAndDestroyInputs(session);
+			DisconnectAndDestroyInputAssets(session);
 
 			_inputObjectType = newType;
 			_pendingInputObjectType = _inputObjectType;
@@ -311,14 +269,11 @@ namespace HoudiniEngineUnity
 		{
 			if (_inputObjectType == InputObjectType.HDA)
 			{
-				if (AreAnyInputHDAsConnected())
+				if (IsInputAssetConnected())
 				{
 					// By disconnecting here, we can then properly reconnect again.
 					// This is needed when loading a saved scene and recooking.
-					DisconnectConnectedMergeNode(session);
-
-					// Clear out input HDA hooks (upstream callback)
-					ClearConnectedInputHDAs();
+					DisconnectInputAssetActor(session);
 				}
 			}
 		}
@@ -331,35 +286,31 @@ namespace HoudiniEngineUnity
 				return;
 			}
 
-			if (_pendingInputObjectType != _inputObjectType)
+			if(_pendingInputObjectType != _inputObjectType)
 			{
 				ChangeInputType(session, _pendingInputObjectType);
 			}
 
-			if (_inputObjectType == InputObjectType.UNITY_MESH)
+			if(_inputObjectType == InputObjectType.UNITY_MESH)
 			{
-				// Connect regular gameobjects
-
-				if (_inputObjects == null || _inputObjects.Count == 0)
+				if(_inputObjects == null || _inputObjects.Count == 0)
 				{
-					DisconnectAndDestroyInputs(session);
+					DisconnectAndDestroyInputAssets(session);
 				}
 				else
 				{
-					DisconnectAndDestroyInputs(session);
+					DisconnectAndDestroyInputAssets(session);
 
-					// Create merge object, and input nodes with data, then connect them to the merge object
 					bool bResult = HEU_InputUtility.CreateInputNodeWithMultiObjects(session, _nodeID, ref _connectedNodeID, ref _inputObjects, ref _inputObjectsConnectedAssetIDs, _keepWorldTransform);
-					if (!bResult)
+					if(!bResult)
 					{
-						DisconnectAndDestroyInputs(session);
+						DisconnectAndDestroyInputAssets(session);
 						return;
 					}
 
-					// Now connect from this asset to the merge object
-					ConnectToMergeObject(session);
+					ConnectInputNode(session);
 
-					if (!UploadObjectMergeTransformType(session))
+					if(!UploadObjectMergeTransformType(session))
 					{
 						Debug.LogErrorFormat("Failed to upload object merge transform type!");
 						return;
@@ -372,39 +323,37 @@ namespace HoudiniEngineUnity
 					}
 				}
 			}
-			else if (_inputObjectType == InputObjectType.HDA)
+			else if(_inputObjectType == InputObjectType.HDA)
 			{
-				// Connect HDAs
+				// Connect HDA. Note only 1 connection supported.
 
-				// First clear all previous input connections
-				DisconnectAndDestroyInputs(session);
-
-				// Create merge object, and connect all input HDAs
-				bool bResult = HEU_InputUtility.CreateInputNodeWithMultiAssets(session, _parentAsset, ref _connectedNodeID, ref _inputAssetInfos, _keepWorldTransform, -1);
-				if (!bResult)
+				if (IsInputAssetConnected())
 				{
-					DisconnectAndDestroyInputs(session);
-					return;
+					DisconnectInputAssetActor(session);
 				}
 
-				// Now connect from this asset to the merge object
-				ConnectToMergeObject(session);
-
-				if (!UploadObjectMergeTransformType(session))
+				if (_inputAsset != null)
 				{
-					Debug.LogErrorFormat("Failed to upload object merge transform type!");
-					return;
-				}
+					HEU_HoudiniAssetRoot inputAssetRoot = _inputAsset.GetComponent<HEU_HoudiniAssetRoot>();
+					if(inputAssetRoot != null && inputAssetRoot._houdiniAsset != null)
+					{
+						if (!inputAssetRoot._houdiniAsset.IsAssetValidInHoudini(session))
+						{
+							// Force a recook if its not valid (in case it hasn't been loaded into the session)
+							inputAssetRoot._houdiniAsset.RequestCook(true, false, true, true);
+						}
 
-				if (!UploadObjectMergePackGeometry(session))
-				{
-					Debug.LogErrorFormat("Failed to upload object merge pack geometry value!");
-					return;
+						ConnectInputAssetActor(session);
+					}
+					else
+					{
+						Debug.LogWarningFormat("The input GameObject {0} is not a valid HDA asset.", _inputAsset.name);
+					}
 				}
 			}
 			//else if (_inputObjectType == InputObjectType.CURVE)
 			//{
-			// TODO INPUT NODE - create new Curve SOP (add HEU_Curve here?)
+				// TODO INPUT NODE - create new Curve SOP (add HEU_Curve here?)
 			//}
 			else
 			{
@@ -417,66 +366,51 @@ namespace HoudiniEngineUnity
 			ClearUICache();
 		}
 
-		public bool AreAnyInputHDAsConnected()
+		public bool IsInputAssetConnected()
 		{
-			foreach (HEU_InputHDAInfo asset in _inputAssetInfos)
-			{
-				if (asset._connectedGO != null)
-				{
-					return true;
-				}
-			}
-			return false;
+			return _connectedInputAsset != null;
 		}
 
 		public void ReconnectToUpstreamAsset()
 		{
-			if (_inputObjectType == InputObjectType.HDA && AreAnyInputHDAsConnected())
+			if (_inputObjectType == InputObjectType.HDA && IsInputAssetConnected())
 			{
-				foreach (HEU_InputHDAInfo hdaInfo in _inputAssetInfos)
+				HEU_HoudiniAssetRoot inputAssetRoot = _connectedInputAsset != null ? _connectedInputAsset.GetComponent<HEU_HoudiniAssetRoot>() : null;
+				if (inputAssetRoot != null && inputAssetRoot._houdiniAsset != null)
 				{
-					HEU_HoudiniAssetRoot inputAssetRoot = hdaInfo._connectedGO != null ? hdaInfo._connectedGO.GetComponent<HEU_HoudiniAssetRoot>() : null;
-					if (inputAssetRoot != null && inputAssetRoot._houdiniAsset != null)
-					{
-						_parentAsset.ConnectToUpstream(inputAssetRoot._houdiniAsset);
-					}
+					_parentAsset.ConnectToUpstream(inputAssetRoot._houdiniAsset);
 				}
 			}
 		}
 
-		private HEU_InputObjectInfo CreateInputObjectInfo(GameObject inputGameObject)
+		private void ConnectInputAssetActor(HEU_SessionBase session)
 		{
-			HEU_InputObjectInfo newObjectInfo = new HEU_InputObjectInfo();
-			newObjectInfo._gameObject = inputGameObject;
+			if(IsInputAssetConnected())
+			{
+				Debug.LogWarning("Input asset already connected!");
+				return;
+			}
 
-			return newObjectInfo;
+			HEU_HoudiniAssetRoot inputAssetRoot = _inputAsset != null ? _inputAsset.GetComponent<HEU_HoudiniAssetRoot>() : null;
+			if (inputAssetRoot != null && inputAssetRoot._houdiniAsset.IsAssetValidInHoudini(session))
+			{
+				_connectedNodeID = inputAssetRoot._houdiniAsset.AssetID;
+
+				ConnectInputNode(session);
+
+				_parentAsset.ConnectToUpstream(inputAssetRoot._houdiniAsset);
+
+				_connectedInputAsset = _inputAsset;
+			}
 		}
 
-		private HEU_InputHDAInfo CreateInputHDAInfo(GameObject inputGameObject)
+		private void DisconnectInputAssetActor(HEU_SessionBase session)
 		{
-			HEU_InputHDAInfo newInputInfo = new HEU_InputHDAInfo();
-			newInputInfo._pendingGO = inputGameObject;
-			newInputInfo._connectedInputNodeID = HEU_Defines.HEU_INVALID_NODE_ID;
+			if (!IsInputAssetConnected())
+			{
+				return;
+			}
 
-			return newInputInfo;
-		}
-
-		private HEU_InputObjectInfo InternalAddInputObjectAtEnd(GameObject newInputGameObject)
-		{
-			HEU_InputObjectInfo inputObject = CreateInputObjectInfo(newInputGameObject);
-			_inputObjects.Add(inputObject);
-			return inputObject;
-		}
-
-		private HEU_InputHDAInfo InternalAddInputHDAAtEnd(GameObject newInputHDA)
-		{
-			HEU_InputHDAInfo inputInfo = CreateInputHDAInfo(newInputHDA);
-			_inputAssetInfos.Add(inputInfo);
-			return inputInfo;
-		}
-
-		private void DisconnectConnectedMergeNode(HEU_SessionBase session)
-		{
 			if (session != null)
 			{
 				//Debug.LogWarningFormat("Disconnecting Node Input for _nodeID={0} with type={1}", _nodeID, _inputNodeType);
@@ -498,35 +432,31 @@ namespace HoudiniEngineUnity
 					session.DisconnectNodeInput(_nodeID, _inputIndex, false);
 				}
 			}
+
+			ClearConnectedInputAsset();
+
+			// Must clear this and not delete as this points to existing asset node.
+			// If _inputObjectType changes to MESH, node with this ID will get deleted. 
+			_connectedNodeID = HEU_Defines.HEU_INVALID_NODE_ID;
 		}
 
-		private void ClearConnectedInputHDAs()
+		private void ClearConnectedInputAsset()
 		{
-			int numInputs = _inputAssetInfos.Count;
-			for (int i = 0; i < numInputs; ++i)
+			if (_connectedInputAsset != null)
 			{
-				if (_inputAssetInfos[i] == null)
-				{
-					continue;
-				}
-
-				HEU_HoudiniAssetRoot inputAssetRoot = _inputAssetInfos[i]._connectedGO != null ? _inputAssetInfos[i]._connectedGO.GetComponent<HEU_HoudiniAssetRoot>() : null;
+				HEU_HoudiniAssetRoot inputAssetRoot = _connectedInputAsset != null ? _connectedInputAsset.GetComponent<HEU_HoudiniAssetRoot>() : null;
 				if (inputAssetRoot != null)
 				{
 					_parentAsset.DisconnectFromUpstream(inputAssetRoot._houdiniAsset);
 				}
-
-				_inputAssetInfos[i]._connectedGO = null;
-				_inputAssetInfos[i]._connectedInputNodeID = HEU_Defines.HEU_INVALID_NODE_ID;
+				_connectedInputAsset = null;
 			}
 		}
 
-		/// <summary>
-		/// Connect the input to the merge object node
-		/// </summary>
-		/// <param name="session"></param>
-		private void ConnectToMergeObject(HEU_SessionBase session)
+		private void ConnectInputNode(HEU_SessionBase session)
 		{
+			// Connect node input
+			
 			if (_inputNodeType == InputNodeType.PARAMETER)
 			{
 				if (string.IsNullOrEmpty(_paramName))
@@ -545,40 +475,54 @@ namespace HoudiniEngineUnity
 			}
 			else
 			{
-				if (!session.ConnectNodeInput(_nodeID, _inputIndex, _connectedNodeID))
+				if(!session.ConnectNodeInput(_nodeID, _inputIndex, _connectedNodeID))
 				{
 					Debug.LogErrorFormat("Unable to connect to input node!");
 					return;
 				}
 			}
+
+			// This ensures that the input node's own object merge Keep World Transform
+			// plays nicely with the connected object merge's Keep World Transform
+			SetInputNodeObjectMergeKeepTransform(session, false);
 		}
 
-		private void DisconnectAndDestroyInputs(HEU_SessionBase session)
+		/// <summary>
+		/// Set the input node's object merge node's Keep World Transform parameter
+		/// </summary>
+		/// <param name="session"></param>
+		/// <param name="bEnable"></param>
+		private void SetInputNodeObjectMergeKeepTransform(HEU_SessionBase session, bool bEnable)
 		{
-			// First disconnect the merge node from its connections
-			DisconnectConnectedMergeNode(session);
+			if (_inputNodeType != InputNodeType.PARAMETER)
+			{
+				HAPI_NodeId inputNodeID = HEU_Defines.HEU_INVALID_NODE_ID;
+				if (session.QueryNodeInput(_nodeID, _inputIndex, out inputNodeID, false))
+				{
+					session.SetParamIntValue(inputNodeID, HEU_Defines.HAPI_OBJMERGE_TRANSFORM_PARAM, 0, bEnable ? 1 : 0);
+				}
+			}
+		}
 
-			// Clear out input HDA hooks (upstream callback)
-			ClearConnectedInputHDAs();
+		private void DisconnectAndDestroyInputAssets(HEU_SessionBase session)
+		{
+			DisconnectInputAssetActor(session);
+
+			_inputAsset = null;
 
 			if (session != null)
 			{
-				// Delete the input nodes that were created
 				foreach (HAPI_NodeId nodeID in _inputObjectsConnectedAssetIDs)
 				{
-					if (nodeID != HEU_Defines.HEU_INVALID_NODE_ID)
-					{
-						session.DeleteNode(nodeID);
-					}
+					session.DeleteNode(nodeID);
 				}
 
-				// Delete the SOP/merge we created
 				if (_connectedNodeID != HEU_Defines.HEU_INVALID_NODE_ID && HEU_HAPIUtility.IsNodeValidInHoudini(session, _connectedNodeID))
 				{
 					// We'll delete the parent Object because we presume to have created the SOP/merge ourselves.
 					// If the parent Object doesn't get deleted, it sticks around unused.
 					HAPI_NodeInfo parentNodeInfo = new HAPI_NodeInfo();
-					if (session.GetNodeInfo(_connectedNodeID, ref parentNodeInfo))
+					if(session.GetNodeInfo(_connectedNodeID, ref parentNodeInfo))
 					{
 						if (parentNodeInfo.parentId != HEU_Defines.HEU_INVALID_NODE_ID)
 						{
@@ -592,38 +536,14 @@ namespace HoudiniEngineUnity
 			_connectedNodeID = HEU_Defines.HEU_INVALID_NODE_ID;
 		}
 
-		public int GetConnectedInputCount()
-		{
-			if (_inputObjectType == InputObjectType.UNITY_MESH)
-			{
-				return _inputObjectsConnectedAssetIDs.Count;
-			}
-			else if (_inputObjectType == InputObjectType.HDA)
-			{
-				return _inputAssetInfos.Count;
-			}
-			return 0;
-		}
-
-		public HAPI_NodeId GetConnectedNodeID(int index)
-		{
-			if (_inputObjectType == InputObjectType.UNITY_MESH)
-			{
-				if (index >=0 && index < _inputObjectsConnectedAssetIDs.Count)
-				{
-					return _inputObjectsConnectedAssetIDs[index];
-				}
-			}
-			else if (_inputObjectType == InputObjectType.HDA)
-			{
-				return _inputAssetInfos[index]._connectedInputNodeID;
-			}
-			return HEU_Defines.HEU_INVALID_NODE_ID;
-		}
-
 		public bool UploadObjectMergeTransformType(HEU_SessionBase session)
 		{
-			if (_connectedNodeID == HEU_Defines.HEU_INVALID_NODE_ID)
+			if(_connectedNodeID == HEU_Defines.HAPI_INVALID_PARM_ID)
+			{
+				return false;
+			}
+
+			if (_inputObjectType != InputObjectType.UNITY_MESH)
 			{
 				return false;
 			}
@@ -635,11 +555,11 @@ namespace HoudiniEngineUnity
 			// Use _connectedNodeID to find its connections, which should be
 			// the object merge nodes. We set the pack parameter on those.
 			// Presume that the number of connections to  _connectedNodeID is equal to 
-			// size of GetConnectedInputCount() (i.e. the number of inputs)
-			int numConnected = GetConnectedInputCount();
+			// size of _inputObjectsConnectedAssetIDs which contains the input nodes.
+			int numConnected = _inputObjectsConnectedAssetIDs.Count;
 			for (int i = 0; i < numConnected; ++i)
 			{
-				if (GetConnectedNodeID(i) == HEU_Defines.HEU_INVALID_NODE_ID)
+				if (_inputObjectsConnectedAssetIDs[i] == HEU_Defines.HEU_INVALID_NODE_ID)
 				{
 					continue;
 				}
@@ -651,12 +571,21 @@ namespace HoudiniEngineUnity
 				}
 			}
 
+			// This ensures that the input node's own object merge Keep World Transform
+			// plays nicely with the connected object merge's Keep World Transform
+			SetInputNodeObjectMergeKeepTransform(session, _keepWorldTransform);
+
 			return true;
 		}
 
 		private bool UploadObjectMergePackGeometry(HEU_SessionBase session)
 		{
 			if (_connectedNodeID == HEU_Defines.HAPI_INVALID_PARM_ID)
+			{
+				return false;
+			}
+
+			if (_inputObjectType != InputObjectType.UNITY_MESH)
 			{
 				return false;
 			}
@@ -668,11 +597,11 @@ namespace HoudiniEngineUnity
 			// Use _connectedNodeID to find its connections, which should be
 			// the object merge nodes. We set the pack parameter on those.
 			// Presume that the number of connections to  _connectedNodeID is equal to 
-			// size of GetConnectedInputCount() (i.e. the number of inputs)
-			int numConnected = GetConnectedInputCount();
+			// size of _inputObjectsConnectedAssetIDs which contains the input nodes.
+			int numConnected = _inputObjectsConnectedAssetIDs.Count;
 			for (int i = 0; i < numConnected; ++i)
 			{
-				if (GetConnectedNodeID(i) == HEU_Defines.HEU_INVALID_NODE_ID)
+				if(_inputObjectsConnectedAssetIDs[i] == HEU_Defines.HEU_INVALID_NODE_ID)
 				{
 					continue;
 				}
@@ -689,7 +618,6 @@ namespace HoudiniEngineUnity
 
 		public bool HasInputNodeTransformChanged()
 		{
-			// Only need to check Mesh inputs, since HDA inputs don't upload transform
 			if (_inputObjectType == InputObjectType.UNITY_MESH)
 			{
 				for (int i = 0; i < _inputObjects.Count; ++i)
@@ -714,58 +642,90 @@ namespace HoudiniEngineUnity
 			return false;
 		}
 
-		public void UploadInputObjectTransforms(HEU_SessionBase session)
+		public bool UploadInputObjectTransforms(HEU_SessionBase session)
 		{
-			// Only need to upload Mesh inputs, since HDA inputs don't upload transform
-			if (_nodeID == HEU_Defines.HAPI_INVALID_PARM_ID || _inputObjectType != InputObjectType.UNITY_MESH)
+			if (_nodeID == HEU_Defines.HAPI_INVALID_PARM_ID)
 			{
-				return;
+				return false;
 			}
 
-			int numInputs = GetConnectedInputCount();
-			for (int i = 0; i < numInputs; ++i)
+			if (_inputObjectType != InputObjectType.UNITY_MESH)
 			{
-				HAPI_NodeId connectedNodeID = GetConnectedNodeID(i);
-				if (connectedNodeID != HEU_Defines.HEU_INVALID_NODE_ID && _inputObjects[i]._gameObject != null)
+				return false;
+			}
+
+			for (int i = 0; i < _inputObjects.Count; ++i)
+			{
+				if(_inputObjects[i]._gameObject == null)
 				{
-					HEU_InputUtility.UploadInputObjectTransform(session, _inputObjects[i], connectedNodeID, _keepWorldTransform);
+					continue;
+				}
+
+				HEU_InputUtility.UploadInputObjectTransform(session, _inputObjects[i], _inputObjectsConnectedAssetIDs[i], _keepWorldTransform);
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Force cook upstream connected asset if its not valid in given session.
+		/// </summary>
+		/// <param name="session"></param>
+		public void CookUpstreamConnectedAsset(HEU_SessionBase session)
+		{
+			if(_inputObjectType == InputObjectType.HDA && IsInputAssetConnected())
+			{
+				HEU_HoudiniAssetRoot inputAssetRoot = _connectedInputAsset.GetComponent<HEU_HoudiniAssetRoot>();
+				if (inputAssetRoot != null && !inputAssetRoot._houdiniAsset.IsAssetValidInHoudini(session))
+				{
+					inputAssetRoot._houdiniAsset.RequestCook(true, false, true, true);
+
+					// Update the _connectNodeID to the connected asset's ID since it might have changed during cook
+					if(_connectedNodeID != HEU_Defines.HEU_INVALID_NODE_ID)
+					{
+						HAPI_NodeId otherAssetID = inputAssetRoot._houdiniAsset != null ? inputAssetRoot._houdiniAsset.AssetID : HEU_Defines.HEU_INVALID_NODE_ID;
+						if(otherAssetID != _connectedNodeID)
+						{
+							_connectedNodeID = otherAssetID;
+						}
+					}
 				}
 			}
 		}
 
 		/// <summary>
 		/// Update the input connection based on the fact that the owner asset was recreated
-		/// in the given session.
-		/// All connections will be invalidated without cleaning up because the IDs can't be trusted.
+		/// in the given session. Asset input connections will be updated, while mesh input
+		/// connections will be invalidated without cleaning up because the IDs can't be trusted.
 		/// </summary>
 		/// <param name="session"></param>
 		public void UpdateOnAssetRecreation(HEU_SessionBase session)
 		{
-			if (_inputObjectType == InputObjectType.HDA)
+			if (_inputObjectType == InputObjectType.HDA && IsInputAssetConnected())
 			{
-				// For HDA inputs, need to recreate the merge node, cook the HDAs, and connect the HDAs to the merge nodes
-
-				// For backwards compatiblity, copy the previous single input asset reference into the new input asset list
-				if (_inputAsset != null && _inputAssetInfos.Count == 0)
+				// For asset inputs, cook the asset if its not valid in session, and update the ID
+				HEU_HoudiniAssetRoot inputAssetRoot = _connectedInputAsset.GetComponent<HEU_HoudiniAssetRoot>();
+				if (inputAssetRoot != null && !inputAssetRoot._houdiniAsset.IsAssetValidInHoudini(session))
 				{
-					InternalAddInputHDAAtEnd(_inputAsset);
+					inputAssetRoot._houdiniAsset.RequestCook(true, false, true, true);
 
-					// Clear out these deprecated references for forever
-					_inputAsset = null;
-					_connectedInputAsset = null;
-				}
+					// Update the _connectNodeID to the connected asset's ID since it might have changed during cook
+					if (_connectedNodeID != HEU_Defines.HEU_INVALID_NODE_ID)
+					{
+						HAPI_NodeId otherAssetID = inputAssetRoot._houdiniAsset != null ? inputAssetRoot._houdiniAsset.AssetID : HEU_Defines.HEU_INVALID_NODE_ID;
+						if (otherAssetID != _connectedNodeID)
+						{
+							_connectedNodeID = otherAssetID;
+						}
 
-				// Don't delete the merge node ID as its most likely not valid
-				_connectedNodeID = HEU_Defines.HEU_INVALID_NODE_ID;
-
-				int numInputs = _inputAssetInfos.Count;
-				for (int i = 0; i < numInputs; ++i)
-				{
-					_inputAssetInfos[i]._connectedGO = null;
-					_inputAssetInfos[i]._connectedInputNodeID = HEU_Defines.HEU_INVALID_NODE_ID;
+						if(_connectedNodeID == HEU_Defines.HEU_INVALID_NODE_ID)
+						{
+							ClearConnectedInputAsset();
+						}
+					}
 				}
 			}
-			else if (_inputObjectType == InputObjectType.UNITY_MESH)
+			else if(_inputObjectType == InputObjectType.UNITY_MESH)
 			{
 				// For mesh input, invalidate _inputObjectsConnectedAssetIDs and _connectedNodeID as their
 				// nodes most likely don't exist, and the IDs will not be correct since this asset got recreated
@@ -779,28 +739,23 @@ namespace HoudiniEngineUnity
 		{
 			destInputNode._pendingInputObjectType = _inputObjectType;
 
-			if (destInputNode._inputObjectType == InputObjectType.HDA)
+			if(destInputNode._inputObjectType == InputObjectType.HDA)
 			{
 				destInputNode.ResetConnectionForForceUpdate(session);
 			}
 
-			destInputNode.RemoveAllInputEntries();
-
-			foreach (HEU_InputObjectInfo srcInputObject in _inputObjects)
+			destInputNode._inputObjects.Clear();
+			foreach(HEU_InputObjectInfo inputObj in _inputObjects)
 			{
 				HEU_InputObjectInfo newInputObject = new HEU_InputObjectInfo();
-				srcInputObject.CopyTo(newInputObject);
+				inputObj.CopyTo(newInputObject);
+				//newInputObject._syncdTransform = Matrix4x4.identity;
 
 				destInputNode._inputObjects.Add(newInputObject);
 			}
 
-			foreach (HEU_InputHDAInfo srcInputInfo in _inputAssetInfos)
-			{
-				HEU_InputHDAInfo newInputInfo = new HEU_InputHDAInfo();
-				srcInputInfo.CopyTo(newInputInfo);
-
-				destInputNode._inputAssetInfos.Add(newInputInfo);
-			}
+			destInputNode._inputAsset = _inputAsset;
+			destInputNode._connectedInputAsset = _connectedInputAsset;
 
 			destInputNode._keepWorldTransform = _keepWorldTransform;
 			destInputNode._packGeometryBeforeMerging = _packGeometryBeforeMerging;
@@ -810,8 +765,7 @@ namespace HoudiniEngineUnity
 		{
 			inputPreset._inputObjectType = _inputObjectType;
 
-			// Deprecated and replaced with _inputAssetPresets. Leaving it in for backwards compatibility.
-			//inputPreset._inputAssetName = _inputAsset != null ? _inputAsset.name : "";
+			inputPreset._inputAssetName = _inputAsset != null ? _inputAsset.name : "";
 
 			inputPreset._inputIndex = _inputIndex;
 			inputPreset._inputName = _inputName;
@@ -848,24 +802,6 @@ namespace HoudiniEngineUnity
 				inputPreset._inputObjectPresets.Add(inputObjectPreset);
 			}
 
-			foreach (HEU_InputHDAInfo hdaInfo in _inputAssetInfos)
-			{
-				HEU_InputAssetPreset inputAssetPreset = new HEU_InputAssetPreset();
-
-				if (hdaInfo._connectedGO != null)
-				{
-					if (!HEU_GeneralUtility.IsGameObjectInProject(hdaInfo._connectedGO))
-					{
-						inputAssetPreset._gameObjectName = hdaInfo._connectedGO.name; 
-					}
-					else
-					{
-						inputAssetPreset._gameObjectName = "";
-					}
-
-					inputPreset._inputAssetPresets.Add(inputAssetPreset);
-				}
-			}
 		}
 
 		public void LoadPreset(HEU_SessionBase session, HEU_InputPreset inputPreset)
@@ -874,14 +810,11 @@ namespace HoudiniEngineUnity
 
 			ChangeInputType(session, inputPreset._inputObjectType);
 
-			if (inputPreset._inputObjectType == InputObjectType.UNITY_MESH)
+			if (inputPreset._inputObjectType == HEU_InputNode.InputObjectType.UNITY_MESH)
 			{
-				bool bSet = false;
 				int numObjects = inputPreset._inputObjectPresets.Count;
 				for (int i = 0; i < numObjects; ++i)
 				{
-					bSet = false;
-
 					if (!string.IsNullOrEmpty(inputPreset._inputObjectPresets[i]._gameObjectName))
 					{
 						GameObject inputGO = null;
@@ -893,7 +826,7 @@ namespace HoudiniEngineUnity
 						{
 							// Use the _gameObjectName as path to find in scene
 							inputGO = HEU_AssetDatabase.LoadAssetAtPath(inputPreset._inputObjectPresets[i]._gameObjectName, typeof(GameObject)) as GameObject;
-							if (inputGO == null)
+							if(inputGO == null)
 							{
 								Debug.LogErrorFormat("Unable to find input at {0}", inputPreset._inputObjectPresets[i]._gameObjectName);
 							}
@@ -901,9 +834,7 @@ namespace HoudiniEngineUnity
 
 						if (inputGO != null)
 						{
-							HEU_InputObjectInfo inputObject = InternalAddInputObjectAtEnd(inputGO);
-							bSet = true;
-
+							HEU_InputObjectInfo inputObject = AddInputObjectAtEnd(inputGO);
 							inputObject._useTransformOffset = inputPreset._inputObjectPresets[i]._useTransformOffset;
 							inputObject._translateOffset = inputPreset._inputObjectPresets[i]._translateOffset;
 							inputObject._rotateOffset = inputPreset._inputObjectPresets[i]._rotateOffset;
@@ -914,37 +845,42 @@ namespace HoudiniEngineUnity
 							Debug.LogWarningFormat("Gameobject with name {0} not found. Unable to set input object.", inputPreset._inputAssetName);
 						}
 					}
-
-					if (!bSet)
-					{
-						// Add dummy spot (user can replace it manually)
-						InternalAddInputObjectAtEnd(null);
-					}
 				}
 			}
 			else if (inputPreset._inputObjectType == HEU_InputNode.InputObjectType.HDA)
 			{
-				bool bSet = false;
-				int numInptus = inputPreset._inputAssetPresets.Count;
-				for (int i = 0; i < numInptus; ++i)
+				if (!string.IsNullOrEmpty(inputPreset._inputAssetName))
 				{
-					bSet = false;
-					if (!string.IsNullOrEmpty(inputPreset._inputAssetPresets[i]._gameObjectName))
+					GameObject inputAsset = GameObject.Find(inputPreset._inputAssetName);
+					if (inputAsset != null)
 					{
-						bSet = FindAddToInputHDA(inputPreset._inputAssetPresets[i]._gameObjectName);
-					}
+						HEU_HoudiniAssetRoot inputAssetRoot = inputAsset != null ? inputAsset.GetComponent<HEU_HoudiniAssetRoot>() : null;
+						if (inputAssetRoot != null && inputAssetRoot._houdiniAsset != null)
+						{
+							// Need to reconnect and make sure connected asset is in this session
 
-					if (!bSet)
+							_inputAsset = inputAsset;
+
+							if (!inputAssetRoot._houdiniAsset.IsAssetValidInHoudini(session))
+							{
+								inputAssetRoot._houdiniAsset.RequestCook(true, false, true, true);
+							}
+
+							_connectedNodeID = inputAssetRoot._houdiniAsset.AssetID;
+
+							_parentAsset.ConnectToUpstream(inputAssetRoot._houdiniAsset);
+
+							_connectedInputAsset = _inputAsset;
+						}
+						else
+						{
+							Debug.LogErrorFormat("Input HDA with name {0} is not a valid asset (missing components). Unable to set input asset.", inputPreset._inputAssetName);
+						}
+					}
+					else
 					{
-						// Couldn't add for some reason, so just add dummy spot (user can replace it manually)
-						InternalAddInputHDAAtEnd(null);
+						Debug.LogWarningFormat("Game with name {0} not found. Unable to set input asset.", inputPreset._inputAssetName);
 					}
-				}
-
-				if (numInptus == 0 && !string.IsNullOrEmpty(inputPreset._inputAssetName))
-				{
-					// Old preset. Add it to input
-					FindAddToInputHDA(inputPreset._inputAssetName);
 				}
 			}
 
@@ -956,26 +892,9 @@ namespace HoudiniEngineUnity
 			ClearUICache();
 		}
 
-		private bool FindAddToInputHDA(string gameObjectName)
-		{
-			HEU_HoudiniAssetRoot inputAssetRoot = HEU_GeneralUtility.GetHDAByGameObjectNameInScene(gameObjectName);
-			if (inputAssetRoot != null && inputAssetRoot._houdiniAsset != null)
-			{
-				// Adding to list will take care of reconnecting
-				InternalAddInputHDAAtEnd(inputAssetRoot.gameObject);
-				return true;
-			}
-			else
-			{
-				Debug.LogWarningFormat("HDA with gameobject name {0} not found. Unable to set input asset.", gameObjectName);
-			}
-
-			return false;
-		}
-
 		public void NotifyParentRemovedInput()
 		{
-			if (_parentAsset != null)
+			if(_parentAsset != null)
 			{
 				_parentAsset.RemoveInputNode(this);
 			}
@@ -1029,27 +948,6 @@ namespace HoudiniEngineUnity
 		}
 	}
 
-	[System.Serializable]
-	public class HEU_InputHDAInfo
-	{
-		// The HDA gameobject that needs to be connected
-		public GameObject _pendingGO;
-
-		// The HDA gameobject that has been connected
-		public GameObject _connectedGO;
-
-		// The ID of the connected HDA
-		public HAPI_NodeId _connectedInputNodeID = HEU_Defines.HEU_INVALID_NODE_ID;
-
-		public void CopyTo(HEU_InputHDAInfo destInfo)
-		{
-			destInfo._pendingGO = _pendingGO;
-			destInfo._connectedGO = _connectedGO;
-
-			destInfo._connectedInputNodeID = HEU_Defines.HEU_INVALID_NODE_ID;
-		}
-	}
-
 	// UI cache container
 	public class HEU_InputNodeUICache
 	{
@@ -1063,7 +961,7 @@ namespace HoudiniEngineUnity
 
 		public UnityEditor.SerializedProperty _inputObjectsProperty;
 
-		public UnityEditor.SerializedProperty _inputAssetsProperty;
+		public UnityEditor.SerializedProperty _inputAssetProperty;
 #endif
 
 		public class HEU_InputObjectUICache
@@ -1078,15 +976,6 @@ namespace HoudiniEngineUnity
 		}
 
 		public List<HEU_InputObjectUICache> _inputObjectCache = new List<HEU_InputObjectUICache>();
-
-		public class HEU_InputAssetUICache
-		{
-#if UNITY_EDITOR
-			public UnityEditor.SerializedProperty _gameObjectProperty;
-#endif
-		}
-
-		public List<HEU_InputAssetUICache> _inputAssetCache = new List<HEU_InputAssetUICache>();
 	}
 
 }   // HoudiniEngineUnity

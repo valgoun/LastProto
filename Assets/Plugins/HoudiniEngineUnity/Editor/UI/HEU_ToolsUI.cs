@@ -153,7 +153,6 @@ namespace HoudiniEngineUnity
 		private float _screenWidth;
 		private float _screenHeight;
 
-		private GUIStyle _toolsBGStyle;
 
 		// LOGIC ------------------------------------------------------------------------------------------------------
 
@@ -163,9 +162,6 @@ namespace HoudiniEngineUnity
 			// This forces UI cache to be regenerated
 			_toolsInfo = null;
 			_toolsInfoSerializedObject = null;
-
-			GUISkin heuSkin = HEU_EditorUI.LoadHEUSkin();
-			_toolsBGStyle = heuSkin.GetStyle("toolsbg"); 
 
 			// Callback will be used to disable this tool and reset state
 			Selection.selectionChanged += SelectionChangedCallback;
@@ -336,6 +332,8 @@ namespace HoudiniEngineUnity
 
 		private void DrawInfoPanel()
 		{
+			GUIStyle textBackground = new GUIStyle(GUI.skin.GetStyle("WindowBackground"));
+
 			Handles.BeginGUI();
 			{
 				Rect labelRect = new Rect(10, _editorUIRect.y - 30, _screenWidth - 25, _buttonHeight + 4);
@@ -361,7 +359,7 @@ namespace HoudiniEngineUnity
 				}
 				GUILayout.EndArea();
 
-				GUILayout.BeginArea(_editorUIRect, _toolsBGStyle);
+				GUILayout.BeginArea(_editorUIRect, textBackground);
 				{
 					using (var horizontalLayout = new GUILayout.HorizontalScope())
 					{
