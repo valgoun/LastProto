@@ -181,15 +181,15 @@ namespace HoudiniEngineUnity
 		}
 
 		/// <summary>
-		/// Returns true if file at inPath exists. Supports inPath with environment mapped values
+		/// Returns true if file or folder at inPath exists. Supports inPath with environment mapped values
 		/// such as <HFS> or $.
 		/// </summary>
-		/// <param name="inPath">Path to file</param>
-		/// <returns>True if file exists</returns>
-		public static bool DoesMappedFileAtPathExist(string inPath)
+		/// <param name="inPath">Path to check. Could be either file or folder.</param>
+		/// <returns>True if file or folder exists</returns>
+		public static bool DoesMappedPathExist(string inPath)
 		{
 			string realPath = HEU_PluginStorage.Instance.ConvertEnvKeyedPathToReal(inPath);
-			return HEU_Platform.DoesFileExist(realPath);
+			return HEU_Platform.DoesPathExist(realPath);
 		}
 
 		/// <summary>
@@ -310,7 +310,7 @@ namespace HoudiniEngineUnity
 		/// <returns>Returns the newly created gameobject for the asset in the scene, or null if creation failed.</returns>
 		public static GameObject InstantiateHDA(string filePath, Vector3 initialPosition, HEU_SessionBase session, bool bBuildAsync)
 		{
-			if (filePath == null || !DoesMappedFileAtPathExist(filePath))
+			if (filePath == null || !DoesMappedPathExist(filePath))
 			{
 				return null;
 			}
@@ -1052,6 +1052,82 @@ namespace HoudiniEngineUnity
 				}
 			}
 			return parentNodeID;
+		}
+
+		/// <summary>
+		/// Gets the object infos and transforms for given asset.
+		/// </summary>
+		/// <param name="assetID">ID of the asset</param>
+		/// <param name="nodeInfo">HAPI_NodeInfo of the asset</param>
+		/// <param name="objectInfos">Array of retrieved object infos</param>
+		/// <param name="objectTransforms">Array of retrieved object transforms</param>
+		/// <returns>True if succesfully retrieved object infos and transforms</returns>
+		public static bool GetObjectInfos(HEU_SessionBase session, HAPI_NodeId assetID, ref HAPI_NodeInfo nodeInfo, out HAPI_ObjectInfo[] objectInfos, out HAPI_Transform[] objectTransforms)
+		{
+			objectInfos = new HAPI_ObjectInfo[0];
+			objectTransforms = new HAPI_Transform[0];
+
+			if (nodeInfo.type == HAPI_NodeType.HAPI_NODETYPE_SOP)
+			{
+				// For SOP assets, we use the parent IDs to get the object info and geo info
+
+				objectInfos = new HAPI_ObjectInfo[1];
+				if (!session.GetObjectInfo(nodeInfo.parentId, ref objectInfos[0]))
+				{
+					return false;
+				}
+
+				// Identity transform will be used for SOP assets, so not querying transform
+				objectTransforms = new HAPI_Transform[1];
+				objectTransforms[0] = new HAPI_Transform(true);
+			}
+			else if (nodeInfo.type == HAPI_NodeType.HAPI_NODETYPE_OBJ)
+			{
+				int objectCount = 0;
+				if (!session.ComposeObjectList(assetID, out objectCount))
+				{
+					return false;
+				}
+
+				if (objectCount <= 0)
+				{
+					// Since this asset is an object type and has 0 object as children, we use the object itself
+
+					objectInfos = new HAPI_ObjectInfo[1];
+					if (!session.GetObjectInfo(nodeInfo.id, ref objectInfos[0]))
+					{
+						return false;
+					}
+
+					// Identity transform will be used for single object assets, so not querying transform
+					objectTransforms = new HAPI_Transform[1];
+					objectTransforms[0] = new HAPI_Transform(true);
+				}
+				else
+				{
+					// This object has children, so use GetComposedObjectList to get list of HAPI_ObjectInfos
+
+					objectInfos = new HAPI_ObjectInfo[objectCount];
+					if (!session.GetComposedObjectList(nodeInfo.parentId, objectInfos, 0, objectCount))
+					{
+						return false;
+					}
+
+					// Now get the object transforms
+					objectTransforms = new HAPI_Transform[objectCount];
+					if (!HEU_SessionManager.GetComposedObjectTransformsMemorySafe(session, nodeInfo.parentId, HAPI_RSTOrder.HAPI_SRT, objectTransforms, 0, objectCount))
+					{
+						return false;
+					}
+				}
+			}
+			else
+			{
+				Debug.LogWarningFormat(HEU_Defines.HEU_NAME + ": Unsupported node type {0}", nodeInfo.type);
+				return false;
+			}
+
+			return true;
 		}
 	}
 

@@ -195,6 +195,7 @@ namespace HoudiniEngineUnity
 		HAPI_PARMTYPE_FOLDER,
 		HAPI_PARMTYPE_LABEL,
 		HAPI_PARMTYPE_SEPARATOR,
+		HAPI_PARMTYPE_PATH_FILE_DIR,
 
 		// Helpers
 
@@ -953,7 +954,8 @@ namespace HoudiniEngineUnity
 		{
 			return (type >= HAPI_ParmType.HAPI_PARMTYPE_INT_START &&
 				type <= HAPI_ParmType.HAPI_PARMTYPE_INT_END)
-				|| type == HAPI_ParmType.HAPI_PARMTYPE_MULTIPARMLIST;
+				|| type == HAPI_ParmType.HAPI_PARMTYPE_MULTIPARMLIST
+				|| type == HAPI_ParmType.HAPI_PARMTYPE_FOLDERLIST_RADIO;
 		}
 		public bool isFloat()
 		{
@@ -963,12 +965,15 @@ namespace HoudiniEngineUnity
 		public bool isString()
 		{
 			return (type >= HAPI_ParmType.HAPI_PARMTYPE_STRING_START &&
-				type <= HAPI_ParmType.HAPI_PARMTYPE_STRING_END);
+				type <= HAPI_ParmType.HAPI_PARMTYPE_STRING_END)
+				|| type == HAPI_ParmType.HAPI_PARMTYPE_LABEL
+				|| type == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_DIR;
 		}
 		public bool isPath()
 		{
 			return (type >= HAPI_ParmType.HAPI_PARMTYPE_PATH_START &&
-				type <= HAPI_ParmType.HAPI_PARMTYPE_PATH_END);
+				type <= HAPI_ParmType.HAPI_PARMTYPE_PATH_END)
+				|| type == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_DIR;
 		}
 		public bool isNode()
 		{
@@ -1125,6 +1130,7 @@ namespace HoudiniEngineUnity
 		public HAPI_StringHandle assetParmNameSH;
 
 		public HAPI_ParmId assetParmId;
+		public int assetParmIndex;
 	};
 
 	// OBJECTS ------------------------------------------------------------------------------------------------------

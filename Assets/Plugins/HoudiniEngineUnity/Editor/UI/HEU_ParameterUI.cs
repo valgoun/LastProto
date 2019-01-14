@@ -434,7 +434,7 @@ namespace HoudiniEngineUnity
 				paramUICache._primaryValue = parameterProperty.FindPropertyRelative("_intValues");
 			}
 			else if (parmType == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE || parmType == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_GEO
-				|| parmType == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_IMAGE)
+				|| parmType == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_DIR || parmType == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_IMAGE)
 			{
 				paramUICache._primaryValue = parameterProperty.FindPropertyRelative("_stringValues");
 			}
@@ -734,7 +734,7 @@ namespace HoudiniEngineUnity
 				}
 			}
 			else if (parmType == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE || parmType == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_GEO
-				|| parmType == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_IMAGE)
+			         || parmType == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_DIR || parmType == HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_IMAGE)
 			{
 				GUIStyle boxStyle = HEU_EditorUI.GetGUIStyle("Groupbox", 4, 0);
 				using (var vs = new EditorGUILayout.VerticalScope(boxStyle))

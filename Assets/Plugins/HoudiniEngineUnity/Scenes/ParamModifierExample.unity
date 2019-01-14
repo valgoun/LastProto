@@ -554,6 +554,7 @@ MonoBehaviour:
   _geoID: 0
   _partType: 0
   _geoNode: {fileID: 1116468323}
+  _isAttribInstancer: 0
   _isPartInstanced: 0
   _partPointCount: 1278
   _isObjectInstancer: 0
@@ -797,6 +798,7 @@ MonoBehaviour:
   _inputNode: {fileID: 0}
   _geoCurve: {fileID: 0}
   _volumeCache: {fileID: 0}
+  _volumeCaches: []
 --- !u!114 &1145032445
 MonoBehaviour:
   m_ObjectHideFlags: 0
