@@ -463,6 +463,7 @@ namespace HoudiniEngineUnity
 							break;
 						}
 						case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE:
+						case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_DIR:
 						case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_GEO:
 						case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_IMAGE:
 						{
@@ -808,6 +809,7 @@ namespace HoudiniEngineUnity
 					}
 					case HAPI_ParmType.HAPI_PARMTYPE_STRING:
 					case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE:
+					case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_DIR:
 					case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_GEO:
 					case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_IMAGE:
 					{
@@ -916,6 +918,7 @@ namespace HoudiniEngineUnity
 					}
 					case HAPI_ParmType.HAPI_PARMTYPE_STRING:
 					case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE:
+					case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_DIR:
 					case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_GEO:
 					case HAPI_ParmType.HAPI_PARMTYPE_PATH_FILE_IMAGE:
 					{
