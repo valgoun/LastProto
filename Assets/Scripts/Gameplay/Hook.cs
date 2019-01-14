@@ -43,7 +43,9 @@ public class Hook : MonoBehaviour
                 if (_enemy)
                 {
                     //_enemy.parent = null;
-                    _enemy.GetComponent<AIBrain>().Stun(_addedStunTime);
+                    AIBrain brain = _enemy.GetComponent<AIBrain>();
+                    if (brain)
+                        brain.Stun(_addedStunTime);
                 }
                 Destroy(gameObject);
             }
