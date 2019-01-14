@@ -78,6 +78,7 @@ public class AIBrain : MonoBehaviour, IAiFriend
     private TransmissionData _communicationData;
     private float _normalStoppingDistance;
     private AIManager _aiManager;
+    private float _stun = 0;
 
     [NonSerialized]
     public Vector3 InitialPosition;
@@ -110,6 +111,9 @@ public class AIBrain : MonoBehaviour, IAiFriend
 
     private void Update()
     {
+        if (Time.time >= _stun)
+            UnStun();
+
         UpdateElements();
 
         UpdateStimuli();
@@ -295,4 +299,18 @@ public class AIBrain : MonoBehaviour, IAiFriend
         _communicationData = null;
     }
 
+    public void Stun (float timer)
+    {
+        if (_stun <= Time.time)
+        {
+            _brainStates.SetBool("Stun", true);
+        }
+
+        _stun = timer + Time.time;
+    }
+
+    private void UnStun ()
+    {
+        _brainStates.SetBool("Stun", false);
+    }
 }

@@ -21,6 +21,7 @@ MonoBehaviour:
   SoundRadius: 6
   SoundGoThroughWalls: 0
   SoundStimuliLifeTime: 2
+  LifetimeQuickFix: 0.6
   SoundCursor: {fileID: 1576647954367100, guid: 6f29df03d9f73364ea40de8a7cccc414,
     type: 3}
   CursorIndicatorPrecision: 50
