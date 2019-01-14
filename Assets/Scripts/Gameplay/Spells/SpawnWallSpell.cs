@@ -30,10 +30,10 @@ public class SpawnWallSpell : Spell
         return true;
     }
 
-    public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target)
+    public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target, bool forceInvalid)
     {
         Vector3 pos;
-        if ((Targets & TargetEnum.Void) != 0 || (Targets & targetType) != 0)
+        if (!forceInvalid && ((Targets & TargetEnum.Void) != 0 || (Targets & targetType) != 0))
         {
             _rend.material = ValidTargetMaterial;
             if (target)

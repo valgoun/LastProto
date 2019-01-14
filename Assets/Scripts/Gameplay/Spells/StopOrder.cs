@@ -7,14 +7,14 @@ public class StopOrder : Spell
 {
     private bool active = false;
 
-    public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target)
+    public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target, bool forceInValid)
     {
 
     }
 
     public override bool StartCasting()
     {
-        SpellEffect(null, Vector3.zero);
+        ExecuteSpell(null, Vector3.zero);
         return false;
     }
 

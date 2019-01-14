@@ -30,9 +30,9 @@ public class ExplosionSpell : Spell {
         return true;
     }
 
-    public override void CastUpdate(Vector3 pos, TargetEnum targetType, GameObject target)
+    public override void CastUpdate(Vector3 pos, TargetEnum targetType, GameObject target, bool forceInvalid)
     {
-        if ((Targets & TargetEnum.Void) != 0 || (Targets & targetType) != 0)
+        if (!forceInvalid && ((Targets & TargetEnum.Void) != 0 || (Targets & targetType) != 0))
         {
             _rend.material = ValidTargetMaterial;
             if (target)
@@ -98,6 +98,10 @@ public class ExplosionSpell : Spell {
             SpellManager.Instance.StartCoroutine(ExplosionRoutine(ghoul.gameObject, Delay));
             GameObject ui = Instantiate(UIPrefab, ghoul.transform);
             ui.GetComponent<TimerUI>().Initialize(Delay);
+        }
+        else
+        {
+            StopCasting();
         }
     }
 

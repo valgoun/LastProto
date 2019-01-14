@@ -19,7 +19,8 @@ public enum StimulusType
 {
     SightEnemy,
     SightSpell,
-    Transmission
+    Transmission,
+    Sound
 }
 
 public interface IStimulusData { }
@@ -41,4 +42,9 @@ public class TransmissionData : IStimulusData
         else
             return TransmittedStimulus.GetData<TransmissionData>().GetTrueStimulus();
     }
+}
+
+public class SoundData : IStimulusData
+{
+    public GameObject SoundOrigin;
 }

@@ -129,10 +129,17 @@ public class SpellManager : MonoBehaviour {
                     SelectedSpell = null;
                 }
             }
-            else if (Input.GetMouseButtonDown(0) || bypassClick)
+            else
             {
-                SelectedSpell.StopCasting();
-                SelectedSpell = null;
+                if (Input.GetMouseButtonDown(0) || bypassClick)
+                {
+                    SelectedSpell.StopCasting();
+                    SelectedSpell = null;
+                }
+                else
+                {
+                    SelectedSpell.CastUpdate(worldPoint, TargetEnum.Void, null, true);
+                }
             }
         }
     }

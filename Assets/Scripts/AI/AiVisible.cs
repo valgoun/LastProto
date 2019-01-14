@@ -19,3 +19,9 @@ public interface IAiFriend : IAiVisible
 {
     TransmissionData Data { get; }
 }
+
+public interface IAiSound : IAiVisible
+{
+    bool GoThroughWalls { get; }
+    float Range { get; }
+}
