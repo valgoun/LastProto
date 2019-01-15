@@ -36,3 +36,9 @@ sysinfo.txt
 *.unitypackage
 
 Assets/ProBuilder Data/
+
+Assets/Plugins/Poq Xert/GUIBuilder/
+
+Assets/Plugins/Poq Xert/
+
+Assets/Plugins/Poq Xert\.meta
