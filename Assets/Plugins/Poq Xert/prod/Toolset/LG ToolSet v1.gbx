@@ -1,0 +1,37 @@
+2
+[Types]
+Window
+Button
+[Names]
+ToolWindow
+Btn_Warmup
+[Content]
+LG Toolset
+Warmup !
+[Snaps]
+Default
+Default
+[Rects]
+0,0,320,480
+5,20,160,100
+[Leights]
+10
+10
+[Mask]
+*
+*
+[Sliders]
+0
+0
+[Min Values]
+0
+0
+[Max Values]
+5
+5
+[Window ID]
+0
+0
+[Win Drag]
+False
+False
