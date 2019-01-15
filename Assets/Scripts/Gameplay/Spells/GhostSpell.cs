@@ -7,8 +7,14 @@ public class GhostSpell : Spell
 {
     [Header("Ghost Spell")]
     public float DeathDelay;
+    public GameObject UIPrefab;
 
-    public override void StartCasting()
+    public override bool StartCasting()
+    {
+        return true;
+    }
+
+    public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target, bool forceInvalid)
     {
 
     }
@@ -29,5 +35,7 @@ public class GhostSpell : Spell
         }
 
         target.AddComponent<Lifetime>().StartLifetime(DeathDelay);
+        GameObject ui = Instantiate(UIPrefab, target.transform);
+        ui.GetComponent<TimerUI>().Initialize(DeathDelay);
     }
 }

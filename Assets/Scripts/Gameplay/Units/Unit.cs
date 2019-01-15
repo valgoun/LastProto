@@ -39,7 +39,9 @@ public class Unit : MonoBehaviour, IAiFoe
     private int _squadSize;
 
     protected bool _isInBush;
-    protected NavMeshAgent _navAgent;
+
+    [NonSerialized]
+    public NavMeshAgent NavAgent;
 
     public Vector3 Position => _transform.position;
     public Transform Transform => _transform;
@@ -49,13 +51,13 @@ public class Unit : MonoBehaviour, IAiFoe
 
 
     protected virtual void Start () {
-        _navAgent = GetComponent<NavMeshAgent>();
+        NavAgent = GetComponent<NavMeshAgent>();
         _transform = transform;
         IsVisible = true;
         AIManager.Instance.AddElement(this);
 	}
 	
-	void Update () {
+	protected virtual void Update () {
         if (TargetToFollow)
             FollowRoutine();
 	}
@@ -78,8 +80,8 @@ public class Unit : MonoBehaviour, IAiFoe
     public void MoveTo (Vector3 destination, int formationIndex, int size)
     {
         TargetToFollow = null;
-        _navAgent.stoppingDistance = 0;
-        _navAgent.SetDestination(FormationManager.Instance.GetPositionInFormation(destination, formationIndex, size, destination - transform.position));
+        NavAgent.stoppingDistance = 0;
+        NavAgent.SetDestination(FormationManager.Instance.GetPositionInFormation(destination, formationIndex, size, destination - transform.position));
     }
 
     public void Follow (Transform target, int formationIndex, int size)
@@ -91,13 +93,13 @@ public class Unit : MonoBehaviour, IAiFoe
         }
 
         TargetToFollow = target;
-        _navAgent.stoppingDistance = 0.5f;
-        _navAgent.SetDestination(FormationManager.Instance.GetPositionInFormation(target.position, formationIndex, size, target.position - transform.position));
+        NavAgent.stoppingDistance = 0.5f;
+        NavAgent.SetDestination(FormationManager.Instance.GetPositionInFormation(target.position, formationIndex, size, target.position - transform.position));
         _squadNumber = formationIndex;
         _squadSize = size;
     }
 
-    private void FollowRoutine ()
+    protected void FollowRoutine ()
     {
         if (TargetToFollow.tag == "Conquistador")
         {
@@ -112,15 +114,15 @@ public class Unit : MonoBehaviour, IAiFoe
         }
 
         Vector3 pos = FormationManager.Instance.GetPositionInFormation(TargetToFollow.position, _squadNumber, _squadSize, TargetToFollow.position - transform.position);
-        if ((pos - _navAgent.destination).magnitude >= FollowPrecision)
+        if ((pos - NavAgent.destination).magnitude >= FollowPrecision)
         {
-            _navAgent.SetDestination(pos);
+            NavAgent.SetDestination(pos);
         }
     }
 
     protected virtual bool AttackDecision (Transform target)
     {
-        if (!_navAgent.isStopped && (target.position - transform.position).magnitude <= AttackRange)
+        if (!NavAgent.isStopped && (target.position - transform.position).magnitude <= AttackRange)
         {
             DoBasicAttack(target);
             return true;
@@ -132,20 +134,20 @@ public class Unit : MonoBehaviour, IAiFoe
     protected void DoBasicAttack (Transform target)
     {
         AttackTarget = target;
-        _navAgent.isStopped = true;
         ModelAnimator.SetTrigger("BasicAttack");
-        _navAgent.ResetPath();
+        NavAgent.ResetPath();
+        NavAgent.isStopped = true;
         TargetToFollow = null;
     }
 
-    public void Killed ()
+    public virtual void Killed ()
     {
         if (!Invincible)
         {
             ModelAnimator.SetTrigger("Dead");
             tag = "Untagged";
             MySelectable.tag = "Untagged";
-            _navAgent.isStopped = true;
+            NavAgent.isStopped = true;
             Destroy(this);
         }
     }

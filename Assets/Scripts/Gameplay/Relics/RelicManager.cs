@@ -6,7 +6,14 @@ using UnityEngine.UI;
 
 public class RelicManager : MonoBehaviour {
 
+    [Header("Tweaking")]
+    public float RotationSpeed;
+
+    [Space]
+    public LayerMask ModelLayer;
+
     [Header("References")]
+    public Camera RelicCamera;
     public Transform RenderHolder;
     public GameObject RelicUI;
 
@@ -17,7 +24,9 @@ public class RelicManager : MonoBehaviour {
 
     [Header("Debug")]
     [ReadOnly]
-    public bool IsReadingRelic = false;
+    public bool IsReadingRelic;
+    [ReadOnly]
+    public bool IsRotatingObject;
 
     private GameObject _relicObject;
 
@@ -31,6 +40,11 @@ public class RelicManager : MonoBehaviour {
             Destroy(this);
 	}
 
+    private void Start()
+    {
+        Time.timeScale = 1;
+    }
+
     private void Update()
     {
         if (IsReadingRelic)
@@ -38,6 +52,25 @@ public class RelicManager : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 CloseRelic();
+                return;
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 pos = RelicCamera.ScreenToWorldPoint(Input.mousePosition * 2 + Vector3.forward * RelicCamera.nearClipPlane);
+                if (Physics.Raycast(pos, RelicCamera.ScreenToWorldPoint(Input.mousePosition * 2 + Vector3.forward * RelicCamera.farClipPlane) - pos, ModelLayer))
+                {
+                    IsRotatingObject = true;
+                }
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                IsRotatingObject = false;
+            }
+            else if (IsRotatingObject)
+            {
+                _relicObject.transform.Rotate(RelicCamera.transform.up, Input.GetAxis("Mouse X") * -RotationSpeed * Time.fixedDeltaTime, Space.World);
+                _relicObject.transform.Rotate(RelicCamera.transform.right, Input.GetAxis("Mouse Y") * RotationSpeed * Time.fixedDeltaTime, Space.World);
             }
         }
     }
@@ -46,6 +79,7 @@ public class RelicManager : MonoBehaviour {
     {
         Time.timeScale = 0;
         IsReadingRelic = true;
+        IsRotatingObject = false;
 
         RelicUI.SetActive(true);
         _relicObject = Instantiate(relic.RenderObject, RenderHolder);

@@ -25,8 +25,6 @@ public class DisplaySpellRadius : MonoBehaviour {
 
         DrawCircle();
         ToggleCircleVisibility(false);
-
-
     }
 	
 	// Update is called once per frame
@@ -36,17 +34,16 @@ public class DisplaySpellRadius : MonoBehaviour {
             transform.position = _shaman.transform.position;
 
 
-        if(_LineRend.enabled)
+        if(!SpellManager.Instance.SelectedSpell)
         {
-            if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-            {
-                ToggleCircleVisibility(false);
-            }
+            ToggleCircleVisibility(false);
         }
     }
 
     public void DrawCircle()
     {
+        _LineRend.positionCount = segments;
+
         float x;
         float z;
 

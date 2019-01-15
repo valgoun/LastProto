@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: cd4f3f82607b36e43b610e301ed931ab
+=======
+guid: 23d4a84af220ed04c8575544b1b38825
+>>>>>>> Stephane
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 8574412962073106934

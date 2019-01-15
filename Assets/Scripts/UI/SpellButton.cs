@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SpellButton : MonoBehaviour {
+public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     public uint SpellID;
 
     [Header("References")]
     public Text CooldownText;
+    public Image CooldownImage;
 
     private Button _button;
     
@@ -24,7 +25,7 @@ public class SpellButton : MonoBehaviour {
         }
         else
         {
-            Debug.LogError("Spell Button on " + gameObject.name + " as an ID superior to the number of available Spells.");
+            Debug.LogError("Spell Button on " + gameObject.name + " has an ID superior to the number of available Spells.");
             SpellID = 0;
         }
 
@@ -37,6 +38,7 @@ public class SpellButton : MonoBehaviour {
         {
             _button.interactable = true;
             CooldownText.text = "";
+            CooldownImage.fillAmount = 0;
         }
         else
         {
@@ -44,10 +46,12 @@ public class SpellButton : MonoBehaviour {
             if (Time.time < SpellManager.Instance.Spells[SpellID].CurrentCooldown)
             {
                 CooldownText.text = Mathf.Abs(Time.time - SpellManager.Instance.Spells[SpellID].CurrentCooldown).ToString("0.0");
+                CooldownImage.fillAmount = Mathf.Abs(Time.time - SpellManager.Instance.Spells[SpellID].CurrentCooldown) / SpellManager.Instance.Spells[SpellID].CooldownDuration;
             }
             else
             {
                 CooldownText.text = "";
+                CooldownImage.fillAmount = 0;
             }
         }
 
@@ -63,5 +67,15 @@ public class SpellButton : MonoBehaviour {
     public void OnClick ()
     {
         SpellManager.Instance.CastSpell(SpellManager.Instance.Spells[SpellID]);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SpellDescriptionWindow.Instance.ActivateMe(SpellManager.Instance.Spells[SpellID]);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SpellDescriptionWindow.Instance.DeactivateMe(SpellManager.Instance.Spells[SpellID]);
     }
 }

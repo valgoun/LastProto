@@ -9,5 +9,11 @@ public class Shaman : Unit {
         base.Start();
         SelectionManager.Instance.Shaman = GetComponent<Unit>();
 	}
-	
+
+    public override void Killed()
+    {
+        if (!Invincible)
+            DebugUI.Instance.GameOver();
+        base.Killed();
+    }
 }

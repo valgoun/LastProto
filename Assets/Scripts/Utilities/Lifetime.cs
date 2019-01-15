@@ -14,8 +14,7 @@ public class Lifetime : MonoBehaviour {
     {
        if (!_started)
         {
-            _started = true;
-            _timestamp = Time.time + _duration;
+            StartLifetime(_duration);
         }
     }
 
@@ -26,7 +25,7 @@ public class Lifetime : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         if (Time.time >= _timestamp)
             Destroy(gameObject);
 	}

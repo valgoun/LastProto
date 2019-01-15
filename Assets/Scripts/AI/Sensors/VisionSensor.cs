@@ -69,9 +69,11 @@ public class VisionSensor : Sensor
         Gizmos.color = Color.green;
 
         Vector3 pos = transform.position;
+        /*
         Vector3 fw = pos + transform.forward * VisionDistance;
         Vector3 p1 = pos + Quaternion.AngleAxis(VisionAngle * 0.5f, transform.up) * transform.forward * VisionDistance;
         Vector3 p2 = pos + Quaternion.AngleAxis(-VisionAngle * 0.5f, transform.up) * transform.forward * VisionDistance;
+        */
 
         int tessFactor = Mathf.FloorToInt(VisionAngle) / 5;
 

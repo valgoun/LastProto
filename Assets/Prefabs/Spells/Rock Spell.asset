@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 398aca7869f1d764b9084e9ca1dca870, type: 3}
+  m_Name: Rock Spell
+  m_EditorClassIdentifier: 
+  SpellName: Throw Rock
+  SpellDescription: 
+  Targets: 16
+  CooldownDuration: 2
+  UseShamanCastDistance: 1
+  EffectDelay: 0
+  SoundRadius: 6
+  SoundGoThroughWalls: 0
+  SoundStimuliLifeTime: 2
+  SoundCursor: {fileID: 1576647954367100, guid: 6f29df03d9f73364ea40de8a7cccc414,
+    type: 3}
+  CursorIndicatorPrecision: 50
+  ValidTargetMaterial: {fileID: 2100000, guid: 56232773b263a8949a2b21d5faf6a30d, type: 2}
+  UnvalidTargetMaterial: {fileID: 2100000, guid: a6400bf5ee9ee2c45aa0a577ff050b12,
+    type: 2}

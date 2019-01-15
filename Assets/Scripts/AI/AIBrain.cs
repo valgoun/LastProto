@@ -67,6 +67,7 @@ public class AIBrain : MonoBehaviour, IAiFriend
     private List<IAiVisible> _processedElements = new List<IAiVisible>();
     private NativeArray<int> _processedIndices;
     private List<ISensor> _sensors = new List<ISensor>();
+    [SerializeField, Sirenix.OdinInspector.ReadOnly]
     private float _alertLevel;
     private Animator _brainStates;
     private Animator _subStates;

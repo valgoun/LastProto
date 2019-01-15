@@ -16,20 +16,23 @@ public class CursorManager : MonoBehaviour {
 	void Awake ()
     {
         cursorManagerInst = this;
-
         //   Cursor.visible = false;
-
         ChangeCursor(0);
     }
 
-	// Update is called once per frame
-	void Update ()
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
     
         // Targeting de spell
         if (!_isCursorDefault)
         {
-            if (Input.GetMouseButton(0) || Input.GetMouseButtonDown(1))
+            if (!SpellManager.Instance.SelectedSpell)
             {
                 Cursor.SetCursor(cursorTextures[0], Vector2.zero, CursorMode.Auto);
             }

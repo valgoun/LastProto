@@ -24,25 +24,22 @@ public class OrderManager : MonoBehaviour {
 
     public void MoveOrder (Camera cam)
     {
-        for(int i = 0; i < _selection.SelectedElements.Count; i++)
+        if (_selection.Shaman)
         {
-            if (_selection.SelectedElements[i])
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                if (!EventSystem.current.IsPointerOverGameObject())
+                Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.nearClipPlane);
+                RaycastHit hit;
+                if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, GroundLayer))
                 {
-                    Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.nearClipPlane);
-                    RaycastHit hit;
-                    if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out hit, Mathf.Infinity, GroundLayer))
+                    RaycastHit nextHit;
+                    if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out nextHit, Mathf.Infinity, _selection.SelectableLayer))
                     {
-                        RaycastHit nextHit;
-                        if (Physics.Raycast(pos, cam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * cam.farClipPlane) - pos, out nextHit, Mathf.Infinity, _selection.SelectableLayer))
-                        {
-                            _selection.SelectedElements[i].Follow(nextHit.transform, i, _selection.SelectedElements.Count);
-                        }
-                        else
-                        {
-                            _selection.SelectedElements[i].MoveTo(hit.point, i, _selection.SelectedElements.Count);
-                        }
+                        _selection.Shaman.Follow(nextHit.transform, 0, 1);
+                    }
+                    else
+                    {
+                        _selection.Shaman.MoveTo(hit.point, 0, 1);
                     }
                 }
             }

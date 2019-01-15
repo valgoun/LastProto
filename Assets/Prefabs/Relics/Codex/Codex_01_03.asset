@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eab4a5690d1e1f44bd769a8a389de0e, type: 3}
+  m_Name: Codex_01_03
+  m_EditorClassIdentifier: 
+  Head: Daily Life
+  Subhead: Traditional Pulque
+  Description: 
+  RenderObject: {fileID: 1571236381727260, guid: 06759862d5ea58b46beeff2cb4382a49,
+    type: 2}
+  InitialRotation: {x: 0, y: 0, z: 0}
+  Scale: {x: 2, y: 2, z: 2}
+  Offset: {x: 0, y: 0, z: 0}

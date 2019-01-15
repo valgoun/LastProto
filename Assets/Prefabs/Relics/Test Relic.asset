@@ -11,44 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eab4a5690d1e1f44bd769a8a389de0e, type: 3}
   m_Name: Test Relic
   m_EditorClassIdentifier: 
-  Head: BITE
-  Subhead: Subite
-  Description: "Bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite \nbite bite
-    bite bite bite bite bite \nbite \nbite \n\nbite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite \n\n\nbite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite\n\nbite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite \n\n\nbite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite  \n\n\nbite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite bite
-    bite bite bite bite bite bite bite bite bite bite "
+  Head: Title
+  Subhead: Subtitle
+  Description: 'Lorem ipsum machin truc Lorem ipsum machin truc Lorem ipsum machin
+    truc Lorem ipsum machin truc Lorem ipsum machin truc Lorem ipsum machin truc Lorem
+    ipsum machin truc Lorem ipsum machin truc Lorem ipsum machin truc Lorem ipsum
+    machin truc Lorem ipsum machin truc Lorem ipsum machin truc Lorem ipsum machin
+    truc Lorem ipsum machin truc Lorem ipsum machin truc Lorem ipsum machin truc '
   RenderObject: {fileID: 1890726698337424, guid: ae7e1428fc07ebb4ba0dce7fa6827c29,
     type: 2}
   InitialRotation: {x: 0, y: 0, z: 0}

@@ -17,7 +17,7 @@ public class SelectionManager : MonoBehaviour {
     [ReadOnly]
     public List<Unit> SelectedElements = new List<Unit>();
     [ReadOnly]
-    public Unit[] Aztecs = new Aztec[3];
+    public List<Aztec> Aztecs = new List<Aztec>();
 
     [NonSerialized]
     public bool IsSelecting;
@@ -36,6 +36,8 @@ public class SelectionManager : MonoBehaviour {
             Instance = this;
         else
             Destroy(this);
+
+        Aztecs = new List<Aztec>();
     }
 
     // Update is called once per frame
@@ -151,23 +153,26 @@ public class SelectionManager : MonoBehaviour {
         }
     }
 
-    public void RegisterAztec (Unit unit)
+    public int RegisterAztec (Aztec unit)
     {
-        bool registered = false;
-        for (int i = 0; i < Aztecs.Length; i++)
+        int registered = -1;
+        for (int i = 0; i < Aztecs.Count; i++)
         {
             if (!Aztecs[i])
             {
-                registered = true;
+                registered = i;
                 Aztecs[i] = unit;
                 break;
             }
         }
 
-        if (!registered)
+        if (registered == -1)
         {
-            Debug.LogWarning("Careful, you currently have more Aztecs than what the game is designed for.");
+            registered = Aztecs.Count;
+            Aztecs.Add(unit);
         }
+
+        return registered;
     }
 
     private void Shortcuts ()
