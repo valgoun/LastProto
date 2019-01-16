@@ -23,8 +23,16 @@ public class HookSpell : Spell
     private GameObject _cursor;
     private LineRenderer _rend;
 
-    public override void CastUpdate(Vector3 pos, TargetEnum targetType, GameObject target, bool forceInvalid = false)
+    public override void CastUpdate(Vector3 pos, TargetEnum targetType, GameObject target, bool forceInvalid, bool isOnUI)
     {
+        if (isOnUI)
+        {
+            _cursor.SetActive(false);
+            return;
+        }
+        else
+            _cursor.SetActive(true);
+
         Vector3 aim = pos;
         if (!forceInvalid && ((Targets & TargetEnum.Void) != 0 || (Targets & targetType) != 0))
         {

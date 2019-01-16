@@ -26,6 +26,8 @@ public class SpellManager : MonoBehaviour {
 
     [ReadOnly]
     public Spell SelectedSpell;
+    //[ReadOnly]
+    public int Souls = 0;
 
     private SelectionManager _selection;
     private OrderManager _order;
@@ -67,6 +69,10 @@ public class SpellManager : MonoBehaviour {
                     CastingSpell(Camera.main);
                 }
             }
+            else
+            {
+                SelectedSpell.CastUpdate(Vector3.zero, TargetEnum.Void, null, true, true);
+            }
         }
     }
 
@@ -80,7 +86,10 @@ public class SpellManager : MonoBehaviour {
         }
         else
         {
-            SelectedSpell.StopCasting();
+            if (SelectedSpell.HoldBehaviour)
+                SelectedSpell.ExecuteSpell(null, Vector3.zero);
+            else
+                SelectedSpell.StopCasting();
             SelectedSpell = null;
         }
     }
@@ -111,7 +120,7 @@ public class SpellManager : MonoBehaviour {
                 if (!bypassClick)
                     SelectedSpell.CastUpdate(worldPoint, targetType, (targetType == TargetEnum.Void) ? null : hit.transform.gameObject);
 
-                if (Input.GetMouseButtonDown(0) || bypassClick)
+                if (SelectedSpell.HoldBehaviour && (Input.GetMouseButtonDown(0) || bypassClick))
                 {
                     if ((targetType != TargetEnum.Void) && ((SelectedSpell.Targets & targetType) != 0))
                     {
@@ -131,7 +140,7 @@ public class SpellManager : MonoBehaviour {
             }
             else
             {
-                if (Input.GetMouseButtonDown(0) || bypassClick)
+                if (SelectedSpell.HoldBehaviour && (Input.GetMouseButtonDown(0) || bypassClick))
                 {
                     SelectedSpell.StopCasting();
                     SelectedSpell = null;
@@ -160,12 +169,33 @@ public class SpellManager : MonoBehaviour {
                     break;
                 }
             }
+
+            if (SelectedSpell.HoldBehaviour)
+            {
+                if (Spells[i] == SelectedSpell)
+                {
+                    if (Input.GetButtonUp(_spellButtons[i]))
+                    {
+                        SelectedSpell.StopCasting();
+                        SelectedSpell = null;
+                        break;
+                    }
+                }
+            }
         }
 
         if (spell)
         {
-            SelectedSpell = spell;
-            CastingSpell(Camera.main, true);
+            if (!spell.HoldBehaviour)
+            {
+                SelectedSpell = spell;
+                CastingSpell(Camera.main, true);
+            }
+            else
+            {
+                SelectedSpell = spell;
+                spell.ExecuteSpell(null, Vector3.zero);
+            }
         }
     }
 

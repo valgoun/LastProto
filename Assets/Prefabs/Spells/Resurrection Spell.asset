@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -14,7 +15,36 @@ MonoBehaviour:
   SpellName: Resurrection
   SpellDescription: "Resurrect an Aztec Warrior from a fresh corpse on the ground.
     \n\nYou can only have a maximum of 3 ghouls at the same time."
-  Targets: 8
-  CooldownDuration: 8
-  TransformInto: {fileID: 1234360217560950, guid: 053279678b3191347b394fcc8d20ce37,
-    type: 2}
+  Targets: 16
+  CooldownDuration: 0.5
+  UseShamanCastDistance: 1
+  HoldBehaviour: 1
+  GhoulToSpawn: {fileID: 1234360217560950, guid: 053279678b3191347b394fcc8d20ce37,
+    type: 3}
+  SpawningCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 95.169815
+      inSlope: 284.97556
+      outSlope: 284.97556
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.0975014
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TimeMultiplier: 5
+  UIBarPrefab: {fileID: 2843783381167403379, guid: 347d23464f827a348b1fa310e3cac34b,
+    type: 3}

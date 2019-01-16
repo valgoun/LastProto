@@ -18,13 +18,11 @@ public class OffscreenUnitIndicator : MonoBehaviour {
 	void Update ()
     {
         GetOffScreenUnits();
-
     }
 
     void GetOffScreenUnits()
     {
-
-        playerUnits = FindObjectsOfType<Unit>();
+        playerUnits = new Unit[1] { SelectionManager.Instance.Shaman };
 
         for(int i = 0; i < playerUnits.Length; i++)
         {

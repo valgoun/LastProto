@@ -7,7 +7,7 @@ public class StopOrder : Spell
 {
     private bool active = false;
 
-    public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target, bool forceInValid)
+    public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target, bool forceInValid, bool isOnUI)
     {
 
     }
