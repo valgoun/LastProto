@@ -7,7 +7,7 @@ public class Shaman : Unit {
 	// Use this for initialization
 	protected override void Start () {
         base.Start();
-        SelectionManager.Instance.Shaman = GetComponent<Unit>();
+        SelectionManager.Instance.RegisterShaman(this);
 	}
 
     public override void Killed()
