@@ -12,13 +12,14 @@ public abstract class Spell : ScriptableObject {
     public TargetEnum Targets;
     public float CooldownDuration;
     public bool UseShamanCastDistance = true;
+    public bool HoldBehaviour = false;
 
     [NonSerialized]
     public float CurrentCooldown;
 
     public abstract bool StartCasting();
     public abstract void StopCasting();
-    public abstract void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target, bool forceInvalid = false);
+    public abstract void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target, bool forceInvalid = false, bool isOnUI = false);
 
     public void ExecuteSpell(GameObject target, Vector3 position)
     {

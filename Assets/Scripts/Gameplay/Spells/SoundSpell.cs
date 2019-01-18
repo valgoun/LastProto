@@ -31,8 +31,16 @@ public class SoundSpell : Spell
         return true;
     }
 
-    public override void CastUpdate(Vector3 pos, TargetEnum targetType, GameObject target, bool forceInvalid)
+    public override void CastUpdate(Vector3 pos, TargetEnum targetType, GameObject target, bool forceInvalid, bool isOnUI)
     {
+        if (isOnUI)
+        {
+            _cursor.SetActive(false);
+            return;
+        }
+        else
+            _cursor.SetActive(true);
+
         if (!forceInvalid && ((Targets & TargetEnum.Void) != 0 || (Targets & targetType) != 0))
         {
             _rend.material = ValidTargetMaterial;

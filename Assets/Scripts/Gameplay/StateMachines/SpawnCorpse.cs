@@ -8,6 +8,5 @@ public class SpawnCorpse : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.transform.parent.GetComponent<Conquistador>().SpawnCorpse();
-        Debug.Log("Spawn");
     }
 }

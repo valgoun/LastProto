@@ -12,6 +12,7 @@ public class MoveToTargetState : StateMachineBehaviour {
     private float _index;
     private Vector3 _origin;
     private Unit _unit;
+    private Vector3 _lastCoordinates;
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
@@ -30,8 +31,11 @@ public class MoveToTargetState : StateMachineBehaviour {
         if (_index > 1)
             _index = 1;
 
-        float vertical = VerticalMovement.Evaluate(_index) + Mathf.Lerp(_origin.y, _unit.AttackTarget.parent.position.y, _index);
-        Vector3 horizontal = new Vector3(Mathf.Lerp(_origin.x, _unit.AttackTarget.parent.position.x, HorizontalMovement.Evaluate(_index)), 0, Mathf.Lerp(_origin.z, _unit.AttackTarget.parent.position.z, HorizontalMovement.Evaluate(_index)));
+        if (_unit)
+            _lastCoordinates = _unit.AttackTarget.parent.position;
+
+        float vertical = VerticalMovement.Evaluate(_index) + Mathf.Lerp(_origin.y, _lastCoordinates.y, _index);
+        Vector3 horizontal = new Vector3(Mathf.Lerp(_origin.x, _lastCoordinates.x, HorizontalMovement.Evaluate(_index)), 0, Mathf.Lerp(_origin.z, _lastCoordinates.z, HorizontalMovement.Evaluate(_index)));
 
         horizontal.y = vertical;
         animator.transform.parent.position = horizontal;

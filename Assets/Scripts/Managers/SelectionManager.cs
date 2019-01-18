@@ -43,7 +43,7 @@ public class SelectionManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         //Shortcuts();
-
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             StartSelection(Camera.main);
@@ -57,6 +57,7 @@ public class SelectionManager : MonoBehaviour {
         {
             Selecting(Camera.main);
         }
+        */
 	}
 
     private void StartSelection(Camera cam)
@@ -173,6 +174,12 @@ public class SelectionManager : MonoBehaviour {
         }
 
         return registered;
+    }
+
+    public void RegisterShaman (Shaman shaman)
+    {
+        Shaman = shaman;
+        SelectShaman();
     }
 
     private void Shortcuts ()

@@ -14,7 +14,7 @@ public class GhostSpell : Spell
         return true;
     }
 
-    public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target, bool forceInvalid)
+    public override void CastUpdate(Vector3 position, TargetEnum targetType, GameObject target, bool forceInvalid, bool isOnUI)
     {
 
     }

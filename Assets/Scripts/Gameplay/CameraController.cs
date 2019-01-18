@@ -194,9 +194,10 @@ public class CameraController : MonoBehaviour {
         Vector3 input = Vector3.zero;
         float centeringGradient = 1;
 
-        int centeringLength = 0;
+        int centeringLength = 1;
 
         Vector3 point = Vector3.zero;
+        /*centeringLength = 0;
         foreach (Unit unit in SelectionManager.Instance.SelectedElements)
         {
             if (unit)
@@ -204,7 +205,8 @@ public class CameraController : MonoBehaviour {
                 point += unit.transform.position + CameraCenteringOffset;
                 centeringLength++;
             }
-        }
+        }*/
+        point = SelectionManager.Instance.Shaman.transform.position;
 
         if (!Input.GetButton("Centering") || (centeringLength == 0))
         {

@@ -7,7 +7,8 @@ using Sirenix.OdinInspector;
 
 public class Unit : MonoBehaviour, IAiFoe
 {
-
+    [TabGroup("General")]
+    public int LifePoint;
     [TabGroup("General")]
     public float FollowPrecision;
     [TabGroup("General")]
@@ -140,7 +141,14 @@ public class Unit : MonoBehaviour, IAiFoe
         TargetToFollow = null;
     }
 
-    public virtual void Killed ()
+    public void Damage()
+    {
+        LifePoint--;
+        if (LifePoint <= 0)
+            Killed();
+    }
+
+    protected virtual void Killed ()
     {
         if (!Invincible)
         {

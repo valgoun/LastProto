@@ -12,7 +12,8 @@ public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Text CooldownText;
     public Image CooldownImage;
 
-    private Button _button;
+    private ImprovedButton _button;
+    private bool _casting;
     
     // Use this for initialization
 	void Start () {
@@ -29,7 +30,9 @@ public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             SpellID = 0;
         }
 
-        _button = GetComponent<Button>();
+        _button = GetComponent<ImprovedButton>();
+        _button.Pressed += Pressed;
+        _button.UnPressed += UnPressed;
     }
 	
 	// Update is called once per frame
@@ -55,11 +58,29 @@ public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             }
         }
 
-        if (!SpellManager.Instance.SmartCast && _button.interactable)
+        if (_button.interactable)
         {
-            if (Input.GetButtonDown("Spell 0" + (SpellID + 1).ToString()))
+            if (!SpellManager.Instance.SmartCast)
             {
-                ExecuteEvents.Execute(gameObject, new BaseEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                if (Input.GetButtonDown("Spell 0" + (SpellID + 1).ToString()))
+                {
+                    if (SpellManager.Instance.Spells[SpellID].HoldBehaviour)
+                    {
+                        ExecuteEvents.Execute(gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                        SpellDescriptionWindow.Instance.DeactivateMe(SpellManager.Instance.Spells[SpellID]);
+                    }
+                    else
+                    {
+                        ExecuteEvents.Execute(gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                    }
+                }
+                else if (SpellManager.Instance.Spells[SpellID].HoldBehaviour)
+                {
+                    if (Input.GetButtonUp("Spell 0" + (SpellID + 1).ToString()))
+                    {
+                        ExecuteEvents.Execute(gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                    }
+                }
             }
         }
 	}
@@ -67,6 +88,23 @@ public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnClick ()
     {
         SpellManager.Instance.CastSpell(SpellManager.Instance.Spells[SpellID]);
+        _casting = false;
+    }
+
+    public void Pressed()
+    {
+        SpellManager.Instance.CastSpell(SpellManager.Instance.Spells[SpellID]);
+        SpellDescriptionWindow.Instance.DeactivateMe(SpellManager.Instance.Spells[SpellID]);
+        _casting = true;
+    }
+
+    public void UnPressed()
+    {
+        if (_casting)
+        {
+            SpellManager.Instance.Spells[SpellID].StopCasting();
+            SpellManager.Instance.SelectedSpell = null;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

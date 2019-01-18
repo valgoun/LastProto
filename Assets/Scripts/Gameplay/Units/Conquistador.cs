@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Conquistador : MonoBehaviour {
 
+    public int LifePoint = 1;
+
     [Header("References")]
     public Animator MyAnimator;
     public GameObject AI_Brain;
@@ -25,23 +27,27 @@ public class Conquistador : MonoBehaviour {
     {
         if(!_destroyed)
         {
-            if (MyAnimator)
+            LifePoint--;
+            if (LifePoint <= 0)
             {
-                MyAnimator.SetTrigger("Dead");
-                GetComponent<NavMeshAgent>().isStopped = true;
+                if (MyAnimator)
+                {
+                    MyAnimator.SetTrigger("Dead");
+                    GetComponent<NavMeshAgent>().isStopped = true;
 
-                tag = "Untagged";
-                Selection.tag = "Untagged";
+                    tag = "Untagged";
+                    Selection.tag = "Untagged";
 
-                Destroy(AI_Brain);
-                Destroy(GetComponent<Animator>());
-                Destroy(GetComponent<AIBrain>());
-                _destroyed = true;
-            }
-            else
-            {
-                SpawnCorpse();
-                Destroy(gameObject);
+                    Destroy(AI_Brain);
+                    Destroy(GetComponent<Animator>());
+                    Destroy(GetComponent<AIBrain>());
+                    _destroyed = true;
+                }
+                else
+                {
+                    SpawnCorpse();
+                    Destroy(gameObject);
+                }
             }
         }
     }
