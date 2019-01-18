@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
                 {
                     Unit unit = _target.GetComponent<Unit>();
                     if (unit)
-                        unit.Killed();
+                        unit.Damage();
                 }
             }
         }

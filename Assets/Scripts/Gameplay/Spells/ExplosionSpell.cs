@@ -122,7 +122,7 @@ public class ExplosionSpell : Spell {
             Instantiate(ExplosionPrefab, target.transform.position, target.transform.rotation).GetComponent<Explosion>().Radius = Radius;
             if (target.tag == "Aztec")
             {
-                target.GetComponent<Unit>().Killed();
+                target.GetComponent<Unit>().Damage();
             }
             else
                 Destroy(target);

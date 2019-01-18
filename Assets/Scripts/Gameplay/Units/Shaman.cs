@@ -10,10 +10,10 @@ public class Shaman : Unit {
         SelectionManager.Instance.RegisterShaman(this);
 	}
 
-    public override void Killed()
+    protected override void Killed()
     {
         if (!Invincible)
             DebugUI.Instance.GameOver();
-        base.Killed();
+        base.Damage();
     }
 }
