@@ -1686,7 +1686,7 @@ namespace HoudiniEngineUnity
 			}
 
 			// Set object reference if it hasn't been set. In future, user can re-link this via UI or code if reference is ever lost.
-			if (_assetFileObject == null && HEU_AssetDatabase.IsPathInAssetCache(validAssetPath))
+			if (_assetFileObject == null && HEU_AssetDatabase.IsPathRelativeToAssets(validAssetPath))
 			{
 				_assetFileObject = HEU_AssetDatabase.LoadAssetAtPath(validAssetPath, typeof(UnityEngine.Object));
 			}
@@ -2475,7 +2475,7 @@ namespace HoudiniEngineUnity
 					}
 
 					string prefabPath = HEU_AssetDatabase.AppendPrefabPath(bakedAssetPath, _assetName);
-					GameObject prefabGO = HEU_EditorUtility.CreatePrefab(prefabPath, newClonedRoot);
+					GameObject prefabGO = HEU_EditorUtility.SaveAsPrefabAsset(prefabPath, newClonedRoot);
 					if(prefabGO != null)
 					{
 						HEU_EditorUtility.SelectObject(prefabGO);
@@ -2518,9 +2518,9 @@ namespace HoudiniEngineUnity
 		/// <param name="bakeTargetGO">Must be the original prefab (ie. not an instance)</param>
 		public void BakeToExistingPrefab(GameObject bakeTargetGO)
 		{
-			if(!HEU_EditorUtility.IsPrefabOriginal(bakeTargetGO))
+			if(!HEU_EditorUtility.IsPrefabAsset(bakeTargetGO))
 			{
-				Debug.LogErrorFormat("Unable to bake to existing prefab as specified object is not the original prefab!");
+				Debug.LogErrorFormat("Unable to bake to existing prefab as specified object is not a prefab asset!");
 				return;
 			}
 
@@ -2596,7 +2596,7 @@ namespace HoudiniEngineUnity
 			bool bPrefabInstance = HEU_EditorUtility.IsPrefabInstance(bakeTargetGO);
 			bool bDontDeletePersistantResources = bPrefabInstance;
 
-			bool bWriteMeshesToAssetDatabase = false;
+			bool bWriteMeshesToAssetDatabase = true;
 			bool bDeleteExistingComponents = true;
 			bool bReconnectPrefabInstances = true;
 
@@ -2976,6 +2976,25 @@ namespace HoudiniEngineUnity
 		public bool IsAssetValidInHoudini(HEU_SessionBase session)
 		{
 			return HEU_HAPIUtility.IsNodeValidInHoudini(session, _assetID) && session.IsAssetRegistered(this);
+		}
+
+		/// <summary>
+		/// Returns true if this asset is valid in its own Houdini session.
+		/// </summary>
+		/// <returns></returns>
+		public bool IsAssetValid()
+		{
+			if (_assetID != HEU_Defines.HEU_INVALID_NODE_ID)
+			{
+				HEU_SessionBase session = GetAssetSession(false);
+				if (session == null)
+				{
+					return false;
+				}
+
+				return IsAssetValidInHoudini(session);
+			}
+			return false;
 		}
 
 		/// <summary>
@@ -3645,7 +3664,7 @@ namespace HoudiniEngineUnity
 
 					if(newGeoNode != null && srcGeoNode != null)
 					{
-						HEU_VolumeCache srcVolumeCache = srcGeoNode.VolumeCache;
+						HEU_VolumeCache srcVolumeCache = srcGeoNode.GetVolumeCacheByTileIndex(newVolumeCache.TileIndex);
 						if(srcVolumeCache != null)
 						{
 							srcVolumeCache.CopyValuesTo(newVolumeCache);
@@ -3923,6 +3942,7 @@ namespace HoudiniEngineUnity
 				}
 			}
 
+			// Load volume caches (for terrain layers)
 			if (assetPreset.volumeCachePresets != null && assetPreset.volumeCachePresets.Count > 0)
 			{
 				foreach (HEU_VolumeCachePreset volumeCachePreset in assetPreset.volumeCachePresets)
@@ -3935,23 +3955,30 @@ namespace HoudiniEngineUnity
 					}
 
 					HEU_GeoNode geoNode = objNode.GetGeoNode(volumeCachePreset._geoName);
-					if (objNode == null)
+					if (geoNode == null)
 					{
 						Debug.LogWarningFormat("No geo node with name: {0}. Unable to set heightfield preset.", volumeCachePreset._geoName);
 						continue;
 					}
 
-					HEU_VolumeCache volumeCache = geoNode.VolumeCache;
-					if (volumeCache == null)
+					List<HEU_VolumeCache> volumeCaches = geoNode.VolumeCaches;
+					if (volumeCaches == null)
 					{
-						Debug.LogWarningFormat("Volume cache not found for geo node {0} not found! Unable to set heightfield preset.", geoNode.GeoName);
+						Debug.LogWarningFormat("Volume caches not found for geo node {0} not found! Unable to set heightfield preset.", geoNode.GeoName);
 						continue;
 					}
 
-					volumeCache.UIExpanded = volumeCachePreset._uiExpanded;
-
 					foreach (HEU_VolumeLayerPreset layerPreset in volumeCachePreset._volumeLayersPresets)
 					{
+						HEU_VolumeCache volumeCache = geoNode.GetVolumeCacheByTileIndex(layerPreset._tile);
+						if (volumeCache == null)
+						{
+							Debug.LogWarningFormat("Volume cache at tile {0} not found for geo node {1} not found! Unable to set heightfield preset.", layerPreset._tile, geoNode.GeoName);
+							continue;
+						}
+
+						volumeCache.UIExpanded = volumeCachePreset._uiExpanded;
+
 						HEU_VolumeLayer layer = volumeCache.GetLayer(layerPreset._layerName);
 						if(layer == null)
 						{
@@ -3961,31 +3988,43 @@ namespace HoudiniEngineUnity
 
 						layer._strength = layerPreset._strength;
 
-						Texture2D splatTexture = layer._splatTexture;
-						if(!string.IsNullOrEmpty(layerPreset._splatTexturePath))
+						Texture2D diffuseTexture = layer._diffuseTexture;
+						if(!string.IsNullOrEmpty(layerPreset._diffuseTexturePath))
 						{
-							splatTexture = HEU_MaterialFactory.LoadTexture(layerPreset._splatTexturePath);
+							diffuseTexture = HEU_MaterialFactory.LoadTexture(layerPreset._diffuseTexturePath);
 						}
 
-						if(splatTexture == null)
+						if(diffuseTexture == null)
 						{
-							splatTexture = HEU_VolumeCache.LoadDefaultSplatTexture();
+							diffuseTexture = HEU_VolumeCache.LoadDefaultSplatTexture();
 						}
-						layer._splatTexture = splatTexture;
+						layer._diffuseTexture = diffuseTexture;
 
-						if(!string.IsNullOrEmpty(layerPreset._normalTexturePath))
+						if (!string.IsNullOrEmpty(layerPreset._maskTexturePath))
+						{
+							layer._maskTexture = HEU_MaterialFactory.LoadTexture(layerPreset._maskTexturePath);
+						}
+
+						layer._metallic = layerPreset._metallic;
+
+						if (!string.IsNullOrEmpty(layerPreset._normalTexturePath))
 						{
 							layer._normalTexture = HEU_MaterialFactory.LoadTexture(layerPreset._normalTexturePath);
 						}
 
+						layer._normalScale = layerPreset._normalScale;
+						layer._smoothness = layerPreset._smoothness;
+						layer._specularColor = layerPreset._specularColor;
+
 						layer._tileSize = layerPreset._tileSize;
 						layer._tileOffset = layerPreset._tileOffset;
-						layer._metallic = layerPreset._metallic;
-						layer._smoothness = layerPreset._smoothness;
+						
 						layer._uiExpanded = layerPreset._uiExpanded;
-					}
+						layer._tile = layerPreset._tile;
+						layer._overrides = layerPreset._overrides;
 
-					volumeCache.IsDirty = true;
+						volumeCache.IsDirty = true;
+					}
 				}
 			}
 

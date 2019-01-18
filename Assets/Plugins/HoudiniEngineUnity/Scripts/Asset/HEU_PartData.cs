@@ -78,6 +78,11 @@ namespace HoudiniEngineUnity
 		public bool IsPartInstancer() { return _partType == HAPI_PartType.HAPI_PARTTYPE_INSTANCER; }
 
 		[SerializeField]
+		private bool _isAttribInstancer;
+
+		public bool IsAttribInstancer() { return _isAttribInstancer; }
+
+		[SerializeField]
 		private bool _isPartInstanced;
 
 		public bool IsPartInstanced() { return _isPartInstanced; }
@@ -172,7 +177,7 @@ namespace HoudiniEngineUnity
 		}
 
 		public void Initialize(HEU_SessionBase session, HAPI_PartId partID, HAPI_NodeId geoID, HAPI_NodeId objectNodeID, HEU_GeoNode geoNode, 
-			ref HAPI_PartInfo partInfo, HEU_PartData.PartOutputType partOutputType, bool isEditable, bool isObjectInstancer)
+			ref HAPI_PartInfo partInfo, HEU_PartData.PartOutputType partOutputType, bool isEditable, bool isObjectInstancer, bool isAttribInstancer)
 		{
 			_partID = partID;
 			_geoID = geoID;
@@ -186,6 +191,7 @@ namespace HoudiniEngineUnity
 			_partPointCount = partInfo.pointCount;
 			_isPartEditable = isEditable;
 			_meshVertexCount = partInfo.vertexCount;
+			_isAttribInstancer = isAttribInstancer;
 
 			_isObjectInstancer = isObjectInstancer;
 			_objectInstancesGenerated = false;
@@ -942,7 +948,7 @@ namespace HoudiniEngineUnity
 		{
 			GameObject newInstanceGO = null;
 
-			if (HEU_EditorUtility.IsPrefabOriginal(sourceObject))
+			if (HEU_EditorUtility.IsPrefabAsset(sourceObject))
 			{
 				newInstanceGO = HEU_EditorUtility.InstantiatePrefab(sourceObject) as GameObject;
 				newInstanceGO.transform.parent = parentTransform;
@@ -1533,7 +1539,7 @@ namespace HoudiniEngineUnity
 
 			Transform targetTransform = targetGO.transform;
 
-			if (IsPartInstancer() || IsObjectInstancer())
+			if (IsPartInstancer() || IsObjectInstancer() || IsAttribInstancer())
 			{
 				// Instancer
 
@@ -1549,10 +1555,41 @@ namespace HoudiniEngineUnity
 				{
 					GameObject srcChildGO = srcChildGameObjects[i];
 
+					bool bSrcPrefabInstance = HEU_EditorUtility.IsPrefabInstance(srcChildGO);
+
 					GameObject targetChildGO = HEU_GeneralUtility.GetGameObjectByName(unprocessedTargetChildren, srcChildGO.name);
+
+					if (bSrcPrefabInstance && targetChildGO != null && !HEU_EditorUtility.IsPrefabInstance(targetChildGO))
+					{
+						// A not-so-ideal workaround to the fact that when calling GameObject.Instantiate, copies of child prefab instances
+						// are not created as prefab instances (they are created as regular gameobjects).
+						// And with Unity 2018.3, it is no longer possible to reconnect regular gameobjects to prefab assets (via ConnectGameObjectToPrefab).
+						// So by clearing the targetChildGO reference here, the code below will create a proper prefab instance.
+						targetChildGO = null;
+					}
+
 					if (targetChildGO == null)
 					{
-						targetChildGO = new GameObject(srcChildGO.name);
+						if (bSrcPrefabInstance)
+						{
+							GameObject prefabAsset = HEU_EditorUtility.GetPrefabAsset(srcChildGO) as GameObject;
+							if (prefabAsset)
+							{
+								targetChildGO = HEU_EditorUtility.InstantiatePrefab(prefabAsset) as GameObject;
+								targetChildGO.name = srcChildGO.name;
+							}
+						}
+						else
+						{
+							targetChildGO = new GameObject(srcChildGO.name);
+						}
+
+						if(targetChildGO == null)
+						{
+							Debug.LogErrorFormat("Unable to create instance for: {0}", srcChildGO.name);
+							continue;
+						}
+
 						targetChildGO.transform.parent = targetTransform;
 					}
 					else
@@ -1563,25 +1600,10 @@ namespace HoudiniEngineUnity
 						}
 
 						unprocessedTargetChildren.Remove(targetChildGO);
-
-						// Update transform of each existing instance
-						HEU_GeneralUtility.CopyLocalTransformValues(srcChildGO.transform, targetChildGO.transform);
-
-						if (bReconnectPrefabInstances && HEU_EditorUtility.IsPrefabInstance(srcChildGO))
-						{
-							// Reconnect back to the prefab if the source was a prefab instance
-							GameObject prefabSource = HEU_EditorUtility.GetPrefabParent(srcChildGO) as GameObject;
-							if (prefabSource != null)
-							{
-								targetChildGO = HEU_EditorUtility.ConnectGameObjectToPrefab(targetChildGO, prefabSource);
-
-								// Update transform of each existing instance again since prefab connect above resets it
-								HEU_GeneralUtility.CopyLocalTransformValues(srcChildGO.transform, targetChildGO.transform);
-
-								continue;
-							}
-						}
 					}
+
+					// Update transform of each existing instance
+					HEU_GeneralUtility.CopyLocalTransformValues(srcChildGO.transform, targetChildGO.transform);
 
 					// Copy component data
 					CopyGameObjectComponents(srcChildGO, targetChildGO, assetName, sourceToTargetMeshMap, sourceToCopiedMaterials, bWriteMeshesToAssetDatabase, ref bakedAssetPath, 
@@ -1696,7 +1718,7 @@ namespace HoudiniEngineUnity
 						HEU_GenerateGeoCache.UpdateCollider(geoCache, _generatedOutput._outputData._gameObject);
 					}
 				}
-				else if(IsPartInstancer() || IsObjectInstancer())
+				else if(IsPartInstancer() || IsObjectInstancer() || IsAttribInstancer())
 				{
 					// Always returning true for meshes without geometry that are instancers. These
 					// are handled after this.
@@ -1704,11 +1726,10 @@ namespace HoudiniEngineUnity
 				}
 				else
 				{
-					// No geometry -> return false to clean up
+					// No geometry -> default case is to return false to clean up
 					bResult = false;
 				}
 
-				
 				return bResult;
 			}
 		}
@@ -1896,6 +1917,7 @@ namespace HoudiniEngineUnity
 
 				string objectName = ParentGeoNode.ObjectNode != null ? ParentGeoNode.ObjectNode.ObjectName : "";
 				string assetPathName = string.Format("Asset_{0}_{1}_{2}_TerrainData.asset", objectName, ParentGeoNode.GeoName, PartID);
+				//Debug.Log("Saving terrain data: " + assetPathName);
 				ParentAsset.AddToAssetDBCache(assetPathName, terrainData, ref _assetDBTerrainData);
 			}
 		}

@@ -33,6 +33,7 @@ using System.Runtime.Serialization;
 using System.Linq;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HoudiniEngineUnity
 {
@@ -80,6 +81,8 @@ namespace HoudiniEngineUnity
 		public HEU_InputNode.InputObjectType _inputObjectType;
 
 		public List<HEU_InputObjectPreset> _inputObjectPresets = new List<HEU_InputObjectPreset>();
+
+		// Deprecated and replaced with _inputAssetPresets. Leaving it in for backwards compatibility.
 		public string _inputAssetName;
 
 		public int _inputIndex;
@@ -87,6 +90,9 @@ namespace HoudiniEngineUnity
 
 		public bool _keepWorldTransform;
 		public bool _packGeometryBeforeMerging;
+
+		[OptionalField(VersionAdded = 4)]
+		public List<HEU_InputAssetPreset> _inputAssetPresets = new List<HEU_InputAssetPreset>();
 	}
 
 	[System.Serializable]
@@ -103,17 +109,44 @@ namespace HoudiniEngineUnity
 	}
 
 	[System.Serializable]
+	public class HEU_InputAssetPreset
+	{
+		public string _gameObjectName;
+	}
+
+	[System.Serializable]
 	public class HEU_VolumeLayerPreset
 	{
 		public string _layerName;
-		public string _splatTexturePath;
-		public string _normalTexturePath;
 		public float _strength;
+
+		[FormerlySerializedAs("_splatTexturePath")]
+		public string _diffuseTexturePath;
+
+		[OptionalField(VersionAdded = 5)]
+		public string _maskTexturePath;
+
+		public float _metallic;
+		public string _normalTexturePath;
+
+		[OptionalField(VersionAdded = 5)]
+		public float _normalScale;
+
+		public float _smoothness;
+
+		[OptionalField(VersionAdded = 5)]
+		public Color _specularColor;
+
 		public Vector2 _tileSize = Vector2.zero;
 		public Vector2 _tileOffset = Vector2.zero;
-		public float _metallic;
-		public float _smoothness;
+		
 		public bool _uiExpanded;
+
+		[OptionalField(VersionAdded = 5)]
+		public int _tile;
+
+		[OptionalField(VersionAdded = 5)]
+		public HEU_VolumeLayer.Overrides _overrides;
 	}
 
 	[System.Serializable]
@@ -136,7 +169,7 @@ namespace HoudiniEngineUnity
 		public static char[] PRESET_IDENTIFIER = "HDAPRESET".ToCharArray();
 
 		// Preset version for debugging (increment if added fields to HEU_AssetPreset)
-		public static int PRESET_VERSION = 3;
+		public static int PRESET_VERSION = 5;
 
 		/// <summary>
 		/// Save the specified asset's preset data to file at specified path.

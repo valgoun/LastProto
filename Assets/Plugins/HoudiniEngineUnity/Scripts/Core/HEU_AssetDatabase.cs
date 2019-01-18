@@ -44,7 +44,7 @@ namespace HoudiniEngineUnity
 	/// </summary>
 	public static class HEU_AssetDatabase
 	{
-		private static string GetAssetCachePath()
+		public static string GetAssetCachePath()
 		{
 #if UNITY_EDITOR
 			string rootPath = HEU_Platform.BuildPath("Assets", HEU_PluginSettings.AssetCachePath);
@@ -556,6 +556,15 @@ namespace HoudiniEngineUnity
 #endif
 		}
 
+		public static void CreateAsset(Object asset, string path)
+		{
+#if UNITY_EDITOR
+			AssetDatabase.CreateAsset(asset, path);
+#else
+			Debug.LogWarning(HEU_Defines.HEU_USERMSG_NONEDITOR_NOT_SUPPORTED);
+#endif
+		}
+
 		public static void CreateAddObjectInAssetCacheFolder(string assetName, string assetObjectFileName, UnityEngine.Object objectToAdd, ref string bakedAssetPath, ref UnityEngine.Object assetDBObject)
 		{
 #if UNITY_EDITOR
@@ -597,6 +606,16 @@ namespace HoudiniEngineUnity
 #if UNITY_EDITOR
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh();
+#endif
+		}
+
+		/// <summary>
+		/// Save the Unity asset database.
+		/// </summary>
+		public static void SaveAssetDatabase()
+		{
+#if UNITY_EDITOR
+			AssetDatabase.SaveAssets();
 #endif
 		}
 
@@ -774,8 +793,12 @@ namespace HoudiniEngineUnity
 #if UNITY_EDITOR
 			string assetBakedPath = GetAssetBakedPathWithAssetName(assetName);
 			assetBakedPath = AssetDatabase.GenerateUniqueAssetPath(assetBakedPath);
-			string folderName = HEU_Platform.GetFileName(assetBakedPath);
-			AssetDatabase.CreateFolder(assetBakedPath, folderName);
+
+			if (!HEU_Platform.DoesPathExist(assetBakedPath))
+			{
+				CreatePathWithFolders(assetBakedPath);
+			}
+
 			return assetBakedPath;
 #else
 			// TODO RUNTIME: AssetDatabase is not supported at runtime. Do we need to support this for runtime?

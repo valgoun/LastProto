@@ -50,6 +50,7 @@ namespace HoudiniEngineUnity
 		/// Registers this input inteface for Unity meshes on
 		/// the callback after scripts are reloaded in Unity.
 		/// </summary>
+		[InitializeOnLoadMethod]
 		[UnityEditor.Callbacks.DidReloadScripts]
 		private static void OnScriptsReloaded()
 		{
@@ -470,7 +471,7 @@ namespace HoudiniEngineUnity
 				inputData._numPointsY = Mathf.RoundToInt(inputData._terrainData.heightmapResolution * inputData._voxelSize);
 
 				Matrix4x4 transformMatrix = inputObject.transform.localToWorldMatrix;
-				HAPI_TransformEuler transformEuler = HEU_HAPIUtility.GetHAPITransformFromMatrix(ref transformMatrix);
+				//HAPI_TransformEuler transformEuler = HEU_HAPIUtility.GetHAPITransformFromMatrix(ref transformMatrix);
 
 				// Volume transform used for all heightfield layers
 				inputData._transform = new HAPI_Transform(false);
