@@ -120,7 +120,7 @@ public class SpellManager : MonoBehaviour {
                 if (!bypassClick)
                     SelectedSpell.CastUpdate(worldPoint, targetType, (targetType == TargetEnum.Void) ? null : hit.transform.gameObject);
 
-                if (SelectedSpell.HoldBehaviour && (Input.GetMouseButtonDown(0) || bypassClick))
+                if (!SelectedSpell.HoldBehaviour && (Input.GetMouseButtonDown(0) || bypassClick))
                 {
                     if ((targetType != TargetEnum.Void) && ((SelectedSpell.Targets & targetType) != 0))
                     {
@@ -140,7 +140,7 @@ public class SpellManager : MonoBehaviour {
             }
             else
             {
-                if (SelectedSpell.HoldBehaviour && (Input.GetMouseButtonDown(0) || bypassClick))
+                if (!SelectedSpell.HoldBehaviour && (Input.GetMouseButtonDown(0) || bypassClick))
                 {
                     SelectedSpell.StopCasting();
                     SelectedSpell = null;

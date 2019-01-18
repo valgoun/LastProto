@@ -2421,16 +2421,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
-    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
-        type: 3}
-      propertyPath: NormalWaypointsHolder
-      value: 
-      objectReference: {fileID: 689902391}
-    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
-        type: 3}
-      propertyPath: NormalBehaviour
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a47b1f569af8ef74aa9ecd00e6a30559, type: 3}
 --- !u!4 &99575926 stripped
@@ -5230,32 +5220,32 @@ PrefabInstance:
     - target: {fileID: 114523414011788374, guid: 6a516a1affe077148a896957cd043ba1,
         type: 3}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114523414011788374, guid: 6a516a1affe077148a896957cd043ba1,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114619582208063986, guid: 6a516a1affe077148a896957cd043ba1,
         type: 3}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114619582208063986, guid: 6a516a1affe077148a896957cd043ba1,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114659200550683460, guid: 6a516a1affe077148a896957cd043ba1,
         type: 3}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114659200550683460, guid: 6a516a1affe077148a896957cd043ba1,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224407119156430370, guid: 6a516a1affe077148a896957cd043ba1,
         type: 3}
@@ -5835,12 +5825,12 @@ PrefabInstance:
     - target: {fileID: 6567543231612959921, guid: 6a516a1affe077148a896957cd043ba1,
         type: 3}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6567543231612959921, guid: 6a516a1affe077148a896957cd043ba1,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a516a1affe077148a896957cd043ba1, type: 3}
@@ -6024,16 +6014,6 @@ PrefabInstance:
     - target: {fileID: 4392885924963296, guid: a47b1f569af8ef74aa9ecd00e6a30559, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
-        type: 3}
-      propertyPath: NormalWaypointsHolder
-      value: 
-      objectReference: {fileID: 689902391}
-    - target: {fileID: 114153992953499542, guid: a47b1f569af8ef74aa9ecd00e6a30559,
-        type: 3}
-      propertyPath: NormalBehaviour
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a47b1f569af8ef74aa9ecd00e6a30559, type: 3}

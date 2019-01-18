@@ -93,9 +93,12 @@ public class SpellButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void Pressed()
     {
-        SpellManager.Instance.CastSpell(SpellManager.Instance.Spells[SpellID]);
-        SpellDescriptionWindow.Instance.DeactivateMe(SpellManager.Instance.Spells[SpellID]);
-        _casting = true;
+        if (SpellManager.Instance.Spells[SpellID].HoldBehaviour)
+        {
+            SpellManager.Instance.CastSpell(SpellManager.Instance.Spells[SpellID]);
+            SpellDescriptionWindow.Instance.DeactivateMe(SpellManager.Instance.Spells[SpellID]);
+            _casting = true;
+        }
     }
 
     public void UnPressed()
